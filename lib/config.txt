@@ -1,0 +1,1 @@
+dbuser:pgadmin,dbpassword:PgAdmin@987,dbname:jdbc:postgresql://103.235.199.37:5454/phoenix?currentSchema=ebpsv1&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true,jdbcdriver:org.postgresql.Driver
