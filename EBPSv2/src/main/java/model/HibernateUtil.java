@@ -22,6 +22,7 @@ import com.model.dynamic.Status;
 import com.model.processing.RajaswaEntry;
 import com.model.setup.WardMaster;
 import com.model.utility.ApplicationForwardingSetup;
+import com.model.utility.ChangeDesigner;
 import com.model.utility.FileStorageCategory;
 import com.model.utility.FiscalYear;
 import com.model.utility.FormGroup;
@@ -149,6 +150,7 @@ public class HibernateUtil {
 					.addAnnotatedClass(ApplicationsComments.class).addAnnotatedClass(ApplicationHistory.class)
 					.addAnnotatedClass(forwardStatus.class).addAnnotatedClass(FormGroupMaster.class).addAnnotatedClass(FormGroup.class)
 					.addAnnotatedClass(ApplicationForwardingSetup.class).addAnnotatedClass(FileStorageCategory.class).addAnnotatedClass(WardMaster.class)
+					.addAnnotatedClass(ChangeDesigner.class)
 					.buildSessionFactory();
 
 		} catch (Throwable ex) {

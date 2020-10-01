@@ -87,13 +87,19 @@ public class ApplicationTaskList {
 		if (userType.equalsIgnoreCase("D")) {
 			enterBy = " enter_by='" + td.getUserId() + "' AND ";
 		}
-		sql = "SELECT id,id AS \"applicantNo\",nibedak_name \"nibedakName\",applicant_ms \"applicantMs\",applicant_name \"applicantName\",applicant_address \"applicantAddress\",applicant_mobile_no \"applicantMobileNo\",application_action \"applicationAction\",application_action_by \"applicationActionBy\",application_status \"applicationStatus\",get_bsdate(applicant_date) \"applicantDate\",coalesce("
+		/*sql = "SELECT id,id AS \"applicantNo\",nibedak_name \"nibedakName\",applicant_ms \"applicantMs\",applicant_name \"applicantName\",applicant_address \"applicantAddress\",applicant_mobile_no \"applicantMobileNo\",application_action \"applicationAction\",application_action_by \"applicationActionBy\",application_status \"applicationStatus\",get_bsdate(applicant_date) \"applicantDate\",coalesce("
 				+ actionStatus + "action,'" + firstForm + "') \"yourForm\"," + actionStatus
 				+ "status \"yourStatus\",forward_to_d_remark \"forwardTo\",construction_type \"constructionType\",name_transafer_id AS \"nameTransaferId\",coalesce(rejected_a,'N') \"rejectedA\",coalesce(rejected_b,'N') \"rejectedB\",coalesce(rejected_c,'N') \"rejectedC\",coalesce(rejected_d,'N') \"rejectedD\",coalesce(rejected_da,'N') AS \"rejectedAD\",coalesce(rejected_r,'N') \"rejectedR\",coalesce(rejected_e,'N') AS \"rejectedE\",coalesce(rejected_f,'N') \"rejectedF\",coalesce(rejected_g,'N') \"rejectedG\",coalesce(NAAMSARI_STATUS,'N') \"naamsariStatus\"  FROM building_permit_application where "
 				+ enterBy + " forward_to_" + userType + "='I' AND coalesce(notice15_till_date,'" + DateConvert.today() + "')<='" + DateConvert.today()
 				+ "' AND ID=COALESCE(" + applicationNo + ",ID) " + applicationStatus + nibedakName + year + kittaNo + wardNo + constructionType
 				+ " AND COALESCE(IS_DISCARD,'N')!='Y' AND NOW()<= (TO_DATE(CONCAT(COALESCE(enter_date,'" + DateConvert.now()
-				+ "'),''),'YYYY-MM-DD') + INTERVAL '735 day')   order by forward_to_d_date desc";
+				+ "'),''),'YYYY-MM-DD') + INTERVAL '735 day')   order by forward_to_d_date desc";*/
+		
+		sql = "SELECT id,id AS \"applicantNo\",nibedak_name \"nibedakName\",applicant_ms \"applicantMs\",applicant_name \"applicantName\",applicant_address \"applicantAddress\",applicant_mobile_no \"applicantMobileNo\",application_action \"applicationAction\",application_action_by \"applicationActionBy\",application_status \"applicationStatus\",get_bsdate(applicant_date) \"applicantDate\",coalesce(S.user_action,'1') \"yourForm\",user_full_status \"yourStatus\",forward_to_user_remark \"forwardTo\",construction_type \"constructionType\",name_transafer_id AS \"nameTransaferId\",coalesce(NAAMSARI_STATUS,'N') \"naamsariStatus\"  FROM building_permit_application B,application_status S where B.id=S.application_no AND S.user_type='"+userType+"' "
+				+ "AND "+enterBy+" forward_to_user='I' AND coalesce(notice15_till_date,'" + DateConvert.today() + "')<='" + DateConvert.today() +"' "
+				+ "AND ID=COALESCE(" + applicationNo + ",ID) " + applicationStatus + nibedakName + year + kittaNo + wardNo + constructionType
+				+ "AND COALESCE(IS_DISCARD,'N')!='Y' AND NOW()<= (TO_DATE(CONCAT(COALESCE(enter_date,'" + DateConvert.now() +"'"
+				+ "),''),'YYYY-MM-DD') + INTERVAL '735 day') order by forward_to_user desc ";
 
 		message.list = message.db.getRecord(sql);
 		List l = new ArrayList();

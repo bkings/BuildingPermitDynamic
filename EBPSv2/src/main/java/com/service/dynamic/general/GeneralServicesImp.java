@@ -38,6 +38,23 @@ public class GeneralServicesImp implements GeneralServices {
 	List list = new ArrayList<>();
 	Map map = new HashMap<>();
 
+	public String dataTypeMapping(String dataType) {
+		switch (dataType) {
+		case "string":
+			dataType = "character varying";
+			break;
+		case "text":
+			dataType = "text";
+			break;
+		case "number":
+			dataType = "bigint";
+		default:
+			dataType = "Cannot find suitable mapping of data type.";
+			break;
+		}
+		return dataType;
+	}
+
 	@Override
 	public Object getAll(Long applicationNo, String Authorization, String formId) {
 		JWTToken td = new JWTToken(Authorization);
@@ -80,9 +97,10 @@ public class GeneralServicesImp implements GeneralServices {
 			return message.respondWithError("Invalid Authorization");
 		}
 
+		Map m = new HashMap<>();
 		String userType = td.getUserType();
 
-		String columns = "";
+		String columns = "", columnName = "";
 		Object values = "";
 		try {
 			sql = "SELECT ET.table_name as \"tableName\",FF.name as \"name\",ET.id as \"tableId\" FROM ebps_tables ET,ebps_columns EC,form_name_master FM,form_fields FF WHERE ET.id=FM.table_id AND FF.form_id=FM.id AND FF.ebps_column_id=EC.id AND FM.id="
@@ -94,7 +112,17 @@ public class GeneralServicesImp implements GeneralServices {
 
 			map = (Map) obj;
 			for (Object key : map.keySet()) {
-				columns = columns + "," + key;
+				sql = "SELECT coalesce((SELECT column_name FROM ebps_columns WHERE id=ebps_column_id),'') \"columnName\" FROM form_fields WHER id='" + key
+						+ "'";
+				try {
+					list = dao.getRecords(sql);
+					m = (Map) list.get(0);
+					columnName = m.get("columnName").toString();
+				} catch (Exception e) {
+					System.out.println("col exc " + e.getMessage());
+					return message.respondWithError("Could not find column for " + key);
+				}
+				columns = columns + "," + columnName;
 				values = values + ",'" + map.get(key).toString() + "'";
 			}
 
