@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,7 +25,7 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 	String msg = "", sql;
 	int row;
 
-	List list = new ArrayList<>();
+	List<Object> list = new ArrayList<>();
 	Map map = new HashMap<>();
 
 	@Override
@@ -34,6 +35,38 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 			return message.respondWithError("Invalid Authorization");
 		}
 		return dao.getAll("FROM EbpsTables");
+	}
+
+	@Override
+	public Object synchronizeTable(Long tableId) {
+		Map m = new HashMap<>();
+		sql = "SELECT column_name \"columnName\" FROM ebps_columns WHERE table_id=" + tableId;
+		list = dao.getRecord(sql);
+		int numberOfSetupSavedColumns = list.size();
+		sql = "SELECT column_name \"columnName\",data_type \"dataType\" FROM information_schema.columns WHERE table_name=(SELECT table_name FROM ebps_tables WHERE id="
+				+ tableId + ")";
+		final List<Object> individualTableListDb = dao.getRecord(sql);
+		int numberOfColumnsInDb = individualTableListDb.size();
+		if (numberOfSetupSavedColumns != numberOfColumnsInDb) {
+			if (numberOfSetupSavedColumns > numberOfColumnsInDb) {
+				// Alter add
+				list.removeIf(data -> {
+					Map col = (Map) data;
+					List colName = (List) individualTableListDb.stream().map(d -> {
+						Map mm = (Map) d;
+						return mm.get("columnName").toString();
+					}).collect(Collectors.toList());
+					return colName.contains(col.get("columnName").toString());
+				});
+				System.out.println("new list " + list + "\nTo string " + list.toString());
+
+			} else if (numberOfColumnsInDb > numberOfSetupSavedColumns) {
+				// insert
+				individualTableListDb.removeAll(list);
+				System.out.println("new list is " + individualTableListDb + "\nTo string " + individualTableListDb.toString());
+			}
+		}
+		return null;
 	}
 
 	@Override
@@ -127,7 +160,7 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 
 		if (row > 0) {
 			return message.respondWithMessage("Success");
-		} else if(msg.contains("foreign key")) {
+		} else if (msg.contains("foreign key")) {
 			msg = "Current records are being referenced from other tables.Could not delete.";
 		}
 		return message.respondWithError(msg);

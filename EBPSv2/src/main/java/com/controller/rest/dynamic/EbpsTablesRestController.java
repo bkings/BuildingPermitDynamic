@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.model.dynamic.EbpsTables;
@@ -41,6 +42,11 @@ public class EbpsTablesRestController {
 	@DeleteMapping("/{id}")
 	public Object delete(@PathVariable String id, @RequestHeader String Authorization) {
 		return service.delete(id, Authorization);
+	}
+	
+	@GetMapping("/sync")
+	public Object synchronize(@RequestParam Long tableId) {
+		return service.synchronizeTable(tableId);
 	}
 
 }

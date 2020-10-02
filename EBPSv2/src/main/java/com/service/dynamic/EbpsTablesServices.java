@@ -11,5 +11,7 @@ public interface EbpsTablesServices {
 	public Object update(EbpsTables obj, String Authorization,long id);
 	
 	public Object delete(String id,String Authorization);
+	
+	public Object synchronizeTable(Long tableId);
 
 }
