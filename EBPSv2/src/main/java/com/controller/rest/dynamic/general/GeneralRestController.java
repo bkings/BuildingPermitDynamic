@@ -37,9 +37,10 @@ public class GeneralRestController {
 		return ResponseEntity.ok(service.getAll(applicationNo, Authorization, formId));
 	}
 
-	@PostMapping("/{formId}")
-	public ResponseEntity<Object> save(@RequestBody Object obj, @PathVariable Long formId, @RequestHeader String Authorization) {
-		return ResponseEntity.ok(service.save(obj, formId, Authorization));
+	@PostMapping("/{applicationNo}")
+	public ResponseEntity<Object> save(@RequestBody Object obj, @PathVariable Long applicationNo, @RequestParam String formId,
+			@RequestHeader String Authorization) {
+		return ResponseEntity.ok(service.save(obj, applicationNo, formId, Authorization));
 	}
 
 	@PutMapping("/{applicationNo}")

@@ -44,6 +44,11 @@ public class EbpsTablesRestController {
 		return service.delete(id, Authorization);
 	}
 	
+	@DeleteMapping("/Columns/{id}")
+	public Object deleteColumns(@PathVariable String id,@RequestHeader String Authorization) {
+		return service.deleteColumns(id, Authorization);
+	}
+	
 	@GetMapping("/sync")
 	public Object synchronize(@RequestParam Long tableId) {
 		return service.synchronizeTable(tableId);
