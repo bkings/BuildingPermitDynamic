@@ -17,6 +17,8 @@ public class VocabularyDetails {
 	private Long id;
 	@Column(name = "VALUE")
 	private String value;
+	@Column(name = "LABEL")
+	private String label;
 	@Column(name = "VOCABULARY_ID")
 	private Long vocabularyId;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -37,6 +39,14 @@ public class VocabularyDetails {
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
 	}
 
 	public Long getVocabularyId() {
