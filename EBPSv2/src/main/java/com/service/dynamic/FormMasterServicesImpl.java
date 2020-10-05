@@ -34,7 +34,7 @@ public class FormMasterServicesImpl implements FormMasterServices {
 		if (!td.isStatus()) {
 			return message.respondWithError("Invalid Authorization");
 		}
-		return dao.getAll("FROM FormNameMaster");
+		return dao.getAll("FROM FormNameMaster ORDER BY id");
 	}
 
 	@Override

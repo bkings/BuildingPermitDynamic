@@ -19,6 +19,8 @@ import com.model.dynamic.EbpsTables;
 import com.model.dynamic.FormFields;
 import com.model.dynamic.FormPermissions;
 import com.model.dynamic.Status;
+import com.model.dynamic.vocabulary.Vocabulary;
+import com.model.dynamic.vocabulary.VocabularyDetails;
 import com.model.processing.RajaswaEntry;
 import com.model.setup.WardMaster;
 import com.model.utility.ApplicationForwardingSetup;
@@ -41,18 +43,18 @@ public class HibernateUtil {
 		try {
 			Properties prop = new Properties();
 
-//			prop.setProperty("hibernate.connection.url","jdbc:postgresql://localhost:5432/phoenix?currentSchema=stg_test_ebps&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true");
-//			prop.setProperty("hibernate.connection.username", "phoenix");
-//			prop.setProperty("hibernate.connection.password", "manager@123");
+			prop.setProperty("hibernate.connection.url","jdbc:postgresql://localhost:5432/phoenix?currentSchema=stg_test_ebps&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true");
+			prop.setProperty("hibernate.connection.username", "phoenix");
+			prop.setProperty("hibernate.connection.password", "manager@123");
 			
-			prop.setProperty("hibernate.connection.url","jdbc:postgresql://localhost:5432/ebpsv2?currentSchema=test_ebps&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true");
-            prop.setProperty("hibernate.connection.username", "root");
-            prop.setProperty("hibernate.connection.password", "root");
+//			prop.setProperty("hibernate.connection.url","jdbc:postgresql://localhost:5432/ebpsv2?currentSchema=test_ebps&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true");
+//            prop.setProperty("hibernate.connection.username", "root");
+//            prop.setProperty("hibernate.connection.password", "root");
             
 			prop.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
 			prop.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 			prop.setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false");
-			prop.setProperty("hibernate.default_schema", "test_ebps");
+			prop.setProperty("hibernate.default_schema", "stg_test_ebps");
 			prop.setProperty("hibernate.hbm2ddl.auto", "update");
 			prop.setProperty("hibernate.show_sql", "true");
 
@@ -151,6 +153,7 @@ public class HibernateUtil {
 					.addAnnotatedClass(forwardStatus.class).addAnnotatedClass(FormGroupMaster.class).addAnnotatedClass(FormGroup.class)
 					.addAnnotatedClass(ApplicationForwardingSetup.class).addAnnotatedClass(FileStorageCategory.class).addAnnotatedClass(WardMaster.class)
 					.addAnnotatedClass(ChangeDesigner.class)
+					.addAnnotatedClass(Vocabulary.class).addAnnotatedClass(VocabularyDetails.class)
 					.buildSessionFactory();
 
 		} catch (Throwable ex) {

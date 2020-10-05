@@ -54,7 +54,7 @@ public class VocabularyServiceImp implements VocabularyService {
 			map = (Map) dao.getRecord(sql).get(0);
 			long vocabId = Long.parseLong(map.get("id").toString());
 			for (VocabularyDetails v : vocabDetails) {
-				if (v.getId() == 0 || String.valueOf(v.getId()).length() == 0 || v.getId() == null) {
+				if (String.valueOf(v.getId()).equalsIgnoreCase("") || String.valueOf(v.getId()).length() == 0 || v.getId() == null) {
 					v.setId(vocabId);
 					vocabId++;
 				}
@@ -64,7 +64,7 @@ public class VocabularyServiceImp implements VocabularyService {
 		}
 
 		try {
-			if (obj.getId() == 0 || String.valueOf(obj.getId()).length() == 0 || obj.getId() == null) {
+			if (String.valueOf(obj.getId()).equalsIgnoreCase("") || String.valueOf(obj.getId()).length() == 0 || obj.getId() == null) {
 				sql = "SELECT coalesce(MAX(ID),0)+1 as id FROM vocabulary";
 				map = (Map) dao.getRecord(sql).get(0);
 				obj.setId(Long.parseLong(map.get("id").toString()));
