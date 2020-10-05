@@ -41,9 +41,4 @@ public class FormNameMasterRestController {
 		return service.update(obj, id, Authorization);
 	}
 
-	@DeleteMapping("/Fields/{id}")
-	public Object deleteFields(@PathVariable String id, @RequestHeader String Authorization) {
-		return service.deleteFields(id, Authorization);
-	}
-
 }

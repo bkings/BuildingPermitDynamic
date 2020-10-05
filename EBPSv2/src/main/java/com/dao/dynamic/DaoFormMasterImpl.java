@@ -8,7 +8,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
+import com.model.dynamic.FormFields;
 import com.model.utility.FormNameMaster;
+
+import model.HibernateUtil;
 
 @Component
 public class DaoFormMasterImpl implements DaoFormMaster {
@@ -112,6 +115,48 @@ public class DaoFormMasterImpl implements DaoFormMaster {
 			msg = model.Message.exceptionMsg(e);
 			row = 0;
 		}
+		try {
+			session.close();
+		} catch (HibernateException e) {
+		}
+		return row;
+	}
+
+	@Override
+	public List<FormFields> getAllFields(String hql) {
+		msg = "";
+		Session session = model.HibernateUtil.getSession();
+		Transaction tr = session.beginTransaction();
+		List<FormFields> list = new ArrayList<FormFields>();
+		try {
+			list = session.createQuery(hql).list();
+			tr.commit();
+		} catch (HibernateException e) {
+			tr.rollback();
+			msg = model.Message.exceptionMsg(e);
+		}
+		try {
+			session.close();
+		} catch (HibernateException e) {
+		}
+		return list;
+	}
+
+	@Override
+	public int deleteFields(FormFields obj) {
+		Session session = HibernateUtil.getSession();
+		Transaction tr = session.beginTransaction();
+		row = 1;
+		msg = "";
+		try {
+			session.delete(obj);
+			tr.commit();
+		} catch (Exception e) {
+			tr.rollback();
+			msg = model.Message.exceptionMsg(e);
+			row = 0;
+		}
+
 		try {
 			session.close();
 		} catch (HibernateException e) {

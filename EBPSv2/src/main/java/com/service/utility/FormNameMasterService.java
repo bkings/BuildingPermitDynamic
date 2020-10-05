@@ -10,6 +10,4 @@ public interface FormNameMasterService {
 
 	public Object update(FormNameMaster obj, long id, String Authorization);
 
-	public Object deleteFields(String id, String Authorization);
-
 }

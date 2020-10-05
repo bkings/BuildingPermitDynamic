@@ -150,4 +150,35 @@ public class FormMasterServicesImpl implements FormMasterServices {
 
 		return message.respondWithError(msg);
 	}
+
+	@Override
+	public Object deleteFields(String id, String Authorization) {
+		JWTToken td = new JWTToken(Authorization);
+		if (!td.isStatus()) {
+			return message.respondWithError("Invalid Authorization");
+		}
+		List<FormFields> l = new ArrayList<FormFields>();
+		FormFields obj = new FormFields();
+		String[] ids = id.split(",");
+		for (String i : ids) {
+			try {
+				l = dao.getAllFields("FROM FormFields WHERE id=" + i);
+				obj = l.get(0);
+				row = dao.deleteFields(obj);
+				msg = dao.getMsg();
+				if (row != 0) {
+					row++;
+				}
+			} catch (Exception e) {
+				msg = e.getMessage();
+			}
+		}
+		if (row > 0) {
+			return message.respondWithMessage("Success");
+		} else if (msg.contains("foreign key")) {
+			msg = "Current records are being referenced from other tables.Could not delete.";
+		}
+		return message.respondWithError(msg);
+	}
+
 }

@@ -77,34 +77,4 @@ public class FormNameMasterServiceImp implements FormNameMasterService {
 		return message.respondWithError(msg);
 	}
 
-	@Override
-	public Object deleteFields(String id, String Authorization) {
-		JWTToken td = new JWTToken(Authorization);
-		if (!td.isStatus()) {
-			return message.respondWithError("Invalid Authorization");
-		}
-		List<FormFields> l = new ArrayList<FormFields>();
-		FormFields obj = new FormFields();
-		String[] ids = id.split(",");
-		for (String i : ids) {
-			try {
-				l = da.getAllFields("FROM FormFields WHERE id=" + i);
-				obj = l.get(0);
-				row = da.deleteFields(obj);
-				msg = da.getMsg();
-				if (row != 0) {
-					row++;
-				}
-			} catch (Exception e) {
-				msg = e.getMessage();
-			}
-		}
-		if (row > 0) {
-			return message.respondWithMessage("Success");
-		} else if (msg.contains("foreign key")) {
-			msg = "Current records are being referenced from other tables.Could not delete.";
-		}
-		return message.respondWithError(msg);
-	}
-
 }

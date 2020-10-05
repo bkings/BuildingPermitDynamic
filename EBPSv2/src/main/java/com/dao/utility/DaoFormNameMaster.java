@@ -3,14 +3,11 @@ package com.dao.utility;
 
 import java.util.List;
 
-import com.model.dynamic.FormFields;
 import com.model.utility.FormNameMaster;
 
 public interface DaoFormNameMaster {
 
     public List<FormNameMaster> getAll(String hql);
-    
-    public List<FormFields> getAllFields(String hql);
 
     public int save(FormNameMaster obj);
 
@@ -19,8 +16,6 @@ public interface DaoFormNameMaster {
     public int delete(String sql);
 
     public List getRecord(String sql);
-    
-    public int deleteFields(FormFields obj);
 
     public String getMsg();
 }
