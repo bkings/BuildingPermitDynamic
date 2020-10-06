@@ -38,6 +38,8 @@ import com.model.utility.UserTypeMaster;
 public class HibernateUtil {
 
 	private static SessionFactory sessionFactory;
+	
+	private static Properties props;
 
 	public static void init() {
 		try {
@@ -156,6 +158,8 @@ public class HibernateUtil {
 					.addAnnotatedClass(Vocabulary.class).addAnnotatedClass(VocabularyDetails.class)
 					.buildSessionFactory();
 
+			setProps(prop);
+			
 		} catch (Throwable ex) {
 			throw new ExceptionInInitializerError(ex);
 		}
@@ -174,5 +178,13 @@ public class HibernateUtil {
 			init();
 		}
 		return sessionFactory;
+	}
+	
+	public static Properties getProps() {
+		return props;
+	}
+
+	public static void setProps(Properties props) {
+		HibernateUtil.props = props;
 	}
 }

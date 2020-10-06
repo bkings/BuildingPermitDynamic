@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import com.dao.dynamic.DaoEbpsTables;
 import com.model.dynamic.EbpsColumns;
 import com.model.dynamic.EbpsTables;
 
+import model.HibernateUtil;
 import model.Message;
 
 @Service
@@ -68,16 +70,22 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 
 	@Override
 	public Object synchronizeTable(Long tableId) {
+		Properties props = HibernateUtil.getProps();
+		String tableSchema = props.getProperty("hibernate.default_schema");
+		System.out.println("Current targeted schema = " + tableSchema);
+
 		Map m = new HashMap<>();
 		String tableName = "", sqlColAdd = "";
 		Long columnId;
 		sql = "SELECT column_name \"columnName\",reference \"dataType\" FROM ebps_columns WHERE table_id=" + tableId;
 		final List<Object> setupList = dao.getRecord(sql);
 		int numberOfSetupSavedColumns = setupList.size();
-		sql = "SELECT column_name \"columnName\",data_type \"dataType\" FROM information_schema.columns WHERE table_name=(SELECT table_name FROM ebps_tables WHERE id="
-				+ tableId + ")";
+//		sql = "SELECT column_name \"columnName\",data_type \"dataType\" FROM information_schema.columns WHERE table_name=(SELECT table_name FROM ebps_tables WHERE id="
+//				+ tableId + ") AND table_schema= '" + tableSchema + "' ";
+		sql = "select c.column_name \"columnName\",c.data_type \"dataType\",(CASE when d.constraint_type='PRIMARY KEY' then 'Y' else 'N' end) \"isPrimaryKey\" FROM information_schema.columns c left join (select * from information_schema.key_column_usage k,information_schema.table_constraints t where k.constraint_name=t.constraint_name and k.table_name=(SELECT table_name FROM ebps_tables WHERE id='"+tableId+"') and t.table_name=(SELECT table_name FROM ebps_tables WHERE id='"+tableId+"') and k.table_schema='"+tableSchema+"' and t.table_schema='"+tableSchema+"') d on c.column_name=d.column_name where c.table_name=(SELECT table_name FROM ebps_tables WHERE id='"+tableId+"') and c.table_schema='"+tableSchema+"'";
 		final List<Object> individualTableListDb = dao.getRecord(sql);
 		int numberOfColumnsInDb = individualTableListDb.size();
+		msg = "Already synced.";
 		if (numberOfSetupSavedColumns != numberOfColumnsInDb) {
 			if (numberOfSetupSavedColumns > numberOfColumnsInDb) {
 				// Alter add
@@ -130,12 +138,12 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 				sql = "SELECT coalesce(MAX(ID),0)+1 as id FROM ebps_columns";
 				map = (Map) dao.getRecord(sql).get(0);
 				columnId = Long.parseLong(map.get("id").toString());
-				sql = "INSERT INTO ebps_columns (id,column_name,name,reference,table_id)values(";
+				sql = "INSERT INTO ebps_columns (id,column_name,name,reference,table_id,is_pk)values(";
 
 				for (int i = 0; i < individualTableListDb.size(); i++) {
 					map = (Map) individualTableListDb.get(i);
 					sqlColAdd = sql + "" + columnId + ",'" + map.get("columnName").toString() + "','" + map.get("columnName").toString() + "','"
-							+ dataTypeMappingForSetup(map.get("dataType").toString()) + "'," + tableId + ")";
+							+ dataTypeMappingForSetup(map.get("dataType").toString()) + "'," + tableId + ",'"+map.get("isPrimaryKey").toString()+"')";
 					columnId++;
 					System.out.println("sql " + sqlColAdd);
 					row = dao.execute(sqlColAdd);

@@ -25,6 +25,8 @@ public class EbpsColumns {
 	private String length;
 	@Column(name = "REFERENCE")
 	private String reference;
+	@Column(name = "IS_PK",columnDefinition = "VARCHAR(1) DEFAULT 'N'")
+	private String isPk;
 	@Column(name = "TABLE_ID")
 	private Long tableId;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
@@ -45,6 +47,14 @@ public class EbpsColumns {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getIsPk() {
+		return isPk;
+	}
+
+	public void setIsPk(String isPk) {
+		this.isPk = isPk;
 	}
 
 	public String getColumnName() {

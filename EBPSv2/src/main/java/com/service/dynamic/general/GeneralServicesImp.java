@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Properties;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import com.model.dynamic.Status;
 import com.model.dynamic.StatusPK;
 import com.service.dynamic.StatusService;
 
+import model.HibernateUtil;
 import model.Message;
 
 /**
@@ -83,6 +85,9 @@ public class GeneralServicesImp implements GeneralServices {
 	 */
 	@Override
 	public Object save(Object obj, Long applicationNo, String formId, String Authorization) {
+		
+		Properties props = HibernateUtil.getProps();
+		String tableSchema = props.getProperty("hibernate.default_schema");
 
 		JWTToken td = new JWTToken(Authorization);
 		if (!td.isStatus()) {
@@ -120,7 +125,7 @@ public class GeneralServicesImp implements GeneralServices {
 
 			// get primary key (doesn't make much sense i guess)
 			sql = "SELECT c.column_name as \"primaryKey\" FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.table_name = '"
-					+ tableName + "' AND t.constraint_type = 'PRIMARY KEY'";
+					+ tableName + "' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='"+tableSchema+"' AND c.table_schema='"+tableSchema+"'";
 			map = (Map) dao.getRecords(sql).get(0);
 
 			sql = "SELECT * FROM " + tableName + " WHERE " + map.get("primaryKey").toString() + "=" + applicationNo;
