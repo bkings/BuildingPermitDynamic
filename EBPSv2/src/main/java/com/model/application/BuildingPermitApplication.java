@@ -152,106 +152,131 @@ public class BuildingPermitApplication implements java.io.Serializable {
 	private String enterBy;
 	@Column(name = "enter_date", updatable = true)
 	private String enterDate;
-	
-	/*@Column(name = "amini_name")
-	private String aminiName;
-	@Column(name = "amini_date")
-	@Temporal(TemporalType.DATE)
-	private java.util.Date aminiDate;
-	@Column(name = "amini_status", updatable = false, columnDefinition = "VARCHAR(1) DEFAULT 'P'")
-	private String aminiStatus;
 
-	@Column(name = "RW_NAME", updatable = false)
-	private String rwName;
-	@Column(name = "RW_DATE", updatable = false)
-	@Temporal(TemporalType.DATE)
-	private java.util.Date rwDate;
-	@Column(name = "RW_STATUS", updatable = false, columnDefinition = "VARCHAR(1) DEFAULT 'P'")
-	private String rwStatus;
-
-	@Column(name = "SER_NAME", updatable = false)
-	private String serName;
-	@Column(name = "SER_DATE", updatable = false)
-	@Temporal(TemporalType.DATE)
-	private java.util.Date serDate;
-	@Column(name = "SER_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String serStatus;
-
-	@Column(name = "ER_NAME", updatable = false)
-	private String erName;
-	@Column(name = "ER_DATE", updatable = false)
-	@Temporal(TemporalType.DATE)
-	private java.util.Date erDate;
-	@Column(name = "ER_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String erStatus;
-
-	@Column(name = "E_NAME", updatable = false)
-	private String eName;
-	@Column(name = "E_DATE", updatable = false)
-	@Temporal(TemporalType.DATE)
-	private java.util.Date eDate;
-	@Column(name = "E_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String eStatus;
-
-	@Column(name = "F_NAME", updatable = false)
-	private String fName;
-	@Column(name = "F_DATE", updatable = false)
-	@Temporal(TemporalType.DATE)
-	private java.util.Date fDate;
-	@Column(name = "F_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String fStatus;
-
-	@Column(name = "G_NAME", updatable = false)
-	private String gName;
-	@Column(name = "G_DATE", updatable = false)
-	@Temporal(TemporalType.DATE)
-	private java.util.Date gDate;
-	@Column(name = "G_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String gStatus;
-
-	@Column(name = "CHIEF_NAME", updatable = false)
-	private String chiefName;
-	@Column(name = "CHIEF_DATE", updatable = false)
-	@Temporal(TemporalType.DATE)
-	private java.util.Date chiefDate;
-
-	@Column(name = "DESIGNER_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String designerStatus;
-	@Column(name = "AMIN_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String aminStatus;
-	@Column(name = "RAJASOW_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String rajasowStatus;
-	@Column(name = "SUB_ENGINEER_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String subEngineerStatus;
-	@Column(name = "ENGINEER_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String engineerStatus;
-	@Column(name = "CHIEF_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String chiefStatus;
-	@Column(name = "POSTE_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String posteStatus;
-	@Column(name = "POSTF_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String postfStatus;
-	@Column(name = "POSTG_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String postgStatus;
-
-	@Column(name = "DESIGNER_ACTION", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT '1'")
-	private String designerAction;
-	@Column(name = "AMIN_ACTION", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT '1'")
-	private String aminAction;
-	@Column(name = "RAJASOW_ACTION", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT '1'")
-	private String rajasowAction;
-	@Column(name = "SUB_ENGINEER_ACTION", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT '1'")
-	private String subEngineerAction;
-	@Column(name = "ENGINEER_ACTION", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT '1'")
-	private String engineerAction;
-	@Column(name = "CHIEF_ACTION", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT '1'")
-	private String chiefAction;
-	@Column(name = "POSTE_ACTION", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String posteAction;
-	@Column(name = "POSTF_ACTION", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String postfAction;
-	@Column(name = "POSTG_ACTION", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT 'P'")
-	private String postgAction;*/
+	/*
+	 * @Column(name = "amini_name") private String aminiName;
+	 * 
+	 * @Column(name = "amini_date")
+	 * 
+	 * @Temporal(TemporalType.DATE) private java.util.Date aminiDate;
+	 * 
+	 * @Column(name = "amini_status", updatable = false, columnDefinition =
+	 * "VARCHAR(1) DEFAULT 'P'") private String aminiStatus;
+	 * 
+	 * @Column(name = "RW_NAME", updatable = false) private String rwName;
+	 * 
+	 * @Column(name = "RW_DATE", updatable = false)
+	 * 
+	 * @Temporal(TemporalType.DATE) private java.util.Date rwDate;
+	 * 
+	 * @Column(name = "RW_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1) DEFAULT 'P'") private String rwStatus;
+	 * 
+	 * @Column(name = "SER_NAME", updatable = false) private String serName;
+	 * 
+	 * @Column(name = "SER_DATE", updatable = false)
+	 * 
+	 * @Temporal(TemporalType.DATE) private java.util.Date serDate;
+	 * 
+	 * @Column(name = "SER_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String serStatus;
+	 * 
+	 * @Column(name = "ER_NAME", updatable = false) private String erName;
+	 * 
+	 * @Column(name = "ER_DATE", updatable = false)
+	 * 
+	 * @Temporal(TemporalType.DATE) private java.util.Date erDate;
+	 * 
+	 * @Column(name = "ER_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String erStatus;
+	 * 
+	 * @Column(name = "E_NAME", updatable = false) private String eName;
+	 * 
+	 * @Column(name = "E_DATE", updatable = false)
+	 * 
+	 * @Temporal(TemporalType.DATE) private java.util.Date eDate;
+	 * 
+	 * @Column(name = "E_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String eStatus;
+	 * 
+	 * @Column(name = "F_NAME", updatable = false) private String fName;
+	 * 
+	 * @Column(name = "F_DATE", updatable = false)
+	 * 
+	 * @Temporal(TemporalType.DATE) private java.util.Date fDate;
+	 * 
+	 * @Column(name = "F_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String fStatus;
+	 * 
+	 * @Column(name = "G_NAME", updatable = false) private String gName;
+	 * 
+	 * @Column(name = "G_DATE", updatable = false)
+	 * 
+	 * @Temporal(TemporalType.DATE) private java.util.Date gDate;
+	 * 
+	 * @Column(name = "G_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String gStatus;
+	 * 
+	 * @Column(name = "CHIEF_NAME", updatable = false) private String chiefName;
+	 * 
+	 * @Column(name = "CHIEF_DATE", updatable = false)
+	 * 
+	 * @Temporal(TemporalType.DATE) private java.util.Date chiefDate;
+	 * 
+	 * @Column(name = "DESIGNER_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String designerStatus;
+	 * 
+	 * @Column(name = "AMIN_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String aminStatus;
+	 * 
+	 * @Column(name = "RAJASOW_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String rajasowStatus;
+	 * 
+	 * @Column(name = "SUB_ENGINEER_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String subEngineerStatus;
+	 * 
+	 * @Column(name = "ENGINEER_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String engineerStatus;
+	 * 
+	 * @Column(name = "CHIEF_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String chiefStatus;
+	 * 
+	 * @Column(name = "POSTE_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String posteStatus;
+	 * 
+	 * @Column(name = "POSTF_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String postfStatus;
+	 * 
+	 * @Column(name = "POSTG_STATUS", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String postgStatus;
+	 * 
+	 * @Column(name = "DESIGNER_ACTION", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT '1'") private String designerAction;
+	 * 
+	 * @Column(name = "AMIN_ACTION", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT '1'") private String aminAction;
+	 * 
+	 * @Column(name = "RAJASOW_ACTION", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT '1'") private String rajasowAction;
+	 * 
+	 * @Column(name = "SUB_ENGINEER_ACTION", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT '1'") private String subEngineerAction;
+	 * 
+	 * @Column(name = "ENGINEER_ACTION", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT '1'") private String engineerAction;
+	 * 
+	 * @Column(name = "CHIEF_ACTION", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT '1'") private String chiefAction;
+	 * 
+	 * @Column(name = "POSTE_ACTION", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String posteAction;
+	 * 
+	 * @Column(name = "POSTF_ACTION", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String postfAction;
+	 * 
+	 * @Column(name = "POSTG_ACTION", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT 'P'") private String postgAction;
+	 */
 
 	@Column(name = "APPLICATION_STATUS", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT  '1'")
 	private String applicationStatus;
@@ -260,82 +285,116 @@ public class BuildingPermitApplication implements java.io.Serializable {
 	@Column(name = "APPLICATION_ACTION", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT  'P'")
 	private String applicationAction;
 
-	/*@Column(name = "forward_to_d", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT  'Y'")
-	private String forwardToD;
-	@Column(name = "forward_to_b", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT  'Y'")
-	private String forwardToB;
-	@Column(name = "forward_to_a", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT  'Y'")
-	private String forwardToA;
-	@Column(name = "forward_to_c", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT  'Y'")
-	private String forwardToC;
-	@Column(name = "forward_to_ad", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT  'Y'")
-	private String forwardToAd;
-	@Column(name = "forward_to_r", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT  'Y'")
-	private String forwardToR;
-	@Column(name = "forward_to_e", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT  'Y'")
-	private String forwardToE;
-	@Column(name = "forward_to_f", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT  'Y'")
-	private String forwardTof;
-	@Column(name = "forward_to_g", updatable = false, columnDefinition = "VARCHAR(1000) DEFAULT  'Y'")
-	private String forwardTog;
+	/*
+	 * @Column(name = "forward_to_d", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT  'Y'") private String forwardToD;
+	 * 
+	 * @Column(name = "forward_to_b", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT  'Y'") private String forwardToB;
+	 * 
+	 * @Column(name = "forward_to_a", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT  'Y'") private String forwardToA;
+	 * 
+	 * @Column(name = "forward_to_c", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT  'Y'") private String forwardToC;
+	 * 
+	 * @Column(name = "forward_to_ad", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT  'Y'") private String forwardToAd;
+	 * 
+	 * @Column(name = "forward_to_r", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT  'Y'") private String forwardToR;
+	 * 
+	 * @Column(name = "forward_to_e", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT  'Y'") private String forwardToE;
+	 * 
+	 * @Column(name = "forward_to_f", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT  'Y'") private String forwardTof;
+	 * 
+	 * @Column(name = "forward_to_g", updatable = false, columnDefinition =
+	 * "VARCHAR(1000) DEFAULT  'Y'") private String forwardTog;
+	 * 
+	 * @Column(name = "forward_to_d_remark", updatable = false, columnDefinition =
+	 * "VARCHAR") private String forwardToDRemark;
+	 * 
+	 * @Column(name = "forward_to_b_remark", updatable = false, columnDefinition =
+	 * "VARCHAR") private String forwardToBRemark;
+	 * 
+	 * @Column(name = "forward_to_a_remark", updatable = false, columnDefinition =
+	 * "VARCHAR") private String forwardToARemark;
+	 * 
+	 * @Column(name = "forward_to_c_remark", updatable = false, columnDefinition =
+	 * "VARCHAR") private String forwardToCRemark;
+	 * 
+	 * @Column(name = "forward_to_ad_remark", updatable = false, columnDefinition =
+	 * "VARCHAR") private String forwardToAdRemark;
+	 * 
+	 * @Column(name = "forward_to_r_remark", updatable = false, columnDefinition =
+	 * "VARCHAR") private String forwardToRRemark;
+	 * 
+	 * @Column(name = "forward_to_e_remark", updatable = false, columnDefinition =
+	 * "VARCHAR") private String forwardToERemark;
+	 * 
+	 * @Column(name = "forward_to_f_remark", updatable = false, columnDefinition =
+	 * "VARCHAR") private String forwardToFRemark;
+	 * 
+	 * @Column(name = "forward_to_g_remark", updatable = false, columnDefinition =
+	 * "VARCHAR") private String forwardToGRemark;
+	 * 
+	 * @Column(name = "forward_to_a_Date", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToADate;
+	 * 
+	 * @Column(name = "forward_to_d_Date", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToDDate;
+	 * 
+	 * @Column(name = "forward_to_c_Date", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToCDate;
+	 * 
+	 * @Column(name = "forward_to_b_Date", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToBDate;
+	 * 
+	 * @Column(name = "forward_to_ad_Date", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToAdDate;
+	 * 
+	 * @Column(name = "forward_to_r_Date", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToRDate;
+	 * 
+	 * @Column(name = "forward_to_e_Date", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToEDate;
+	 * 
+	 * @Column(name = "forward_to_f_Date", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToFDate;
+	 * 
+	 * @Column(name = "forward_to_g_Date", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToGDate;
+	 * 
+	 * @Column(name = "forward_to_a_name", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToAName;
+	 * 
+	 * @Column(name = "forward_to_b_name", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToBName;
+	 * 
+	 * @Column(name = "forward_to_c_name", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToCName;
+	 * 
+	 * @Column(name = "forward_to_d_name", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToDName;
+	 * 
+	 * @Column(name = "forward_to_ad_name", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToAdName;
+	 * 
+	 * @Column(name = "forward_to_r_name", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToRName;
+	 * 
+	 * @Column(name = "forward_to_e_name", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToEName;
+	 * 
+	 * @Column(name = "forward_to_f_name", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToFName;
+	 * 
+	 * @Column(name = "forward_to_g_name", updatable = false, columnDefinition =
+	 * "VARCHAR(30)") private String forwardToGName;
+	 */
 
-	@Column(name = "forward_to_d_remark", updatable = false, columnDefinition = "VARCHAR")
-	private String forwardToDRemark;
-	@Column(name = "forward_to_b_remark", updatable = false, columnDefinition = "VARCHAR")
-	private String forwardToBRemark;
-	@Column(name = "forward_to_a_remark", updatable = false, columnDefinition = "VARCHAR")
-	private String forwardToARemark;
-	@Column(name = "forward_to_c_remark", updatable = false, columnDefinition = "VARCHAR")
-	private String forwardToCRemark;
-	@Column(name = "forward_to_ad_remark", updatable = false, columnDefinition = "VARCHAR")
-	private String forwardToAdRemark;
-	@Column(name = "forward_to_r_remark", updatable = false, columnDefinition = "VARCHAR")
-	private String forwardToRRemark;
-	@Column(name = "forward_to_e_remark", updatable = false, columnDefinition = "VARCHAR")
-	private String forwardToERemark;
-	@Column(name = "forward_to_f_remark", updatable = false, columnDefinition = "VARCHAR")
-	private String forwardToFRemark;
-	@Column(name = "forward_to_g_remark", updatable = false, columnDefinition = "VARCHAR")
-	private String forwardToGRemark;
-
-	@Column(name = "forward_to_a_Date", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToADate;
-	@Column(name = "forward_to_d_Date", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToDDate;
-	@Column(name = "forward_to_c_Date", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToCDate;
-	@Column(name = "forward_to_b_Date", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToBDate;
-	@Column(name = "forward_to_ad_Date", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToAdDate;
-	@Column(name = "forward_to_r_Date", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToRDate;
-	@Column(name = "forward_to_e_Date", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToEDate;
-	@Column(name = "forward_to_f_Date", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToFDate;
-	@Column(name = "forward_to_g_Date", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToGDate;
-
-	@Column(name = "forward_to_a_name", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToAName;
-	@Column(name = "forward_to_b_name", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToBName;
-	@Column(name = "forward_to_c_name", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToCName;
-	@Column(name = "forward_to_d_name", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToDName;
-	@Column(name = "forward_to_ad_name", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToAdName;
-	@Column(name = "forward_to_r_name", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToRName;
-	@Column(name = "forward_to_e_name", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToEName;
-	@Column(name = "forward_to_f_name", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToFName;
-	@Column(name = "forward_to_g_name", updatable = false, columnDefinition = "VARCHAR(30)")
-	private String forwardToGName;*/
-	
 	@Column(name = "notice15_till_date", updatable = false)
 	@Temporal(TemporalType.DATE)
 	private java.util.Date notice15TillDate;
@@ -346,24 +405,34 @@ public class BuildingPermitApplication implements java.io.Serializable {
 	@Column(name = "old_application_no", updatable = false)
 	private Long oldApplicationNo;
 
-	/*@Column(name = "rejected_a", updatable = false, columnDefinition = "VARCHAR(1)")
-	private String rejectedA;
-	@Column(name = "rejected_b", updatable = false, columnDefinition = "VARCHAR(1)")
-	private String rejectedB;
-	@Column(name = "rejected_c", updatable = false, columnDefinition = "VARCHAR(1)")
-	private String rejectedC;
-	@Column(name = "rejected_d", updatable = false, columnDefinition = "VARCHAR(1)")
-	private String rejectedD;
-	@Column(name = "rejected_da", updatable = false, columnDefinition = "VARCHAR(1)")
-	private String rejectedDa;
-	@Column(name = "rejected_r", updatable = false, columnDefinition = "VARCHAR(1)")
-	private String rejectedR;
-	@Column(name = "rejected_e", updatable = false, columnDefinition = "VARCHAR(1)")
-	private String rejectedE;
-	@Column(name = "rejected_f", updatable = false, columnDefinition = "VARCHAR(1)")
-	private String rejectedF;
-	@Column(name = "rejected_g", updatable = false, columnDefinition = "VARCHAR(1)")
-	private String rejectedG;*/
+	/*
+	 * @Column(name = "rejected_a", updatable = false, columnDefinition =
+	 * "VARCHAR(1)") private String rejectedA;
+	 * 
+	 * @Column(name = "rejected_b", updatable = false, columnDefinition =
+	 * "VARCHAR(1)") private String rejectedB;
+	 * 
+	 * @Column(name = "rejected_c", updatable = false, columnDefinition =
+	 * "VARCHAR(1)") private String rejectedC;
+	 * 
+	 * @Column(name = "rejected_d", updatable = false, columnDefinition =
+	 * "VARCHAR(1)") private String rejectedD;
+	 * 
+	 * @Column(name = "rejected_da", updatable = false, columnDefinition =
+	 * "VARCHAR(1)") private String rejectedDa;
+	 * 
+	 * @Column(name = "rejected_r", updatable = false, columnDefinition =
+	 * "VARCHAR(1)") private String rejectedR;
+	 * 
+	 * @Column(name = "rejected_e", updatable = false, columnDefinition =
+	 * "VARCHAR(1)") private String rejectedE;
+	 * 
+	 * @Column(name = "rejected_f", updatable = false, columnDefinition =
+	 * "VARCHAR(1)") private String rejectedF;
+	 * 
+	 * @Column(name = "rejected_g", updatable = false, columnDefinition =
+	 * "VARCHAR(1)") private String rejectedG;
+	 */
 
 	@Column(name = "photo", updatable = false)
 	private String photo;
@@ -469,53 +538,32 @@ public class BuildingPermitApplication implements java.io.Serializable {
 		this.talathapApplicationNo = talathapApplicationNo;
 	}
 
-	/*public String getAminiName() {
-		return aminiName;
-	}
-
-	public void setAminiName(String aminiName) {
-		this.aminiName = aminiName;
-	}
-
-	public Date getAminiDate() {
-		return aminiDate;
-	}
-
-	public void setAminiDate(Date aminiDate) {
-		this.aminiDate = aminiDate;
-	}
-
-	public String getAminiStatus() {
-		return aminiStatus;
-	}
-
-	public void setAminiStatus(String aminiStatus) {
-		this.aminiStatus = aminiStatus;
-	}
-
-	public String getRwName() {
-		return rwName;
-	}
-
-	public void setRwName(String rwName) {
-		this.rwName = rwName;
-	}
-
-	public Date getRwDate() {
-		return rwDate;
-	}
-
-	public void setRwDate(Date rwDate) {
-		this.rwDate = rwDate;
-	}
-
-	public String getRwStatus() {
-		return rwStatus;
-	}
-
-	public void setRwStatus(String rwStatus) {
-		this.rwStatus = rwStatus;
-	}*/
+	/*
+	 * public String getAminiName() { return aminiName; }
+	 * 
+	 * public void setAminiName(String aminiName) { this.aminiName = aminiName; }
+	 * 
+	 * public Date getAminiDate() { return aminiDate; }
+	 * 
+	 * public void setAminiDate(Date aminiDate) { this.aminiDate = aminiDate; }
+	 * 
+	 * public String getAminiStatus() { return aminiStatus; }
+	 * 
+	 * public void setAminiStatus(String aminiStatus) { this.aminiStatus =
+	 * aminiStatus; }
+	 * 
+	 * public String getRwName() { return rwName; }
+	 * 
+	 * public void setRwName(String rwName) { this.rwName = rwName; }
+	 * 
+	 * public Date getRwDate() { return rwDate; }
+	 * 
+	 * public void setRwDate(Date rwDate) { this.rwDate = rwDate; }
+	 * 
+	 * public String getRwStatus() { return rwStatus; }
+	 * 
+	 * public void setRwStatus(String rwStatus) { this.rwStatus = rwStatus; }
+	 */
 
 	public String getNibedakSadak() {
 		return nibedakSadak;
@@ -937,53 +985,31 @@ public class BuildingPermitApplication implements java.io.Serializable {
 		this.enterDate = enterDate;
 	}
 
-	/*public String getSerName() {
-		return serName;
-	}
-
-	public void setSerName(String serName) {
-		this.serName = serName;
-	}
-
-	public Date getSerDate() {
-		return serDate;
-	}
-
-	public void setSerDate(Date serDate) {
-		this.serDate = serDate;
-	}
-
-	public String getSerStatus() {
-		return serStatus;
-	}
-
-	public void setSerStatus(String serStatus) {
-		this.serStatus = serStatus;
-	}
-
-	public String getErName() {
-		return erName;
-	}
-
-	public void setErName(String erName) {
-		this.erName = erName;
-	}
-
-	public Date getErDate() {
-		return erDate;
-	}
-
-	public void setErDate(Date erDate) {
-		this.erDate = erDate;
-	}
-
-	public String getErStatus() {
-		return erStatus;
-	}
-
-	public void setErStatus(String erStatus) {
-		this.erStatus = erStatus;
-	}*/
+	/*
+	 * public String getSerName() { return serName; }
+	 * 
+	 * public void setSerName(String serName) { this.serName = serName; }
+	 * 
+	 * public Date getSerDate() { return serDate; }
+	 * 
+	 * public void setSerDate(Date serDate) { this.serDate = serDate; }
+	 * 
+	 * public String getSerStatus() { return serStatus; }
+	 * 
+	 * public void setSerStatus(String serStatus) { this.serStatus = serStatus; }
+	 * 
+	 * public String getErName() { return erName; }
+	 * 
+	 * public void setErName(String erName) { this.erName = erName; }
+	 * 
+	 * public Date getErDate() { return erDate; }
+	 * 
+	 * public void setErDate(Date erDate) { this.erDate = erDate; }
+	 * 
+	 * public String getErStatus() { return erStatus; }
+	 * 
+	 * public void setErStatus(String erStatus) { this.erStatus = erStatus; }
+	 */
 
 	public String getBuildingJoinRoadTypeOther() {
 		return buildingJoinRoadTypeOther;
@@ -1033,53 +1059,37 @@ public class BuildingPermitApplication implements java.io.Serializable {
 		this.foharArrangementOther = foharArrangementOther;
 	}
 
-	/*public String getDesignerStatus() {
-		return designerStatus;
-	}
-
-	public void setDesignerStatus(String designerStatus) {
-		this.designerStatus = designerStatus;
-	}
-
-	public String getAminStatus() {
-		return aminStatus;
-	}
-
-	public void setAminStatus(String aminStatus) {
-		this.aminStatus = aminStatus;
-	}
-
-	public String getRajasowStatus() {
-		return rajasowStatus;
-	}
-
-	public void setRajasowStatus(String rajasowStatus) {
-		this.rajasowStatus = rajasowStatus;
-	}
-
-	public String getSubEngineerStatus() {
-		return subEngineerStatus;
-	}
-
-	public void setSubEngineerStatus(String subEngineerStatus) {
-		this.subEngineerStatus = subEngineerStatus;
-	}
-
-	public String getEngineerStatus() {
-		return engineerStatus;
-	}
-
-	public void setEngineerStatus(String engineerStatus) {
-		this.engineerStatus = engineerStatus;
-	}
-
-	public String getChiefStatus() {
-		return chiefStatus;
-	}
-
-	public void setChiefStatus(String chiefStatus) {
-		this.chiefStatus = chiefStatus;
-	}*/
+	/*
+	 * public String getDesignerStatus() { return designerStatus; }
+	 * 
+	 * public void setDesignerStatus(String designerStatus) { this.designerStatus =
+	 * designerStatus; }
+	 * 
+	 * public String getAminStatus() { return aminStatus; }
+	 * 
+	 * public void setAminStatus(String aminStatus) { this.aminStatus = aminStatus;
+	 * }
+	 * 
+	 * public String getRajasowStatus() { return rajasowStatus; }
+	 * 
+	 * public void setRajasowStatus(String rajasowStatus) { this.rajasowStatus =
+	 * rajasowStatus; }
+	 * 
+	 * public String getSubEngineerStatus() { return subEngineerStatus; }
+	 * 
+	 * public void setSubEngineerStatus(String subEngineerStatus) {
+	 * this.subEngineerStatus = subEngineerStatus; }
+	 * 
+	 * public String getEngineerStatus() { return engineerStatus; }
+	 * 
+	 * public void setEngineerStatus(String engineerStatus) { this.engineerStatus =
+	 * engineerStatus; }
+	 * 
+	 * public String getChiefStatus() { return chiefStatus; }
+	 * 
+	 * public void setChiefStatus(String chiefStatus) { this.chiefStatus =
+	 * chiefStatus; }
+	 */
 
 	public String getApplicationStatus() {
 		try {
@@ -1120,85 +1130,52 @@ public class BuildingPermitApplication implements java.io.Serializable {
 		this.applicationAction = applicationAction;
 	}
 
-	/*public Object getDesignerAction() {
-		try {
-			return ApplicationForm.getById(designerAction);
-		} catch (Exception e) {
-		}
-		return null;
-	}
-
-	public void setDesignerAction(String designerAction) {
-		this.designerAction = designerAction;
-	}
-
-	public Object getAminAction() {
-		try {
-			return ApplicationForm.getById(aminAction);
-		} catch (Exception e) {
-		}
-		return null;
-	}
-
-	public void setAminAction(String aminAction) {
-		this.aminAction = aminAction;
-	}
-
-	public Object getRajasowAction() {
-		try {
-			return ApplicationForm.getById(rajasowAction);
-		} catch (Exception e) {
-		}
-		return null;
-	}
-
-	public void setRajasowAction(String rajasowAction) {
-		this.rajasowAction = rajasowAction;
-	}
-
-	public Object getSubEngineerAction() {
-		try {
-			return ApplicationForm.getById(subEngineerAction);
-		} catch (Exception e) {
-		}
-		return null;
-	}
-
-	public void setSubEngineerAction(String subEngineerAction) {
-		this.subEngineerAction = subEngineerAction;
-	}
-
-	public Object getChiefAction() {
-		try {
-			return ApplicationForm.getById(chiefAction);
-		} catch (Exception e) {
-		}
-		return null;
-	}
-
-	public void setChiefAction(String chiefAction) {
-		this.chiefAction = chiefAction;
-	}
-
-	public String getChiefActionNo() {
-		return chiefAction;
-	}
-
-	public Object getEngineerAction() {
-		try {
-			return ApplicationForm.getById(engineerAction);
-		} catch (Exception e) {
-		}
-		return null;
-	}
-
-	public void setEngineerAction(String engineerAction) {
-		this.engineerAction = engineerAction;
-	}
-
-	public String getDesignerActionNo() {
-		return designerAction;
-	}*/
+	/*
+	 * public Object getDesignerAction() { try { return
+	 * ApplicationForm.getById(designerAction); } catch (Exception e) { } return
+	 * null; }
+	 * 
+	 * public void setDesignerAction(String designerAction) { this.designerAction =
+	 * designerAction; }
+	 * 
+	 * public Object getAminAction() { try { return
+	 * ApplicationForm.getById(aminAction); } catch (Exception e) { } return null; }
+	 * 
+	 * public void setAminAction(String aminAction) { this.aminAction = aminAction;
+	 * }
+	 * 
+	 * public Object getRajasowAction() { try { return
+	 * ApplicationForm.getById(rajasowAction); } catch (Exception e) { } return
+	 * null; }
+	 * 
+	 * public void setRajasowAction(String rajasowAction) { this.rajasowAction =
+	 * rajasowAction; }
+	 * 
+	 * public Object getSubEngineerAction() { try { return
+	 * ApplicationForm.getById(subEngineerAction); } catch (Exception e) { } return
+	 * null; }
+	 * 
+	 * public void setSubEngineerAction(String subEngineerAction) {
+	 * this.subEngineerAction = subEngineerAction; }
+	 * 
+	 * public Object getChiefAction() { try { return
+	 * ApplicationForm.getById(chiefAction); } catch (Exception e) { } return null;
+	 * }
+	 * 
+	 * public void setChiefAction(String chiefAction) { this.chiefAction =
+	 * chiefAction; }
+	 * 
+	 * public String getChiefActionNo() { return chiefAction; }
+	 * 
+	 * public Object getEngineerAction() { try { return
+	 * ApplicationForm.getById(engineerAction); } catch (Exception e) { } return
+	 * null; }
+	 * 
+	 * public void setEngineerAction(String engineerAction) { this.engineerAction =
+	 * engineerAction; }
+	 * 
+	 * public String getDesignerActionNo() { return designerAction; }
+	 */
 
 	public String getLandAreaType() {
 		return landAreaType;
@@ -1224,197 +1201,127 @@ public class BuildingPermitApplication implements java.io.Serializable {
 		this.tol = tol;
 	}
 
-	/*public String getForwardToD() {
-		return forwardToD;
-	}
-
-	public void setForwardToD(String forwardToD) {
-		this.forwardToD = forwardToD;
-	}
-
-	public String getForwardToB() {
-		return forwardToB;
-	}
-
-	public void setForwardToB(String forwardToB) {
-		this.forwardToB = forwardToB;
-	}
-
-	public String getForwardToA() {
-		return forwardToA;
-	}
-
-	public void setForwardToA(String forwardToA) {
-		this.forwardToA = forwardToA;
-	}
-
-	public String getForwardToC() {
-		return forwardToC;
-	}
-
-	public void setForwardToC(String forwardToC) {
-		this.forwardToC = forwardToC;
-	}
-
-	public String getForwardToAd() {
-		return forwardToAd;
-	}
-
-	public void setForwardToAd(String forwardToAd) {
-		this.forwardToAd = forwardToAd;
-	}
-
-	public String getForwardToR() {
-		return forwardToR;
-	}
-
-	public void setForwardToR(String forwardToR) {
-		this.forwardToR = forwardToR;
-	}
-
-	public String getForwardToDRemark() {
-		return forwardToDRemark;
-	}
-
-	public void setForwardToDRemark(String forwardToDRemark) {
-		this.forwardToDRemark = forwardToDRemark;
-	}
-
-	public String getForwardToBRemark() {
-		return forwardToBRemark;
-	}
-
-	public void setForwardToBRemark(String forwardToBRemark) {
-		this.forwardToBRemark = forwardToBRemark;
-	}
-
-	public String getForwardToARemark() {
-		return forwardToARemark;
-	}
-
-	public void setForwardToARemark(String forwardToARemark) {
-		this.forwardToARemark = forwardToARemark;
-	}
-
-	public String getForwardToCRemark() {
-		return forwardToCRemark;
-	}
-
-	public void setForwardToCRemark(String forwardToCRemark) {
-		this.forwardToCRemark = forwardToCRemark;
-	}
-
-	public String getForwardToAdRemark() {
-		return forwardToAdRemark;
-	}
-
-	public void setForwardToAdRemark(String forwardToAdRemark) {
-		this.forwardToAdRemark = forwardToAdRemark;
-	}
-
-	public String getForwardToRRemark() {
-		return forwardToRRemark;
-	}
-
-	public void setForwardToRRemark(String forwardToRRemark) {
-		this.forwardToRRemark = forwardToRRemark;
-	}
-
-	public String getForwardToDDate() {
-		return forwardToDDate;
-	}
-
-	public void setForwardToDDate(String forwardToDDate) {
-		this.forwardToDDate = forwardToDDate;
-	}
-
-	public String getForwardToBDate() {
-		return forwardToBDate;
-	}
-
-	public void setForwardToBDate(String forwardToBDate) {
-		this.forwardToBDate = forwardToBDate;
-	}
-
-	public String getForwardToADate() {
-		return forwardToADate;
-	}
-
-	public void setForwardToADate(String forwardToADate) {
-		this.forwardToADate = forwardToADate;
-	}
-
-	public String getForwardToCDate() {
-		return forwardToCDate;
-	}
-
-	public void setForwardToCDate(String forwardToCDate) {
-		this.forwardToCDate = forwardToCDate;
-	}
-
-	public String getForwardToAdDate() {
-		return forwardToAdDate;
-	}
-
-	public void setForwardToAdDate(String forwardToAdDate) {
-		this.forwardToAdDate = forwardToAdDate;
-	}
-
-	public String getForwardToRDate() {
-		return forwardToRDate;
-	}
-
-	public void setForwardToRDate(String forwardToRDate) {
-		this.forwardToRDate = forwardToRDate;
-	}
-
-	public String getForwardToDName() {
-		return forwardToDName;
-	}
-
-	public void setForwardToDName(String forwardToDName) {
-		this.forwardToDName = forwardToDName;
-	}
-
-	public String getForwardToBName() {
-		return forwardToBName;
-	}
-
-	public void setForwardToBName(String forwardToBName) {
-		this.forwardToBName = forwardToBName;
-	}
-
-	public String getForwardToAName() {
-		return forwardToAName;
-	}
-
-	public void setForwardToAName(String forwardToAName) {
-		this.forwardToAName = forwardToAName;
-	}
-
-	public String getForwardToCName() {
-		return forwardToCName;
-	}
-
-	public void setForwardToCName(String forwardToCName) {
-		this.forwardToCName = forwardToCName;
-	}
-
-	public String getForwardToAdName() {
-		return forwardToAdName;
-	}
-
-	public void setForwardToAdName(String forwardToAdName) {
-		this.forwardToAdName = forwardToAdName;
-	}
-
-	public String getForwardToRName() {
-		return forwardToRName;
-	}
-
-	public void setForwardToRName(String forwardToRName) {
-		this.forwardToRName = forwardToRName;
-	}*/
+	/*
+	 * public String getForwardToD() { return forwardToD; }
+	 * 
+	 * public void setForwardToD(String forwardToD) { this.forwardToD = forwardToD;
+	 * }
+	 * 
+	 * public String getForwardToB() { return forwardToB; }
+	 * 
+	 * public void setForwardToB(String forwardToB) { this.forwardToB = forwardToB;
+	 * }
+	 * 
+	 * public String getForwardToA() { return forwardToA; }
+	 * 
+	 * public void setForwardToA(String forwardToA) { this.forwardToA = forwardToA;
+	 * }
+	 * 
+	 * public String getForwardToC() { return forwardToC; }
+	 * 
+	 * public void setForwardToC(String forwardToC) { this.forwardToC = forwardToC;
+	 * }
+	 * 
+	 * public String getForwardToAd() { return forwardToAd; }
+	 * 
+	 * public void setForwardToAd(String forwardToAd) { this.forwardToAd =
+	 * forwardToAd; }
+	 * 
+	 * public String getForwardToR() { return forwardToR; }
+	 * 
+	 * public void setForwardToR(String forwardToR) { this.forwardToR = forwardToR;
+	 * }
+	 * 
+	 * public String getForwardToDRemark() { return forwardToDRemark; }
+	 * 
+	 * public void setForwardToDRemark(String forwardToDRemark) {
+	 * this.forwardToDRemark = forwardToDRemark; }
+	 * 
+	 * public String getForwardToBRemark() { return forwardToBRemark; }
+	 * 
+	 * public void setForwardToBRemark(String forwardToBRemark) {
+	 * this.forwardToBRemark = forwardToBRemark; }
+	 * 
+	 * public String getForwardToARemark() { return forwardToARemark; }
+	 * 
+	 * public void setForwardToARemark(String forwardToARemark) {
+	 * this.forwardToARemark = forwardToARemark; }
+	 * 
+	 * public String getForwardToCRemark() { return forwardToCRemark; }
+	 * 
+	 * public void setForwardToCRemark(String forwardToCRemark) {
+	 * this.forwardToCRemark = forwardToCRemark; }
+	 * 
+	 * public String getForwardToAdRemark() { return forwardToAdRemark; }
+	 * 
+	 * public void setForwardToAdRemark(String forwardToAdRemark) {
+	 * this.forwardToAdRemark = forwardToAdRemark; }
+	 * 
+	 * public String getForwardToRRemark() { return forwardToRRemark; }
+	 * 
+	 * public void setForwardToRRemark(String forwardToRRemark) {
+	 * this.forwardToRRemark = forwardToRRemark; }
+	 * 
+	 * public String getForwardToDDate() { return forwardToDDate; }
+	 * 
+	 * public void setForwardToDDate(String forwardToDDate) { this.forwardToDDate =
+	 * forwardToDDate; }
+	 * 
+	 * public String getForwardToBDate() { return forwardToBDate; }
+	 * 
+	 * public void setForwardToBDate(String forwardToBDate) { this.forwardToBDate =
+	 * forwardToBDate; }
+	 * 
+	 * public String getForwardToADate() { return forwardToADate; }
+	 * 
+	 * public void setForwardToADate(String forwardToADate) { this.forwardToADate =
+	 * forwardToADate; }
+	 * 
+	 * public String getForwardToCDate() { return forwardToCDate; }
+	 * 
+	 * public void setForwardToCDate(String forwardToCDate) { this.forwardToCDate =
+	 * forwardToCDate; }
+	 * 
+	 * public String getForwardToAdDate() { return forwardToAdDate; }
+	 * 
+	 * public void setForwardToAdDate(String forwardToAdDate) { this.forwardToAdDate
+	 * = forwardToAdDate; }
+	 * 
+	 * public String getForwardToRDate() { return forwardToRDate; }
+	 * 
+	 * public void setForwardToRDate(String forwardToRDate) { this.forwardToRDate =
+	 * forwardToRDate; }
+	 * 
+	 * public String getForwardToDName() { return forwardToDName; }
+	 * 
+	 * public void setForwardToDName(String forwardToDName) { this.forwardToDName =
+	 * forwardToDName; }
+	 * 
+	 * public String getForwardToBName() { return forwardToBName; }
+	 * 
+	 * public void setForwardToBName(String forwardToBName) { this.forwardToBName =
+	 * forwardToBName; }
+	 * 
+	 * public String getForwardToAName() { return forwardToAName; }
+	 * 
+	 * public void setForwardToAName(String forwardToAName) { this.forwardToAName =
+	 * forwardToAName; }
+	 * 
+	 * public String getForwardToCName() { return forwardToCName; }
+	 * 
+	 * public void setForwardToCName(String forwardToCName) { this.forwardToCName =
+	 * forwardToCName; }
+	 * 
+	 * public String getForwardToAdName() { return forwardToAdName; }
+	 * 
+	 * public void setForwardToAdName(String forwardToAdName) { this.forwardToAdName
+	 * = forwardToAdName; }
+	 * 
+	 * public String getForwardToRName() { return forwardToRName; }
+	 * 
+	 * public void setForwardToRName(String forwardToRName) { this.forwardToRName =
+	 * forwardToRName; }
+	 */
 
 	public Date getNotice15TillDate() {
 		return notice15TillDate;
@@ -1480,53 +1387,32 @@ public class BuildingPermitApplication implements java.io.Serializable {
 		this.talaThapAssignDate = talaThapAssignDate;
 	}
 
-	/*public String getRejectedA() {
-		return rejectedA;
-	}
-
-	public void setRejectedA(String rejectedA) {
-		this.rejectedA = rejectedA;
-	}
-
-	public String getRejectedB() {
-		return rejectedB;
-	}
-
-	public void setRejectedB(String rejectedB) {
-		this.rejectedB = rejectedB;
-	}
-
-	public String getRejectedC() {
-		return rejectedC;
-	}
-
-	public void setRejectedC(String rejectedC) {
-		this.rejectedC = rejectedC;
-	}
-
-	public String getRejectedD() {
-		return rejectedD;
-	}
-
-	public void setRejectedD(String rejectedD) {
-		this.rejectedD = rejectedD;
-	}
-
-	public String getRejectedDa() {
-		return rejectedDa;
-	}
-
-	public void setRejectedDa(String rejectedDa) {
-		this.rejectedDa = rejectedDa;
-	}
-
-	public String getRejectedR() {
-		return rejectedR;
-	}
-
-	public void setRejectedR(String rejectedR) {
-		this.rejectedR = rejectedR;
-	}*/
+	/*
+	 * public String getRejectedA() { return rejectedA; }
+	 * 
+	 * public void setRejectedA(String rejectedA) { this.rejectedA = rejectedA; }
+	 * 
+	 * public String getRejectedB() { return rejectedB; }
+	 * 
+	 * public void setRejectedB(String rejectedB) { this.rejectedB = rejectedB; }
+	 * 
+	 * public String getRejectedC() { return rejectedC; }
+	 * 
+	 * public void setRejectedC(String rejectedC) { this.rejectedC = rejectedC; }
+	 * 
+	 * public String getRejectedD() { return rejectedD; }
+	 * 
+	 * public void setRejectedD(String rejectedD) { this.rejectedD = rejectedD; }
+	 * 
+	 * public String getRejectedDa() { return rejectedDa; }
+	 * 
+	 * public void setRejectedDa(String rejectedDa) { this.rejectedDa = rejectedDa;
+	 * }
+	 * 
+	 * public String getRejectedR() { return rejectedR; }
+	 * 
+	 * public void setRejectedR(String rejectedR) { this.rejectedR = rejectedR; }
+	 */
 
 	public Long getNameTransaferId() {
 		return nameTransaferId;
@@ -1590,6 +1476,37 @@ public class BuildingPermitApplication implements java.io.Serializable {
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "applicationNo", fetch = FetchType.EAGER)
 	private List<RajaswaEntry> rajaswa;
 
+	@Column(name = "MEMBER_DETAILS")
+	private String memberDetails;
+	@Column(name = "SURROUNDING_DETAILS")
+	private String surroundingDetails;
+	@Column(name = "FLOOR_DETAILS")
+	private String floorDetails;
+
+	public String getMemberDetails() {
+		return memberDetails;
+	}
+
+	public void setMemberDetails(String memberDetails) {
+		this.memberDetails = memberDetails;
+	}
+
+	public String getSurroundingDetails() {
+		return surroundingDetails;
+	}
+
+	public void setSurroundingDetails(String surroundingDetails) {
+		this.surroundingDetails = surroundingDetails;
+	}
+
+	public String getFloorDetails() {
+		return floorDetails;
+	}
+
+	public void setFloorDetails(String floorDetails) {
+		this.floorDetails = floorDetails;
+	}
+
 	public String getIsDiscard() {
 		return isDiscard;
 	}
@@ -1614,21 +1531,15 @@ public class BuildingPermitApplication implements java.io.Serializable {
 		this.discardDate = discardDate;
 	}
 
-	/*public String getChiefName() {
-		return chiefName;
-	}
-
-	public void setChiefName(String chiefName) {
-		this.chiefName = chiefName;
-	}
-
-	public Date getChiefDate() {
-		return chiefDate;
-	}
-
-	public void setChiefDate(Date chiefDate) {
-		this.chiefDate = chiefDate;
-	}*/
+	/*
+	 * public String getChiefName() { return chiefName; }
+	 * 
+	 * public void setChiefName(String chiefName) { this.chiefName = chiefName; }
+	 * 
+	 * public Date getChiefDate() { return chiefDate; }
+	 * 
+	 * public void setChiefDate(Date chiefDate) { this.chiefDate = chiefDate; }
+	 */
 
 	public String getDiscardFile() {
 		return discardFile;
@@ -1686,283 +1597,231 @@ public class BuildingPermitApplication implements java.io.Serializable {
 		this.mayadthapBy = mayadthapBy;
 	}
 
-	/*public String geteName() {
-		return eName;
-	}
+	/*
+	 * public String geteName() { return eName; }
+	 * 
+	 * public void seteName(String eName) { this.eName = eName; }
+	 * 
+	 * public java.util.Date geteDate() { return eDate; }
+	 * 
+	 * public void seteDate(java.util.Date eDate) { this.eDate = eDate; }
+	 * 
+	 * public String geteStatus() { return eStatus; }
+	 * 
+	 * public void seteStatus(String eStatus) { this.eStatus = eStatus; }
+	 * 
+	 * public String getfName() { return fName; }
+	 * 
+	 * public void setfName(String fName) { this.fName = fName; }
+	 * 
+	 * public java.util.Date getfDate() { return fDate; }
+	 * 
+	 * public void setfDate(java.util.Date fDate) { this.fDate = fDate; }
+	 * 
+	 * public String getfStatus() { return fStatus; }
+	 * 
+	 * public void setfStatus(String fStatus) { this.fStatus = fStatus; }
+	 * 
+	 * public String getgName() { return gName; }
+	 * 
+	 * public void setgName(String gName) { this.gName = gName; }
+	 * 
+	 * public java.util.Date getgDate() { return gDate; }
+	 * 
+	 * public void setgDate(java.util.Date gDate) { this.gDate = gDate; }
+	 * 
+	 * public String getgStatus() { return gStatus; }
+	 * 
+	 * public void setgStatus(String gStatus) { this.gStatus = gStatus; }
+	 * 
+	 * public String getPosteStatus() { return posteStatus; }
+	 * 
+	 * public void setPosteStatus(String posteStatus) { this.posteStatus =
+	 * posteStatus; }
+	 * 
+	 * public String getPostfStatus() { return postfStatus; }
+	 * 
+	 * public void setPostfStatus(String postfStatus) { this.postfStatus =
+	 * postfStatus; }
+	 * 
+	 * public String getPostgStatus() { return postgStatus; }
+	 * 
+	 * public void setPostgStatus(String postgStatus) { this.postgStatus =
+	 * postgStatus; }
+	 * 
+	 * public String getPosteAction() { return posteAction; }
+	 * 
+	 * public void setPosteAction(String posteAction) { this.posteAction =
+	 * posteAction; }
+	 * 
+	 * public String getPostfAction() { return postfAction; }
+	 * 
+	 * public void setPostfAction(String postfAction) { this.postfAction =
+	 * postfAction; }
+	 * 
+	 * public String getPostgAction() { return postgAction; }
+	 * 
+	 * public void setPostgAction(String postgAction) { this.postgAction =
+	 * postgAction; }
+	 * 
+	 * public String getForwardToE() { return forwardToE; }
+	 * 
+	 * public void setForwardToE(String forwardToE) { this.forwardToE = forwardToE;
+	 * }
+	 * 
+	 * public String getForwardTof() { return forwardTof; }
+	 * 
+	 * public void setForwardTof(String forwardTof) { this.forwardTof = forwardTof;
+	 * }
+	 * 
+	 * public String getForwardTog() { return forwardTog; }
+	 * 
+	 * public void setForwardTog(String forwardTog) { this.forwardTog = forwardTog;
+	 * }
+	 * 
+	 * public String getForwardToERemark() { return forwardToERemark; }
+	 * 
+	 * public void setForwardToERemark(String forwardToERemark) {
+	 * this.forwardToERemark = forwardToERemark; }
+	 * 
+	 * public String getForwardToFRemark() { return forwardToFRemark; }
+	 * 
+	 * public void setForwardToFRemark(String forwardToFRemark) {
+	 * this.forwardToFRemark = forwardToFRemark; }
+	 * 
+	 * public String getForwardToGRemark() { return forwardToGRemark; }
+	 * 
+	 * public void setForwardToGRemark(String forwardToGRemark) {
+	 * this.forwardToGRemark = forwardToGRemark; }
+	 * 
+	 * public String getForwardToEDate() { return forwardToEDate; }
+	 * 
+	 * public void setForwardToEDate(String forwardToEDate) { this.forwardToEDate =
+	 * forwardToEDate; }
+	 * 
+	 * public String getForwardToFDate() { return forwardToFDate; }
+	 * 
+	 * public void setForwardToFDate(String forwardToFDate) { this.forwardToFDate =
+	 * forwardToFDate; }
+	 * 
+	 * public String getForwardToGDate() { return forwardToGDate; }
+	 * 
+	 * public void setForwardToGDate(String forwardToGDate) { this.forwardToGDate =
+	 * forwardToGDate; }
+	 * 
+	 * public String getForwardToEName() { return forwardToEName; }
+	 * 
+	 * public void setForwardToEName(String forwardToEName) { this.forwardToEName =
+	 * forwardToEName; }
+	 * 
+	 * public String getForwardToFName() { return forwardToFName; }
+	 * 
+	 * public void setForwardToFName(String forwardToFName) { this.forwardToFName =
+	 * forwardToFName; }
+	 * 
+	 * public String getForwardToGName() { return forwardToGName; }
+	 * 
+	 * public void setForwardToGName(String forwardToGName) { this.forwardToGName =
+	 * forwardToGName; }
+	 * 
+	 * public String getRejectedE() { return rejectedE; }
+	 * 
+	 * public void setRejectedE(String rejectedE) { this.rejectedE = rejectedE; }
+	 * 
+	 * public String getRejectedG() { return rejectedG; }
+	 * 
+	 * public void setRejectedG(String rejectedG) { this.rejectedG = rejectedG; }
+	 */
 
-	public void seteName(String eName) {
-		this.eName = eName;
-	}
-
-	public java.util.Date geteDate() {
-		return eDate;
-	}
-
-	public void seteDate(java.util.Date eDate) {
-		this.eDate = eDate;
-	}
-
-	public String geteStatus() {
-		return eStatus;
-	}
-
-	public void seteStatus(String eStatus) {
-		this.eStatus = eStatus;
-	}
-
-	public String getfName() {
-		return fName;
-	}
-
-	public void setfName(String fName) {
-		this.fName = fName;
-	}
-
-	public java.util.Date getfDate() {
-		return fDate;
-	}
-
-	public void setfDate(java.util.Date fDate) {
-		this.fDate = fDate;
-	}
-
-	public String getfStatus() {
-		return fStatus;
-	}
-
-	public void setfStatus(String fStatus) {
-		this.fStatus = fStatus;
-	}
-
-	public String getgName() {
-		return gName;
-	}
-
-	public void setgName(String gName) {
-		this.gName = gName;
-	}
-
-	public java.util.Date getgDate() {
-		return gDate;
-	}
-
-	public void setgDate(java.util.Date gDate) {
-		this.gDate = gDate;
-	}
-
-	public String getgStatus() {
-		return gStatus;
-	}
-
-	public void setgStatus(String gStatus) {
-		this.gStatus = gStatus;
-	}
-
-	public String getPosteStatus() {
-		return posteStatus;
-	}
-
-	public void setPosteStatus(String posteStatus) {
-		this.posteStatus = posteStatus;
-	}
-
-	public String getPostfStatus() {
-		return postfStatus;
-	}
-
-	public void setPostfStatus(String postfStatus) {
-		this.postfStatus = postfStatus;
-	}
-
-	public String getPostgStatus() {
-		return postgStatus;
-	}
-
-	public void setPostgStatus(String postgStatus) {
-		this.postgStatus = postgStatus;
-	}
-
-	public String getPosteAction() {
-		return posteAction;
-	}
-
-	public void setPosteAction(String posteAction) {
-		this.posteAction = posteAction;
-	}
-
-	public String getPostfAction() {
-		return postfAction;
-	}
-
-	public void setPostfAction(String postfAction) {
-		this.postfAction = postfAction;
-	}
-
-	public String getPostgAction() {
-		return postgAction;
-	}
-
-	public void setPostgAction(String postgAction) {
-		this.postgAction = postgAction;
-	}
-
-	public String getForwardToE() {
-		return forwardToE;
-	}
-
-	public void setForwardToE(String forwardToE) {
-		this.forwardToE = forwardToE;
-	}
-
-	public String getForwardTof() {
-		return forwardTof;
-	}
-
-	public void setForwardTof(String forwardTof) {
-		this.forwardTof = forwardTof;
-	}
-
-	public String getForwardTog() {
-		return forwardTog;
-	}
-
-	public void setForwardTog(String forwardTog) {
-		this.forwardTog = forwardTog;
-	}
-
-	public String getForwardToERemark() {
-		return forwardToERemark;
-	}
-
-	public void setForwardToERemark(String forwardToERemark) {
-		this.forwardToERemark = forwardToERemark;
-	}
-
-	public String getForwardToFRemark() {
-		return forwardToFRemark;
-	}
-
-	public void setForwardToFRemark(String forwardToFRemark) {
-		this.forwardToFRemark = forwardToFRemark;
-	}
-
-	public String getForwardToGRemark() {
-		return forwardToGRemark;
-	}
-
-	public void setForwardToGRemark(String forwardToGRemark) {
-		this.forwardToGRemark = forwardToGRemark;
-	}
-
-	public String getForwardToEDate() {
-		return forwardToEDate;
-	}
-
-	public void setForwardToEDate(String forwardToEDate) {
-		this.forwardToEDate = forwardToEDate;
-	}
-
-	public String getForwardToFDate() {
-		return forwardToFDate;
-	}
-
-	public void setForwardToFDate(String forwardToFDate) {
-		this.forwardToFDate = forwardToFDate;
-	}
-
-	public String getForwardToGDate() {
-		return forwardToGDate;
-	}
-
-	public void setForwardToGDate(String forwardToGDate) {
-		this.forwardToGDate = forwardToGDate;
-	}
-
-	public String getForwardToEName() {
-		return forwardToEName;
-	}
-
-	public void setForwardToEName(String forwardToEName) {
-		this.forwardToEName = forwardToEName;
-	}
-
-	public String getForwardToFName() {
-		return forwardToFName;
-	}
-
-	public void setForwardToFName(String forwardToFName) {
-		this.forwardToFName = forwardToFName;
-	}
-
-	public String getForwardToGName() {
-		return forwardToGName;
-	}
-
-	public void setForwardToGName(String forwardToGName) {
-		this.forwardToGName = forwardToGName;
-	}
-
-	public String getRejectedE() {
-		return rejectedE;
-	}
-
-	public void setRejectedE(String rejectedE) {
-		this.rejectedE = rejectedE;
-	}
-
-	public String getRejectedG() {
-		return rejectedG;
-	}
-
-	public void setRejectedG(String rejectedG) {
-		this.rejectedG = rejectedG;
-	}*/
-
-	/*@Override
-	public String toString() {
-		return "\n{\"id\":\"" + id + "\",\"applicationNo\":\"" + applicationNo + "\",\"applicantYear\":\"" + applicantYear + "\",\"applicantSn\":\""
-				+ applicantSn + "\",\"applicantDate\":\"" + applicantDate + "\",\"applicantMs\":\"" + applicantMs + "\",\"applicantName\":\"" + applicantName
-				+ "\",\"applicantAddress\":\"" + applicantAddress + "\",\"applicantMobileNo\":\"" + applicantMobileNo + "\",\"citizenshipNo\":\""
-				+ citizenshipNo + "\",\"nationalIdNo\":\"" + nationalIdNo + "\",\"fathersSpouseName\":\"" + fathersSpouseName + "\",\"oldMunicipal\":\""
-				+ oldMunicipal + "\",\"oldWardNo\":\"" + oldWardNo + "\",\"newMunicipal\":\"" + newMunicipal + "\",\"newWardNo\":\"" + newWardNo
-				+ "\",\"kittaNo\":\"" + kittaNo + "\",\"landArea\":\"" + landArea + "\",\"landAreaType\":\"" + landAreaType + "\",\"nearestLocation\":\""
-				+ nearestLocation + "\",\"buildingJoinRoad\":\"" + buildingJoinRoad + "\",\"buildingJoinRoadType\":\"" + buildingJoinRoadType
-				+ "\",\"buildingJoinRoadTypeOther\":\"" + buildingJoinRoadTypeOther + "\",\"landPassDate\":\"" + landPassDate + "\",\"landRegNo\":\""
-				+ landRegNo + "\",\"ownershipName\":\"" + ownershipName + "\",\"certificateArea\":\"" + certificateArea + "\",\"landCertificateNo\":\""
-				+ landCertificateNo + "\",\"landCertificateIssueDate\":\"" + landCertificateIssueDate + "\",\"purposeOfConstruction\":\""
-				+ purposeOfConstruction + "\",\"purposeOfConstructionOther\":\"" + purposeOfConstructionOther + "\",\"constructionType\":\"" + constructionType
-				+ "\",\"constructionTypeOther\":\"" + constructionTypeOther + "\",\"oldMapDate\":\"" + oldMapDate + "\",\"mohada\":\"" + mohada
-				+ "\",\"constructionFinishing\":\"" + constructionFinishing + "\",\"constructionFinishingOther\":\"" + constructionFinishingOther
-				+ "\",\"dhalNikasArrangement\":\"" + dhalNikasArrangement + "\",\"dhalNikasArrangementOther\":\"" + dhalNikasArrangementOther
-				+ "\",\"foharArrangement\":\"" + foharArrangement + "\",\"foharArrangementOther\":\"" + foharArrangementOther + "\",\"pipeline\":\"" + pipeline
-				+ "\",\"pipelineDistance\":\"" + pipelineDistance + "\",\"doPipelineConnection\":\"" + doPipelineConnection + "\",\"isHighTensionLine\":\""
-				+ isHighTensionLine + "\",\"isHighTensionLineDistance\":\"" + isHighTensionLineDistance + "\",\"sadak\":\"" + sadak + "\",\"tol\":\"" + tol
-				+ "\",\"dhalUnit\":\"" + dhalUnit + "\",\"pipelineUnit\":\"" + pipelineUnit + "\",\"highTensionLineUnit\":\"" + highTensionLineUnit
-				+ "\",\"nibedakName\":\"" + nibedakName + "\",\"nibedakAdditional\":\"" + nibedakAdditional + "\",\"nibedakSadak\":\"" + nibedakSadak
-				+ "\",\"nibedakTol\":\"" + nibedakTol + "\",\"remoteAddrDateTime\":\"" + remoteAddrDateTime + "\",\"enterBy\":\"" + enterBy
-				+ "\",\"enterDate\":\"" + enterDate + "\",\"serName\":\"" + serName + "\",\"serDate\":\"" + serDate + "\",\"serStatus\":\"" + serStatus
-				+ "\",\"erName\":\"" + erName + "\",\"erDate\":\"" + erDate + "\",\"erStatus\":\"" + erStatus + "\",\"designerStatus\":\"" + designerStatus
-				+ "\",\"aminStatus\":\"" + aminStatus + "\",\"rajasowStatus\":\"" + rajasowStatus + "\",\"subEngineerStatus\":\"" + subEngineerStatus
-				+ "\",\"engineerStatus\":\"" + engineerStatus + "\",\"chiefStatus\":\"" + chiefStatus + "\",\"designerAction\":\"" + designerAction
-				+ "\",\"aminAction\":\"" + aminAction + "\",\"rajasowAction\":\"" + rajasowAction + "\",\"subEngineerAction\":\"" + subEngineerAction
-				+ "\",\"engineerAction\":\"" + engineerAction + "\",\"chiefAction\":\"" + chiefAction + "\",\"aminiName\":\"" + aminiName
-				+ "\",\"aminiDate\":\"" + aminiDate + "\",\"aminiStatus\":\"" + aminiStatus + "\",\"rwName\":\"" + rwName + "\",\"rwDate\":\"" + rwDate
-				+ "\",\"rwStatus\":\"" + rwStatus + "\",\"applicationStatus\":\"" + applicationStatus + "\",\"applicationActionBy\":\"" + applicationActionBy
-				+ "\",\"applicationAction\":\"" + applicationAction + "\",\"forwardToD\":\"" + forwardToD + "\",\"forwardToB\":\"" + forwardToB
-				+ "\",\"forwardToA\":\"" + forwardToA + "\",\"forwardToC\":\"" + forwardToC + "\",\"forwardToAd\":\"" + forwardToAd + "\",\"forwardToR\":\""
-				+ forwardToR + "\",\"forwardToDRemark\":\"" + forwardToDRemark + "\",\"forwardToBRemark\":\"" + forwardToBRemark + "\",\"forwardToARemark\":\""
-				+ forwardToARemark + "\",\"forwardToCRemark\":\"" + forwardToCRemark + "\",\"forwardToAdRemark\":\"" + forwardToAdRemark
-				+ "\",\"forwardToRRemark\":\"" + forwardToRRemark + "\",\"forwardToADate\":\"" + forwardToADate + "\",\"forwardToDDate\":\"" + forwardToDDate
-				+ "\",\"forwardToCDate\":\"" + forwardToCDate + "\",\"forwardToBDate\":\"" + forwardToBDate + "\",\"forwardToAdDate\":\"" + forwardToAdDate
-				+ "\",\"forwardToRDate\":\"" + forwardToRDate + "\",\"forwardToAName\":\"" + forwardToAName + "\",\"forwardToBName\":\"" + forwardToBName
-				+ "\",\"forwardToCName\":\"" + forwardToCName + "\",\"forwardToDName\":\"" + forwardToDName + "\",\"forwardToAdName\":\"" + forwardToAdName
-				+ "\",\"forwardToRName\":\"" + forwardToRName + "\",\"notice15TillDate\":\"" + notice15TillDate + "\",\"isLowTensionLine\":\""
-				+ isLowTensionLine + "\",\"oldApplicationNo\":\"" + oldApplicationNo + "\",\"rejectedA\":\"" + rejectedA + "\",\"rejectedB\":\"" + rejectedB
-				+ "\",\"rejectedC\":\"" + rejectedC + "\",\"rejectedD\":\"" + rejectedD + "\",\"rejectedDa\":\"" + rejectedDa + "\",\"rejectedR\":\""
-				+ rejectedR + "\",\"photo\":\"" + photo + "\",\"talaThapAssign\":\"" + talaThapAssign + "\",\"talathapDocument\":\"" + talathapDocument
-				+ "\",\"talaThapAssignBy\":\"" + talaThapAssignBy + "\",\"talaThapAssignDate\":\"" + talaThapAssignDate + "\",\"talathapApplicationNo\":\""
-				+ talathapApplicationNo + "\",\"nameTransaferId\":\"" + nameTransaferId + "\",\"member\":\"" + member + "\",\"surrounding\":\"" + surrounding
-				+ "\",\"floor\":\"" + floor + "\",\"rajaswa\":\"" + rajaswa + "\"}";
-	}*/
+	/*
+	 * @Override public String toString() { return "\n{\"id\":\"" + id +
+	 * "\",\"applicationNo\":\"" + applicationNo + "\",\"applicantYear\":\"" +
+	 * applicantYear + "\",\"applicantSn\":\"" + applicantSn +
+	 * "\",\"applicantDate\":\"" + applicantDate + "\",\"applicantMs\":\"" +
+	 * applicantMs + "\",\"applicantName\":\"" + applicantName +
+	 * "\",\"applicantAddress\":\"" + applicantAddress +
+	 * "\",\"applicantMobileNo\":\"" + applicantMobileNo + "\",\"citizenshipNo\":\""
+	 * + citizenshipNo + "\",\"nationalIdNo\":\"" + nationalIdNo +
+	 * "\",\"fathersSpouseName\":\"" + fathersSpouseName + "\",\"oldMunicipal\":\""
+	 * + oldMunicipal + "\",\"oldWardNo\":\"" + oldWardNo + "\",\"newMunicipal\":\""
+	 * + newMunicipal + "\",\"newWardNo\":\"" + newWardNo + "\",\"kittaNo\":\"" +
+	 * kittaNo + "\",\"landArea\":\"" + landArea + "\",\"landAreaType\":\"" +
+	 * landAreaType + "\",\"nearestLocation\":\"" + nearestLocation +
+	 * "\",\"buildingJoinRoad\":\"" + buildingJoinRoad +
+	 * "\",\"buildingJoinRoadType\":\"" + buildingJoinRoadType +
+	 * "\",\"buildingJoinRoadTypeOther\":\"" + buildingJoinRoadTypeOther +
+	 * "\",\"landPassDate\":\"" + landPassDate + "\",\"landRegNo\":\"" + landRegNo +
+	 * "\",\"ownershipName\":\"" + ownershipName + "\",\"certificateArea\":\"" +
+	 * certificateArea + "\",\"landCertificateNo\":\"" + landCertificateNo +
+	 * "\",\"landCertificateIssueDate\":\"" + landCertificateIssueDate +
+	 * "\",\"purposeOfConstruction\":\"" + purposeOfConstruction +
+	 * "\",\"purposeOfConstructionOther\":\"" + purposeOfConstructionOther +
+	 * "\",\"constructionType\":\"" + constructionType +
+	 * "\",\"constructionTypeOther\":\"" + constructionTypeOther +
+	 * "\",\"oldMapDate\":\"" + oldMapDate + "\",\"mohada\":\"" + mohada +
+	 * "\",\"constructionFinishing\":\"" + constructionFinishing +
+	 * "\",\"constructionFinishingOther\":\"" + constructionFinishingOther +
+	 * "\",\"dhalNikasArrangement\":\"" + dhalNikasArrangement +
+	 * "\",\"dhalNikasArrangementOther\":\"" + dhalNikasArrangementOther +
+	 * "\",\"foharArrangement\":\"" + foharArrangement +
+	 * "\",\"foharArrangementOther\":\"" + foharArrangementOther +
+	 * "\",\"pipeline\":\"" + pipeline + "\",\"pipelineDistance\":\"" +
+	 * pipelineDistance + "\",\"doPipelineConnection\":\"" + doPipelineConnection +
+	 * "\",\"isHighTensionLine\":\"" + isHighTensionLine +
+	 * "\",\"isHighTensionLineDistance\":\"" + isHighTensionLineDistance +
+	 * "\",\"sadak\":\"" + sadak + "\",\"tol\":\"" + tol + "\",\"dhalUnit\":\"" +
+	 * dhalUnit + "\",\"pipelineUnit\":\"" + pipelineUnit +
+	 * "\",\"highTensionLineUnit\":\"" + highTensionLineUnit +
+	 * "\",\"nibedakName\":\"" + nibedakName + "\",\"nibedakAdditional\":\"" +
+	 * nibedakAdditional + "\",\"nibedakSadak\":\"" + nibedakSadak +
+	 * "\",\"nibedakTol\":\"" + nibedakTol + "\",\"remoteAddrDateTime\":\"" +
+	 * remoteAddrDateTime + "\",\"enterBy\":\"" + enterBy + "\",\"enterDate\":\"" +
+	 * enterDate + "\",\"serName\":\"" + serName + "\",\"serDate\":\"" + serDate +
+	 * "\",\"serStatus\":\"" + serStatus + "\",\"erName\":\"" + erName +
+	 * "\",\"erDate\":\"" + erDate + "\",\"erStatus\":\"" + erStatus +
+	 * "\",\"designerStatus\":\"" + designerStatus + "\",\"aminStatus\":\"" +
+	 * aminStatus + "\",\"rajasowStatus\":\"" + rajasowStatus +
+	 * "\",\"subEngineerStatus\":\"" + subEngineerStatus +
+	 * "\",\"engineerStatus\":\"" + engineerStatus + "\",\"chiefStatus\":\"" +
+	 * chiefStatus + "\",\"designerAction\":\"" + designerAction +
+	 * "\",\"aminAction\":\"" + aminAction + "\",\"rajasowAction\":\"" +
+	 * rajasowAction + "\",\"subEngineerAction\":\"" + subEngineerAction +
+	 * "\",\"engineerAction\":\"" + engineerAction + "\",\"chiefAction\":\"" +
+	 * chiefAction + "\",\"aminiName\":\"" + aminiName + "\",\"aminiDate\":\"" +
+	 * aminiDate + "\",\"aminiStatus\":\"" + aminiStatus + "\",\"rwName\":\"" +
+	 * rwName + "\",\"rwDate\":\"" + rwDate + "\",\"rwStatus\":\"" + rwStatus +
+	 * "\",\"applicationStatus\":\"" + applicationStatus +
+	 * "\",\"applicationActionBy\":\"" + applicationActionBy +
+	 * "\",\"applicationAction\":\"" + applicationAction + "\",\"forwardToD\":\"" +
+	 * forwardToD + "\",\"forwardToB\":\"" + forwardToB + "\",\"forwardToA\":\"" +
+	 * forwardToA + "\",\"forwardToC\":\"" + forwardToC + "\",\"forwardToAd\":\"" +
+	 * forwardToAd + "\",\"forwardToR\":\"" + forwardToR +
+	 * "\",\"forwardToDRemark\":\"" + forwardToDRemark +
+	 * "\",\"forwardToBRemark\":\"" + forwardToBRemark +
+	 * "\",\"forwardToARemark\":\"" + forwardToARemark +
+	 * "\",\"forwardToCRemark\":\"" + forwardToCRemark +
+	 * "\",\"forwardToAdRemark\":\"" + forwardToAdRemark +
+	 * "\",\"forwardToRRemark\":\"" + forwardToRRemark + "\",\"forwardToADate\":\""
+	 * + forwardToADate + "\",\"forwardToDDate\":\"" + forwardToDDate +
+	 * "\",\"forwardToCDate\":\"" + forwardToCDate + "\",\"forwardToBDate\":\"" +
+	 * forwardToBDate + "\",\"forwardToAdDate\":\"" + forwardToAdDate +
+	 * "\",\"forwardToRDate\":\"" + forwardToRDate + "\",\"forwardToAName\":\"" +
+	 * forwardToAName + "\",\"forwardToBName\":\"" + forwardToBName +
+	 * "\",\"forwardToCName\":\"" + forwardToCName + "\",\"forwardToDName\":\"" +
+	 * forwardToDName + "\",\"forwardToAdName\":\"" + forwardToAdName +
+	 * "\",\"forwardToRName\":\"" + forwardToRName + "\",\"notice15TillDate\":\"" +
+	 * notice15TillDate + "\",\"isLowTensionLine\":\"" + isLowTensionLine +
+	 * "\",\"oldApplicationNo\":\"" + oldApplicationNo + "\",\"rejectedA\":\"" +
+	 * rejectedA + "\",\"rejectedB\":\"" + rejectedB + "\",\"rejectedC\":\"" +
+	 * rejectedC + "\",\"rejectedD\":\"" + rejectedD + "\",\"rejectedDa\":\"" +
+	 * rejectedDa + "\",\"rejectedR\":\"" + rejectedR + "\",\"photo\":\"" + photo +
+	 * "\",\"talaThapAssign\":\"" + talaThapAssign + "\",\"talathapDocument\":\"" +
+	 * talathapDocument + "\",\"talaThapAssignBy\":\"" + talaThapAssignBy +
+	 * "\",\"talaThapAssignDate\":\"" + talaThapAssignDate +
+	 * "\",\"talathapApplicationNo\":\"" + talathapApplicationNo +
+	 * "\",\"nameTransaferId\":\"" + nameTransaferId + "\",\"member\":\"" + member +
+	 * "\",\"surrounding\":\"" + surrounding + "\",\"floor\":\"" + floor +
+	 * "\",\"rajaswa\":\"" + rajaswa + "\"}"; }
+	 */
 
 }

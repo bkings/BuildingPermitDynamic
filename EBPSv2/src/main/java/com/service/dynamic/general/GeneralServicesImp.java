@@ -42,35 +42,42 @@ public class GeneralServicesImp implements GeneralServices {
 
 	@Override
 	public Object getAll(Long applicationNo, String Authorization, String formId) {
+		List l1 = new ArrayList<>();
+		Map m1 = new HashMap<>(),returnMap = new HashMap<>();
 		JWTToken td = new JWTToken(Authorization);
 		if (!td.isStatus()) {
 			return message.respondWithMessage("Invalid Authorization");
 		}
-		sql = "SELECT table_name \"tableName\" FROM ebps_tables WHERE id=(SELECT table_id FROM form_name_master WHERE id=" + formId + ")";
-		list = dao.getRecords(sql);
-		map = (Map) list.get(0);
-		String tableName;
-		try {
-			tableName = map.get("tableName").toString();
-		} catch (Exception e) {
-			tableName = "";
-		}
 
-		try {
-			message.list = dao.getRecords("SELECT * FROM " + tableName + " WHERE application_no=" + applicationNo);
-		} catch (Exception e) {
-			msg = e.getMessage();
+		Long rTableId,rColumnId;
+		String columnName,tableName;
+
+//		sql = "SELECT table_name \"tableName\" FROM ebps_tables WHERE id=(SELECT table_id FROM form_name_master WHERE id=" + formId + ")";
+		sql = "SELECT coalesce(referenced_table_id,(select table_id from ebps_columns where id=ebps_column_id)) \"rTableId\","
+				+ "coalesce(referenced_column_id,ebps_column_id) \"rColumnId\" from form_fields where form_id=" + formId;
+		list = dao.getRecords(sql);
+		for (int i = 0; i < list.size(); i++) {
+			map = (Map) list.get(i);
+			rTableId = Long.parseLong(map.get("rTableId").toString());
+			rColumnId = Long.parseLong(map.get("rColumnId").toString());
+//			sql = "SELECT column_name \"columnName\",(select table_name from ebps_tables where id=table_id) \"tableName\" FROM ebps_columns WHERE id='"+rColumnId+"' AND table_id='"+rTableId+"' ";
+			sql = "SELECT column_name \"columnName\",(select table_name from ebps_tables where id=table_id) \"tableName\" FROM ebps_columns WHERE id='"+rColumnId+"' ";
+			m1 = (Map) dao.getRecords(sql).get(0);
+			columnName = m1.get("columnName").toString();
+			tableName = m1.get("tableName").toString();
+			sql = "SELECT "+columnName+" FROM "+tableName+" WHERE application_no=" + applicationNo;
+			returnMap.put(columnName, dao.getRecords(sql));
 		}
 
 		if (msg.contains("does not exist")) {
 			return message.respondWithError("Table does not exist! Create table first.");
 		}
 
-		if (message.list.isEmpty()) {
+		/*if (message.list.isEmpty()) {
 			return message.respondWithError("Record Not Found");
-		}
+		}*/
 		message.map = new HashMap();
-		message.map.put("data", message.list.get(0));
+		message.map.put("data", returnMap);
 		message.map.put("comment", message.getComment("" + applicationNo, "48"));
 		message.map.put("history", message.getHistory(applicationNo, "48"));
 		return message.map;
@@ -85,7 +92,7 @@ public class GeneralServicesImp implements GeneralServices {
 	 */
 	@Override
 	public Object save(Object obj, Long applicationNo, String formId, String Authorization) {
-		
+
 		Properties props = HibernateUtil.getProps();
 		String tableSchema = props.getProperty("hibernate.default_schema");
 
@@ -125,7 +132,7 @@ public class GeneralServicesImp implements GeneralServices {
 
 			// get primary key (doesn't make much sense i guess)
 			sql = "SELECT c.column_name as \"primaryKey\" FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.table_name = '"
-					+ tableName + "' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='"+tableSchema+"' AND c.table_schema='"+tableSchema+"'";
+					+ tableName + "' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='" + tableSchema + "' AND c.table_schema='" + tableSchema + "'";
 			map = (Map) dao.getRecords(sql).get(0);
 
 			sql = "SELECT * FROM " + tableName + " WHERE " + map.get("primaryKey").toString() + "=" + applicationNo;

@@ -29,12 +29,22 @@ public class FormFields {
 	private Long formId;
 	@Column(name = "EBPS_COLUMN_ID")
 	private Long ebpsColumnId;
+	@Column(name = "REFERENCED_TABLE_ID")
+	private Long referencedTableId;
+	@Column(name = "REFERENCED_COLUMN_ID")
+	private Long referencedColumnId;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "FORM_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	private FormNameMaster formNameMaster;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "EBPS_COLUMN_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	private EbpsColumns ebpsColumns;
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "REFERENCED_TABLE_ID", referencedColumnName = "ID", insertable = false, updatable = false)
+	private EbpsTables referencedEbpsTables;
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "REFERENCED_COLUMN_ID", referencedColumnName = "ID", insertable = false, updatable = false)
+	private EbpsColumns referencedEbpsColumns;
 
 	public Long getId() {
 		return id;
@@ -90,6 +100,22 @@ public class FormFields {
 
 	public void setEbpsColumnId(Long ebpsColumnId) {
 		this.ebpsColumnId = ebpsColumnId;
+	}
+
+	public Long getReferencedTableId() {
+		return referencedTableId;
+	}
+
+	public void setReferencedTableId(Long referencedTableId) {
+		this.referencedTableId = referencedTableId;
+	}
+
+	public Long getReferencedColumnId() {
+		return referencedColumnId;
+	}
+
+	public void setReferencedColumnId(Long referencedColumnId) {
+		this.referencedColumnId = referencedColumnId;
 	}
 
 }

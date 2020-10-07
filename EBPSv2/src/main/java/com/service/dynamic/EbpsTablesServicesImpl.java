@@ -65,7 +65,7 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 		if (!td.isStatus()) {
 			return message.respondWithError("Invalid Authorization");
 		}
-		return dao.getAll("FROM EbpsTables");
+		return dao.getAll("FROM EbpsTables ORDER BY id");
 	}
 
 	@Override
