@@ -8,6 +8,8 @@ public interface DaoGeneral {
 	
 	public List getRecords(String sql);
 	
+	public List getRecordsAsList(String sql);
+	
 	public String getMsg();
 
 }

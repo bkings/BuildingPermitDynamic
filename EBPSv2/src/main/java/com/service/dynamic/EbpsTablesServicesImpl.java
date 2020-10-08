@@ -40,8 +40,10 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 			break;
 		case "number":
 			dataType = "bigint";
+			break;
 		case "date":
 			dataType = "date";
+			break;
 		default:
 			dataType = "character varying";
 		}
@@ -81,7 +83,7 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 		Map m = new HashMap<>();
 		String tableName = "", sqlColAdd = "";
 		Long columnId;
-		sql = "SELECT column_name \"columnName\",reference \"dataType\" FROM ebps_columns WHERE table_id=" + tableId;
+		sql = "SELECT column_name \"columnName\",reference \"dataType\",coalesce(is_pk,'N') \"isPrimaryKey\" FROM ebps_columns WHERE table_id=" + tableId;
 		final List<Object> setupList = dao.getRecord(sql);
 		int numberOfSetupSavedColumns = setupList.size();
 //		sql = "SELECT column_name \"columnName\",data_type \"dataType\" FROM information_schema.columns WHERE table_name=(SELECT table_name FROM ebps_tables WHERE id="
@@ -102,31 +104,39 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 					return colName.contains(col.get("columnName").toString());
 				});
 
-				System.out.println("new list " + setupList + "\nTo string " + setupList.toString());
+				System.out.println("setup list " + setupList);
 
 				sql = "SELECT table_name AS \"tableName\" FROM ebps_tables WHERE id=" + tableId;
 				list = dao.getRecord(sql);
 				map = (Map) list.get(0);
 				tableName = map.get("tableName").toString();
 				sql = "ALTER TABLE " + tableName;
-
 				for (int i = 0; i < setupList.size(); i++) {
 					map = (Map) setupList.get(i);
 					if (i == setupList.size() - 1) {
-						sqlColAdd = sqlColAdd + " ADD COLUMN " + map.get("columnName").toString() + " " + dataTypeMappingForDb(map.get("dataType").toString())
-								+ ";";
+						if(map.get("isPrimaryKey").toString().equalsIgnoreCase("Y")) {
+							sqlColAdd = sqlColAdd + " ADD COLUMN \"" + map.get("columnName").toString() + "\" "+dataTypeMappingForDb(map.get("dataType").toString())+" PRIMARY KEY;";
+						} else {
+							sqlColAdd = sqlColAdd + " ADD COLUMN \"" + map.get("columnName").toString() + "\" " + dataTypeMappingForDb(map.get("dataType").toString())
+							+ ";";
+						}
 					} else {
-						sqlColAdd = sqlColAdd + " ADD COLUMN " + map.get("columnName").toString() + " " + dataTypeMappingForDb(map.get("dataType").toString())
-								+ ", ";
+						if(map.get("isPrimaryKey").toString().equalsIgnoreCase("Y")) {
+							sqlColAdd = sqlColAdd + " ADD COLUMN \"" + map.get("columnName").toString() + "\" " + dataTypeMappingForDb(map.get("dataType").toString())
+							+ " PRIMARY KEY, ";
+						} else {
+							sqlColAdd = sqlColAdd + " ADD COLUMN \"" + map.get("columnName").toString() + "\" " + dataTypeMappingForDb(map.get("dataType").toString())
+							+ ", ";
+						}
 					}
 				}
-
 				sql = sql + sqlColAdd;
 				row = dao.execute(sql);
-				if (row > 0) {
-					msg = "Columns added to table " + tableName + "in the database.";
+				if (dao.getMsg().equalsIgnoreCase("")) {
+					msg = "Columns added to " + tableName + " in the database.";
+				} else {
+					msg = dao.getMsg();
 				}
-
 			} else if (numberOfColumnsInDb > numberOfSetupSavedColumns) {
 				// insert
 				individualTableListDb.removeIf(data -> {
@@ -137,7 +147,7 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 					}).collect(Collectors.toList());
 					return colName.contains(col.get("columnName").toString());
 				});
-				System.out.println("new list is " + individualTableListDb + "\nTo string " + individualTableListDb.toString());
+				System.out.println("individual list is " + individualTableListDb);
 
 				sql = "SELECT coalesce(MAX(ID),0)+1 as id FROM ebps_columns";
 				map = (Map) dao.getRecord(sql).get(0);

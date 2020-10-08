@@ -40,7 +40,7 @@ public class DaoImpGeneral implements DaoGeneral {
 		}
 		return row;
 	}
-	
+
 	@Override
 	public String getMsg() {
 		return msg;
@@ -53,6 +53,25 @@ public class DaoImpGeneral implements DaoGeneral {
 		msg = "";
 		try {
 			list = session.createSQLQuery(sql).setResultTransformer(Criteria.ALIAS_TO_ENTITY_MAP).list();
+			tr.commit();
+		} catch (Exception e) {
+			tr.rollback();
+			msg = Message.exceptionMsg(e);
+		}
+		try {
+			session.close();
+		} catch (HibernateException e) {
+		}
+		return list;
+	}
+
+	@Override
+	public List getRecordsAsList(String sql) {
+		Session session = HibernateUtil.getSession();
+		Transaction tr = session.beginTransaction();
+		msg = "";
+		try {
+			list = session.createSQLQuery(sql).list();
 			tr.commit();
 		} catch (Exception e) {
 			tr.rollback();

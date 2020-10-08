@@ -12,7 +12,7 @@ target/
 .settings
 .springBeans
 .sts4-cache
-test.pgsql
+test.sql
 
 ### IntelliJ IDEA ###
 .idea
