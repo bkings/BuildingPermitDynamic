@@ -40,6 +40,10 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 			break;
 		case "number":
 			dataType = "bigint";
+		case "date":
+			dataType = "date";
+		default:
+			dataType = "character varying";
 		}
 		return dataType;
 	}
