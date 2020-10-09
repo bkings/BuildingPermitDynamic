@@ -8,6 +8,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.model.dynamic.vocabulary.Vocabulary;
 import com.model.utility.FormNameMaster;
 
 @Entity
@@ -33,6 +34,8 @@ public class FormFields {
 	private Long referencedTableId;
 	@Column(name = "REFERENCED_COLUMN_ID")
 	private Long referencedColumnId;
+	@Column(name = "VOCABULARY_ID")
+	private Long vocabularyId;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "FORM_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	private FormNameMaster formNameMaster;
@@ -45,6 +48,9 @@ public class FormFields {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "REFERENCED_COLUMN_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	private EbpsColumns referencedEbpsColumns;
+	@ManyToOne(optional = false, fetch = FetchType.LAZY)
+	@JoinColumn(name = "VOCABULARY_ID", referencedColumnName = "ID", insertable = false, updatable = false)
+	private Vocabulary vocabulary;
 
 	public Long getId() {
 		return id;
@@ -116,6 +122,14 @@ public class FormFields {
 
 	public void setReferencedColumnId(Long referencedColumnId) {
 		this.referencedColumnId = referencedColumnId;
+	}
+
+	public Long getVocabularyId() {
+		return vocabularyId;
+	}
+
+	public void setVocabularyId(Long vocabularyId) {
+		this.vocabularyId = vocabularyId;
 	}
 
 }
