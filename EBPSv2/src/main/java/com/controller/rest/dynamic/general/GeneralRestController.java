@@ -29,6 +29,7 @@ public class GeneralRestController {
 	GeneralServices service;
 
 	Message message = new Message();
+	
 	String msg = "", sql;
 	int row;
 
