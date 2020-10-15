@@ -105,7 +105,7 @@ public class GeneralServicesImp implements GeneralServices {
 			System.out.println("Error " + e.getMessage());
 		}
 
-		sql = "SELECT * FROM " + formTableName + " WHERE \""+primaryKey+"\"=" + applicationNo;
+		sql = "SELECT a.*,b.form_id \"formId\",b.user_type \"userType\",b.date \"date\",b.name \"name\",b.status \"status\" FROM " + formTableName + " a left join status b ON a.\""+primaryKey+"\"=b.application_no WHERE a.\""+primaryKey+"\"=" + applicationNo + " AND b.form_id="+formId+" AND b.user_type='"+td.getUserType()+"'";
 		message.list = dao.getRecords(sql);
 		msg = dao.getMsg();
 		if (msg.contains("does not exist")) {
