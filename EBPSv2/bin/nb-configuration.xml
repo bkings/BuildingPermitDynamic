@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<project-shared-configuration>
-    <properties xmlns="http://www.netbeans.org/ns/maven-properties-data/1">
-        <netbeans.compile.on.save>all</netbeans.compile.on.save>
-        <netbeans.hint.jdkPlatform>JDK_14</netbeans.hint.jdkPlatform>
-        <org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_deploy_2e_server>Tomcat</org-netbeans-modules-maven-j2ee.netbeans_2e_hint_2e_deploy_2e_server>
-    </properties>
-</project-shared-configuration>
