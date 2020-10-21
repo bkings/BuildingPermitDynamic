@@ -82,110 +82,169 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 
 		Map m = new HashMap<>();
 		String tableName = "", sqlColAdd = "";
-		Long columnId;
-		sql = "SELECT column_name \"columnName\",reference \"dataType\",coalesce(is_pk,'N') \"isPrimaryKey\",id \"id\" FROM ebps_columns WHERE table_id=" + tableId;
-		final List<Object> setupList = dao.getRecord(sql);
+		Long columnId = 0l;
+		// 1st retrieval
+		sql = "SELECT column_name \"columnName\",reference \"dataType\",coalesce(is_pk,'N') \"isPrimaryKey\",id \"id\" FROM ebps_columns WHERE table_id="
+				+ tableId;
+		List<Object> setupList = dao.getRecord(sql);
 		int numberOfSetupSavedColumns = setupList.size();
-//		sql = "SELECT column_name \"columnName\",data_type \"dataType\" FROM information_schema.columns WHERE table_name=(SELECT table_name FROM ebps_tables WHERE id="
-//				+ tableId + ") AND table_schema= '" + tableSchema + "' ";
-		sql = "select c.column_name \"columnName\",c.data_type \"dataType\",(CASE when d.constraint_type='PRIMARY KEY' then 'Y' else 'N' end) \"isPrimaryKey\" FROM information_schema.columns c left join (select * from information_schema.key_column_usage k,information_schema.table_constraints t where k.constraint_name=t.constraint_name and k.table_name=(SELECT table_name FROM ebps_tables WHERE id='"+tableId+"') and t.table_name=(SELECT table_name FROM ebps_tables WHERE id='"+tableId+"') and k.table_schema='"+tableSchema+"' and t.table_schema='"+tableSchema+"') d on c.column_name=d.column_name where c.table_name=(SELECT table_name FROM ebps_tables WHERE id='"+tableId+"') and c.table_schema='"+tableSchema+"'";
-		final List<Object> individualTableListDb = dao.getRecord(sql);
+		sql = "select c.column_name \"columnName\",c.data_type \"dataType\",(CASE when d.constraint_type='PRIMARY KEY' then 'Y' else 'N' end) \"isPrimaryKey\" FROM information_schema.columns c left join (select * from information_schema.key_column_usage k,information_schema.table_constraints t where k.constraint_name=t.constraint_name and k.table_name=(SELECT table_name FROM ebps_tables WHERE id='"
+				+ tableId + "') and t.table_name=(SELECT table_name FROM ebps_tables WHERE id='" + tableId + "') and k.table_schema='" + tableSchema
+				+ "' and t.table_schema='" + tableSchema
+				+ "') d on c.column_name=d.column_name where c.table_name=(SELECT table_name FROM ebps_tables WHERE id='" + tableId + "') and c.table_schema='"
+				+ tableSchema + "'";
+		List<Object> individualTableListDb = dao.getRecord(sql);
 		int numberOfColumnsInDb = individualTableListDb.size();
-		msg = "Already synced.";
-		if (numberOfSetupSavedColumns != numberOfColumnsInDb) {
-			if (numberOfSetupSavedColumns > numberOfColumnsInDb) {
-				// Alter add
-				setupList.removeIf(data -> {
-					Map col = (Map) data;
-					List colName = (List) individualTableListDb.stream().map(d -> {
-						Map mm = (Map) d;
-						if(mm.get("isPrimaryKey").toString().equalsIgnoreCase("Y") && mm.get("columnName").toString().equalsIgnoreCase(col.get("columnName").toString())) {
-							String uSql = "UPDATE ebps_columns SET is_pk='Y' WHERE id='"+Long.parseLong(col.get("id").toString())+"'";
-							System.out.println("usql " + uSql);
-							try {
-								dao.execute(uSql);
-							} catch (Exception e) {
-								System.out.println("e " + e.getMessage());
-							}
-						}
-						return mm.get("columnName").toString();
-					}).collect(Collectors.toList());
-					return colName.contains(col.get("columnName").toString());
-				});
 
-				System.out.println("setup list " + setupList);
+		msg = alterAdd(setupList, individualTableListDb, tableId, tableName, sqlColAdd);
+		// 2nd retrieval (To sync from other side as well)
+		sql = "SELECT column_name \"columnName\",reference \"dataType\",coalesce(is_pk,'N') \"isPrimaryKey\",id \"id\" FROM ebps_columns WHERE table_id="
+				+ tableId;
+		setupList = dao.getRecord(sql);
+		sql = "select c.column_name \"columnName\",c.data_type \"dataType\",(CASE when d.constraint_type='PRIMARY KEY' then 'Y' else 'N' end) \"isPrimaryKey\" FROM information_schema.columns c left join (select * from information_schema.key_column_usage k,information_schema.table_constraints t where k.constraint_name=t.constraint_name and k.table_name=(SELECT table_name FROM ebps_tables WHERE id='"
+				+ tableId + "') and t.table_name=(SELECT table_name FROM ebps_tables WHERE id='" + tableId + "') and k.table_schema='" + tableSchema
+				+ "' and t.table_schema='" + tableSchema
+				+ "') d on c.column_name=d.column_name where c.table_name=(SELECT table_name FROM ebps_tables WHERE id='" + tableId + "') and c.table_schema='"
+				+ tableSchema + "'";
+		individualTableListDb = dao.getRecord(sql);
+		msg = insertDB(setupList, individualTableListDb, tableId, tableName, sqlColAdd, columnId,msg);
 
-				sql = "SELECT table_name AS \"tableName\" FROM ebps_tables WHERE id=" + tableId;
-				list = dao.getRecord(sql);
-				map = (Map) list.get(0);
-				tableName = map.get("tableName").toString();
-				sql = "ALTER TABLE " + tableName;
-				for (int i = 0; i < setupList.size(); i++) {
-					map = (Map) setupList.get(i);
-					if (i == setupList.size() - 1) {
-						if(map.get("isPrimaryKey").toString().equalsIgnoreCase("Y")) {
-							sqlColAdd = sqlColAdd + " ADD COLUMN \"" + map.get("columnName").toString() + "\" "+dataTypeMappingForDb(map.get("dataType").toString())+" PRIMARY KEY;";
-						} else {
-							sqlColAdd = sqlColAdd + " ADD COLUMN \"" + map.get("columnName").toString() + "\" " + dataTypeMappingForDb(map.get("dataType").toString())
-							+ ";";
-						}
-					} else {
-						if(map.get("isPrimaryKey").toString().equalsIgnoreCase("Y")) {
-							sqlColAdd = sqlColAdd + " ADD COLUMN \"" + map.get("columnName").toString() + "\" " + dataTypeMappingForDb(map.get("dataType").toString())
-							+ " PRIMARY KEY, ";
-						} else {
-							sqlColAdd = sqlColAdd + " ADD COLUMN \"" + map.get("columnName").toString() + "\" " + dataTypeMappingForDb(map.get("dataType").toString())
-							+ ", ";
+		/*
+		 * if (numberOfSetupSavedColumns != numberOfColumnsInDb) { if
+		 * (numberOfSetupSavedColumns > numberOfColumnsInDb) { // Alter add msg =
+		 * alterAdd(setupList, individualTableListDb, tableId, tableName, sqlColAdd);
+		 * sql =
+		 * "SELECT column_name \"columnName\",reference \"dataType\",coalesce(is_pk,'N') \"isPrimaryKey\",id \"id\" FROM ebps_columns WHERE table_id="
+		 * + tableId; setupList = dao.getRecord(sql); sql =
+		 * "select c.column_name \"columnName\",c.data_type \"dataType\",(CASE when d.constraint_type='PRIMARY KEY' then 'Y' else 'N' end) \"isPrimaryKey\" FROM information_schema.columns c left join (select * from information_schema.key_column_usage k,information_schema.table_constraints t where k.constraint_name=t.constraint_name and k.table_name=(SELECT table_name FROM ebps_tables WHERE id='"
+		 * + tableId +
+		 * "') and t.table_name=(SELECT table_name FROM ebps_tables WHERE id='" +
+		 * tableId + "') and k.table_schema='" + tableSchema + "' and t.table_schema='"
+		 * + tableSchema +
+		 * "') d on c.column_name=d.column_name where c.table_name=(SELECT table_name FROM ebps_tables WHERE id='"
+		 * + tableId + "') and c.table_schema='" + tableSchema + "'";
+		 * individualTableListDb = dao.getRecord(sql); msg = insertDB(setupList,
+		 * individualTableListDb, tableId, tableName, sqlColAdd, columnId); } else if
+		 * (numberOfColumnsInDb > numberOfSetupSavedColumns) { // insert msg =
+		 * insertDB(setupList, individualTableListDb, tableId, tableName, sqlColAdd,
+		 * columnId); sql =
+		 * "SELECT column_name \"columnName\",reference \"dataType\",coalesce(is_pk,'N') \"isPrimaryKey\",id \"id\" FROM ebps_columns WHERE table_id="
+		 * + tableId; setupList = dao.getRecord(sql); sql =
+		 * "select c.column_name \"columnName\",c.data_type \"dataType\",(CASE when d.constraint_type='PRIMARY KEY' then 'Y' else 'N' end) \"isPrimaryKey\" FROM information_schema.columns c left join (select * from information_schema.key_column_usage k,information_schema.table_constraints t where k.constraint_name=t.constraint_name and k.table_name=(SELECT table_name FROM ebps_tables WHERE id='"
+		 * + tableId +
+		 * "') and t.table_name=(SELECT table_name FROM ebps_tables WHERE id='" +
+		 * tableId + "') and k.table_schema='" + tableSchema + "' and t.table_schema='"
+		 * + tableSchema +
+		 * "') d on c.column_name=d.column_name where c.table_name=(SELECT table_name FROM ebps_tables WHERE id='"
+		 * + tableId + "') and c.table_schema='" + tableSchema + "'";
+		 * individualTableListDb = dao.getRecord(sql); msg = alterAdd(setupList,
+		 * individualTableListDb, tableId, tableName, sqlColAdd); } }
+		 */
+		return message.respondWithMessage(msg);
+	}
+
+	public String alterAdd(List<Object> setupList, List<Object> individualTableListDb, Long tableId, String tableName, String sqlColAdd) {
+		setupList.removeIf(data -> {
+			Map col = (Map) data;
+			List colName = (List) individualTableListDb.stream().map(d -> {
+				Map mm = (Map) d;
+				if (mm.get("isPrimaryKey").toString().equalsIgnoreCase("Y") && mm.get("columnName").toString().equalsIgnoreCase(col.get("columnName")
+						.toString())) {
+					if (col.get("isPrimaryKey").toString().equalsIgnoreCase("N")) {
+						String uSql = "UPDATE ebps_columns SET is_pk='Y' WHERE id='" + Long.parseLong(col.get("id").toString()) + "'";
+						try {
+							dao.execute(uSql);
+						} catch (Exception e) {
+							System.out.println("e " + e.getMessage());
 						}
 					}
 				}
-				sql = sql + sqlColAdd;
-				row = dao.execute(sql);
-				if (dao.getMsg().equalsIgnoreCase("")) {
-					msg = "Columns added to " + tableName + " in the database.";
+				return mm.get("columnName").toString();
+			}).collect(Collectors.toList());
+			return colName.contains(col.get("columnName").toString());
+		});
+
+		System.out.println("setup list " + setupList);
+		if (setupList.isEmpty()) {
+			return "Already synced.";
+		}
+		sql = "SELECT table_name AS \"tableName\" FROM ebps_tables WHERE id=" + tableId;
+		list = dao.getRecord(sql);
+		map = (Map) list.get(0);
+		tableName = map.get("tableName").toString();
+		sql = "ALTER TABLE " + tableName;
+		for (int i = 0; i < setupList.size(); i++) {
+			map = (Map) setupList.get(i);
+			if (i == setupList.size() - 1) {
+				if (map.get("isPrimaryKey").toString().equalsIgnoreCase("Y")) {
+					sqlColAdd = sqlColAdd + " ADD COLUMN \"" + map.get("columnName").toString() + "\" " + dataTypeMappingForDb(map.get("dataType").toString())
+							+ " PRIMARY KEY;";
 				} else {
-					msg = dao.getMsg();
+					sqlColAdd = sqlColAdd + " ADD COLUMN \"" + map.get("columnName").toString() + "\" " + dataTypeMappingForDb(map.get("dataType").toString())
+							+ ";";
 				}
-			} else if (numberOfColumnsInDb > numberOfSetupSavedColumns) {
-				// insert
-				individualTableListDb.removeIf(data -> {
-					Map col = (Map) data;
-					List colName = setupList.stream().map(d -> {
-						Map mm = (Map) d;
-						if(col.get("isPrimaryKey").toString().equalsIgnoreCase("Y") && col.get("columnName").toString().equalsIgnoreCase(mm.get("columnName").toString())) {
-							String uSql = "UPDATE ebps_columns SET is_pk='Y' WHERE id='"+Long.parseLong(mm.get("id").toString())+"'";
-							System.out.println("usql  2 " + uSql);
-							try {
-								dao.execute(uSql);
-							} catch (Exception e) {
-								System.out.println("err " + e.getMessage());
-							}
-						}
-						return mm.get("columnName").toString();
-					}).collect(Collectors.toList());
-					return colName.contains(col.get("columnName").toString());
-				});
-				System.out.println("individual list is " + individualTableListDb);
-
-				sql = "SELECT coalesce(MAX(ID),0)+1 as id FROM ebps_columns";
-				map = (Map) dao.getRecord(sql).get(0);
-				columnId = Long.parseLong(map.get("id").toString());
-				sql = "INSERT INTO ebps_columns (id,column_name,name,reference,table_id,is_pk)values(";
-
-				for (int i = 0; i < individualTableListDb.size(); i++) {
-					map = (Map) individualTableListDb.get(i);
-					sqlColAdd = sql + "" + columnId + ",'" + map.get("columnName").toString() + "','" + map.get("columnName").toString() + "','"
-							+ dataTypeMappingForSetup(map.get("dataType").toString()) + "'," + tableId + ",'"+map.get("isPrimaryKey").toString()+"')";
-					columnId++;
-					System.out.println("sql " + sqlColAdd);
-					row = dao.execute(sqlColAdd);
-				}
-				if (row > 0) {
-					msg = "Successfully synced with database.";
+			} else {
+				if (map.get("isPrimaryKey").toString().equalsIgnoreCase("Y")) {
+					sqlColAdd = sqlColAdd + " ADD COLUMN \"" + map.get("columnName").toString() + "\" " + dataTypeMappingForDb(map.get("dataType").toString())
+							+ " PRIMARY KEY, ";
+				} else {
+					sqlColAdd = sqlColAdd + " ADD COLUMN \"" + map.get("columnName").toString() + "\" " + dataTypeMappingForDb(map.get("dataType").toString())
+							+ ", ";
 				}
 			}
 		}
-		return message.respondWithMessage(msg);
+		sql = sql + sqlColAdd;
+		row = dao.execute(sql);
+		if (dao.getMsg().equalsIgnoreCase("")) {
+			msg = "Columns added to " + tableName + " in the database.";
+		} else {
+			msg = dao.getMsg();
+		}
+		return msg;
+	}
+
+	public String insertDB(List<Object> setupList, List<Object> individualTableListDb, Long tableId, String tableName, String sqlColAdd, Long columnId,String msg) {
+		individualTableListDb.removeIf(data -> {
+			Map col = (Map) data;
+			List colName = setupList.stream().map(d -> {
+				Map mm = (Map) d;
+				if (col.get("isPrimaryKey").toString().equalsIgnoreCase("Y") && col.get("columnName").toString().equalsIgnoreCase(mm.get("columnName")
+						.toString())) {
+					if (mm.get("isPrimaryKey").toString().equalsIgnoreCase("N")) {
+						String uSql = "UPDATE ebps_columns SET is_pk='Y' WHERE id='" + Long.parseLong(mm.get("id").toString()) + "'";
+						try {
+							dao.execute(uSql);
+						} catch (Exception e) {
+							System.out.println("err " + e.getMessage());
+						}
+					}
+				}
+				return mm.get("columnName").toString();
+			}).collect(Collectors.toList());
+			return colName.contains(col.get("columnName").toString());
+		});
+		System.out.println("individual list is " + individualTableListDb);
+		if (individualTableListDb.isEmpty()) {
+			return msg;
+		}
+		sql = "SELECT coalesce(MAX(ID),0)+1 as id FROM ebps_columns";
+		map = (Map) dao.getRecord(sql).get(0);
+		columnId = Long.parseLong(map.get("id").toString());
+		sql = "INSERT INTO ebps_columns (id,column_name,name,reference,table_id,is_pk)values(";
+
+		for (int i = 0; i < individualTableListDb.size(); i++) {
+			map = (Map) individualTableListDb.get(i);
+			sqlColAdd = sql + "" + columnId + ",'" + map.get("columnName").toString() + "','" + map.get("columnName").toString() + "','"
+					+ dataTypeMappingForSetup(map.get("dataType").toString()) + "'," + tableId + ",'" + map.get("isPrimaryKey").toString() + "')";
+			columnId++;
+			System.out.println("sql " + sqlColAdd);
+			row = dao.execute(sqlColAdd);
+		}
+		if (row > 0) {
+			msg = "Successfully synced with database.";
+		}
+
+		return msg;
 	}
 
 	@Override
