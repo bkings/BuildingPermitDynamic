@@ -83,7 +83,7 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 		Map m = new HashMap<>();
 		String tableName = "", sqlColAdd = "";
 		Long columnId;
-		sql = "SELECT column_name \"columnName\",reference \"dataType\",coalesce(is_pk,'N') \"isPrimaryKey\" FROM ebps_columns WHERE table_id=" + tableId;
+		sql = "SELECT column_name \"columnName\",reference \"dataType\",coalesce(is_pk,'N') \"isPrimaryKey\",id \"id\" FROM ebps_columns WHERE table_id=" + tableId;
 		final List<Object> setupList = dao.getRecord(sql);
 		int numberOfSetupSavedColumns = setupList.size();
 //		sql = "SELECT column_name \"columnName\",data_type \"dataType\" FROM information_schema.columns WHERE table_name=(SELECT table_name FROM ebps_tables WHERE id="
@@ -99,6 +99,15 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 					Map col = (Map) data;
 					List colName = (List) individualTableListDb.stream().map(d -> {
 						Map mm = (Map) d;
+						if(mm.get("isPrimaryKey").toString().equalsIgnoreCase("Y") && mm.get("columnName").toString().equalsIgnoreCase(col.get("columnName").toString())) {
+							String uSql = "UPDATE ebps_columns SET is_pk='Y' WHERE id='"+Long.parseLong(col.get("id").toString())+"'";
+							System.out.println("usql " + uSql);
+							try {
+								dao.execute(uSql);
+							} catch (Exception e) {
+								System.out.println("e " + e.getMessage());
+							}
+						}
 						return mm.get("columnName").toString();
 					}).collect(Collectors.toList());
 					return colName.contains(col.get("columnName").toString());
@@ -143,6 +152,15 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 					Map col = (Map) data;
 					List colName = setupList.stream().map(d -> {
 						Map mm = (Map) d;
+						if(col.get("isPrimaryKey").toString().equalsIgnoreCase("Y") && col.get("columnName").toString().equalsIgnoreCase(mm.get("columnName").toString())) {
+							String uSql = "UPDATE ebps_columns SET is_pk='Y' WHERE id='"+Long.parseLong(mm.get("id").toString())+"'";
+							System.out.println("usql  2 " + uSql);
+							try {
+								dao.execute(uSql);
+							} catch (Exception e) {
+								System.out.println("err " + e.getMessage());
+							}
+						}
 						return mm.get("columnName").toString();
 					}).collect(Collectors.toList());
 					return colName.contains(col.get("columnName").toString());
