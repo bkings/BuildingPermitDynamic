@@ -112,9 +112,7 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 					}).collect(Collectors.toList());
 					return colName.contains(col.get("columnName").toString());
 				});
-
 				System.out.println("setup list " + setupList);
-
 				sql = "SELECT table_name AS \"tableName\" FROM ebps_tables WHERE id=" + tableId;
 				list = dao.getRecord(sql);
 				map = (Map) list.get(0);
