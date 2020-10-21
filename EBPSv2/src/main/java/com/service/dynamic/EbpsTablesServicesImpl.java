@@ -108,38 +108,6 @@ public class EbpsTablesServicesImpl implements EbpsTablesServices {
 				+ tableSchema + "'";
 		individualTableListDb = dao.getRecord(sql);
 		msg = insertDB(setupList, individualTableListDb, tableId, tableName, sqlColAdd, columnId,msg);
-
-		/*
-		 * if (numberOfSetupSavedColumns != numberOfColumnsInDb) { if
-		 * (numberOfSetupSavedColumns > numberOfColumnsInDb) { // Alter add msg =
-		 * alterAdd(setupList, individualTableListDb, tableId, tableName, sqlColAdd);
-		 * sql =
-		 * "SELECT column_name \"columnName\",reference \"dataType\",coalesce(is_pk,'N') \"isPrimaryKey\",id \"id\" FROM ebps_columns WHERE table_id="
-		 * + tableId; setupList = dao.getRecord(sql); sql =
-		 * "select c.column_name \"columnName\",c.data_type \"dataType\",(CASE when d.constraint_type='PRIMARY KEY' then 'Y' else 'N' end) \"isPrimaryKey\" FROM information_schema.columns c left join (select * from information_schema.key_column_usage k,information_schema.table_constraints t where k.constraint_name=t.constraint_name and k.table_name=(SELECT table_name FROM ebps_tables WHERE id='"
-		 * + tableId +
-		 * "') and t.table_name=(SELECT table_name FROM ebps_tables WHERE id='" +
-		 * tableId + "') and k.table_schema='" + tableSchema + "' and t.table_schema='"
-		 * + tableSchema +
-		 * "') d on c.column_name=d.column_name where c.table_name=(SELECT table_name FROM ebps_tables WHERE id='"
-		 * + tableId + "') and c.table_schema='" + tableSchema + "'";
-		 * individualTableListDb = dao.getRecord(sql); msg = insertDB(setupList,
-		 * individualTableListDb, tableId, tableName, sqlColAdd, columnId); } else if
-		 * (numberOfColumnsInDb > numberOfSetupSavedColumns) { // insert msg =
-		 * insertDB(setupList, individualTableListDb, tableId, tableName, sqlColAdd,
-		 * columnId); sql =
-		 * "SELECT column_name \"columnName\",reference \"dataType\",coalesce(is_pk,'N') \"isPrimaryKey\",id \"id\" FROM ebps_columns WHERE table_id="
-		 * + tableId; setupList = dao.getRecord(sql); sql =
-		 * "select c.column_name \"columnName\",c.data_type \"dataType\",(CASE when d.constraint_type='PRIMARY KEY' then 'Y' else 'N' end) \"isPrimaryKey\" FROM information_schema.columns c left join (select * from information_schema.key_column_usage k,information_schema.table_constraints t where k.constraint_name=t.constraint_name and k.table_name=(SELECT table_name FROM ebps_tables WHERE id='"
-		 * + tableId +
-		 * "') and t.table_name=(SELECT table_name FROM ebps_tables WHERE id='" +
-		 * tableId + "') and k.table_schema='" + tableSchema + "' and t.table_schema='"
-		 * + tableSchema +
-		 * "') d on c.column_name=d.column_name where c.table_name=(SELECT table_name FROM ebps_tables WHERE id='"
-		 * + tableId + "') and c.table_schema='" + tableSchema + "'";
-		 * individualTableListDb = dao.getRecord(sql); msg = alterAdd(setupList,
-		 * individualTableListDb, tableId, tableName, sqlColAdd); } }
-		 */
 		return message.respondWithMessage(msg);
 	}
 
