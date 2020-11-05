@@ -25,6 +25,7 @@ import com.model.processing.RajaswaEntry;
 import com.model.setup.WardMaster;
 import com.model.utility.ApplicationForwardingSetup;
 import com.model.utility.ChangeDesigner;
+import com.model.utility.CheckClassGroup;
 import com.model.utility.FileStorageCategory;
 import com.model.utility.FiscalYear;
 import com.model.utility.FormGroup;
@@ -156,6 +157,7 @@ public class HibernateUtil {
 					.addAnnotatedClass(ApplicationForwardingSetup.class).addAnnotatedClass(FileStorageCategory.class).addAnnotatedClass(WardMaster.class)
 					.addAnnotatedClass(ChangeDesigner.class)
 					.addAnnotatedClass(Vocabulary.class).addAnnotatedClass(VocabularyDetails.class)
+					.addAnnotatedClass(CheckClassGroup.class)
 					.buildSessionFactory();
 
 			setProps(prop);
