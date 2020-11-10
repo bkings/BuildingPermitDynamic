@@ -149,7 +149,9 @@ public class GeneralServicesImp implements GeneralServices {
 		String userType = td.getUserType();
 
 		String columns = "", columnName = "";
-		Object values = "";
+//		Object values = "";
+		String valuesForInsertQry = "";
+		List<Object> values = new ArrayList<>();
 		try {
 			sql = "SELECT ET.table_name as \"tableName\",FF.name as \"name\",ET.id as \"tableId\" FROM ebps_tables ET,ebps_columns EC,form_name_master FM,form_fields FF WHERE ET.id=FM.table_id AND FF.form_id=FM.id AND FF.ebps_column_id=EC.id AND FM.id="
 					+ formId;
@@ -171,7 +173,8 @@ public class GeneralServicesImp implements GeneralServices {
 					return message.respondWithError("Could not find column for " + key);
 				}
 				columns = columns + "," + columnName;
-				values = values + ",'" + map.get(key).toString() + "'";
+				valuesForInsertQry = valuesForInsertQry + ",'" + map.get(key).toString() + "'";
+				values.add(map.get(key));
 			}
 
 			// get primary key (doesn't make much sense i guess)
@@ -183,7 +186,8 @@ public class GeneralServicesImp implements GeneralServices {
 			sql = "SELECT * FROM " + tableName + " WHERE " + map.get("primaryKey").toString() + "=" + applicationNo;
 			list = dao.getRecords(sql);
 			if (list.isEmpty()) {
-				sql = "INSERT INTO " + tableName + " (" + columns.substring(1) + ") values(" + values.toString().substring(1) + ")";
+//				sql = "INSERT INTO " + tableName + " (" + columns.substring(1) + ") values(" + values.toString().substring(1) + ")";
+				sql = "INSERT INTO " + tableName + " (" + columns.substring(1) + ") values(" + valuesForInsertQry.toString().substring(1) + ")";
 				System.out.println("sql " + sql);
 				row = dao.execute(sql);
 				msg = dao.getMsg();
@@ -210,10 +214,11 @@ public class GeneralServicesImp implements GeneralServices {
 				}
 			} else {
 				String[] cols = columns.substring(1).split(",");
-				String[] vals = values.toString().substring(1).split(",");
+//				String[] vals = values.toString().substring(1).split(",");
 				String updateSql = "";
 				for (int j = 0; j < cols.length; j++) {
-					updateSql = updateSql + "," + cols[j] + "=" + vals[j] + " ";
+//					updateSql = updateSql + "," + cols[j] + "=" + vals[j] + " ";
+					updateSql = updateSql + "," + cols[j] + "='" + values.get(j).toString() + "' ";
 				}
 				sql = "UPDATE " + tableName + " SET " + updateSql.substring(1) + " WHERE " + map.get("primaryKey") + "=" + applicationNo;
 				System.out.println("final sql " + sql);
