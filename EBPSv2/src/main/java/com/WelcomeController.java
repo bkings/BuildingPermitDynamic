@@ -163,7 +163,8 @@ public class WelcomeController {
             
             sql = "select login_id loginId,user_name userName,user_type userType,coalesce(signature,'') signature from organization_user where user_type not in ('D','TADM','ADM')";
             message.map.put("userDetails", db.getRecord(sql));
-            
+            sql = "FROM Vocabulary";
+            message.map.put("vocabulary", db.getAll(sql));
             return message.map;
         } catch (Exception e) {
             return message.respondWithError(e.getMessage());
