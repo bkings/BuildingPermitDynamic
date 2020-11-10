@@ -44,7 +44,7 @@ public class GeneralServicesImp implements GeneralServices {
 	public Object getAll(Long applicationNo, String Authorization, String formId) {
 		Properties props = HibernateUtil.getProps();
 		String tableSchema = props.getProperty("hibernate.default_schema");
-		
+
 		List l1 = new ArrayList<>();
 		Map m1 = new HashMap<>(), returnMap = new HashMap<>();
 		JWTToken td = new JWTToken(Authorization);
@@ -53,20 +53,21 @@ public class GeneralServicesImp implements GeneralServices {
 		}
 
 		Long rTableId, rColumnId;
-		String columnName, tableName, formTableName,primaryKey;
+		String columnName, tableName, formTableName, primaryKey;
 
 		sql = "SELECT table_name \"tableName\" FROM ebps_tables WHERE id=(SELECT table_id FROM form_name_master WHERE id=" + formId + ")";
 		list = dao.getRecords(sql);
-		if(list.isEmpty()) {
+		if (list.isEmpty()) {
 			return message.respondWithError("Invalid Form Id.");
 		}
 		map = (Map) list.get(0);
 		formTableName = map.get("tableName").toString();
-		
+
 		// This case covers only tables with single primary key.
-		sql = "SELECT c.column_name as \"primaryKey\" FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.table_name = '"+formTableName+"' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='"+tableSchema+"' AND c.table_schema='"+tableSchema+"'";
+		sql = "SELECT c.column_name as \"primaryKey\" FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.table_name = '"
+				+ formTableName + "' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='" + tableSchema + "' AND c.table_schema='" + tableSchema + "'";
 		list = dao.getRecords(sql);
-		if(list.isEmpty()) {
+		if (list.isEmpty()) {
 			return message.respondWithError("Columns not found.");
 		}
 		map = (Map) list.get(0);
@@ -75,28 +76,32 @@ public class GeneralServicesImp implements GeneralServices {
 		} catch (Exception e) {
 			primaryKey = "applicationNo";
 		}
-		
-		sql = "SELECT coalesce(referenced_table_id,0) \"rTableId\","
-				+ "coalesce(referenced_column_id,0) \"rColumnId\" from form_fields where form_id=" + formId;
+
+		sql = "SELECT coalesce(referenced_table_id,0) \"rTableId\"," + "coalesce(referenced_column_id,0) \"rColumnId\" from form_fields where form_id="
+				+ formId;
 		try {
 			list = dao.getRecords(sql);
-			if(list.isEmpty()) {
+			if (list.isEmpty()) {
 				return message.respondWithError("Fields not availabe for this form id.");
 			}
 			for (int i = 0; i < list.size(); i++) {
 				map = (Map) list.get(i);
 				rTableId = Long.parseLong(map.get("rTableId").toString());
 				rColumnId = Long.parseLong(map.get("rColumnId").toString());
-				if(rColumnId == 0) continue;
+				if (rColumnId == 0)
+					continue;
 //				sql = "SELECT column_name \"columnName\",(select table_name from ebps_tables where id=table_id) \"tableName\" FROM ebps_columns WHERE id='"+rColumnId+"' AND table_id='"+rTableId+"' ";
 				sql = "SELECT column_name \"columnName\",(select table_name from ebps_tables where id=table_id) \"tableName\" FROM ebps_columns WHERE id='"
 						+ rColumnId + "' ";
 				m1 = (Map) dao.getRecords(sql).get(0);
 				columnName = m1.get("columnName").toString();
 				tableName = m1.get("tableName").toString();
-				sql = "SELECT c.column_name as \"primaryKey\" FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.table_name = '"+tableName+"' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='"+tableSchema+"' AND c.table_schema='"+tableSchema+"'";
+				sql = "SELECT c.column_name as \"primaryKey\" FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.table_name = '"
+						+ tableName + "' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='" + tableSchema + "' AND c.table_schema='" + tableSchema
+						+ "'";
 				m1 = (Map) dao.getRecords(sql).get(0);
-				sql = "SELECT \"" + columnName + "\" AS \"" + columnName + "\" FROM " + tableName + " WHERE \""+m1.get("primaryKey").toString()+"\"=" + applicationNo;
+				sql = "SELECT \"" + columnName + "\" AS \"" + columnName + "\" FROM " + tableName + " WHERE \"" + m1.get("primaryKey").toString() + "\"="
+						+ applicationNo;
 				m1 = (Map) dao.getRecords(sql).get(0);
 				returnMap.put(columnName, m1.get(columnName));
 			}
@@ -105,7 +110,9 @@ public class GeneralServicesImp implements GeneralServices {
 			System.out.println("Error " + e.getMessage());
 		}
 
-		sql = "SELECT a.*,b.form_id \"formId\",b.user_type \"userType\",b.date \"date\",b.name \"name\",b.status \"status\" FROM " + formTableName + " a left join status b ON a.\""+primaryKey+"\"=b.application_no WHERE a.\""+primaryKey+"\"=" + applicationNo + " AND b.form_id="+formId+" AND b.user_type='"+td.getUserType()+"'";
+		sql = "SELECT a.*,b.form_id \"formId\",b.user_type \"userType\",b.date \"date\",b.name \"name\",b.status \"status\" FROM " + formTableName
+				+ " a left join status b ON a.\"" + primaryKey + "\"=b.application_no WHERE a.\"" + primaryKey + "\"=" + applicationNo + " AND b.form_id="
+				+ formId + " AND b.user_type='" + td.getUserType() + "'";
 		message.list = dao.getRecords(sql);
 		msg = dao.getMsg();
 		if (msg.contains("does not exist")) {
@@ -128,8 +135,9 @@ public class GeneralServicesImp implements GeneralServices {
 	/**
 	 * Single method for all forms (through a single controller)
 	 * 
-	 * @param obj Contains data to be saved to table.
-	 * @param applicationNo To identify it as primary key and also save status table.
+	 * @param obj           Contains data to be saved to table.
+	 * @param applicationNo To identify it as primary key and also save status
+	 *                      table.
 	 * @param Authorization Is the authorization token.
 	 * @return Either the integer value greater than 0 for successful transaction or
 	 *         the error message.
@@ -172,9 +180,18 @@ public class GeneralServicesImp implements GeneralServices {
 					System.out.println("col exc " + e.getMessage());
 					return message.respondWithError("Could not find column for " + key);
 				}
-				columns = columns + "," + columnName;
-				valuesForInsertQry = valuesForInsertQry + ",'" + map.get(key).toString() + "'";
-				values.add(map.get(key));
+
+				String x;
+				try {
+					x = map.get(key).toString();
+				} catch (Exception e) {
+					x = null;
+				}
+				if (x != null) {
+					columns = columns + "," + columnName;
+					valuesForInsertQry = valuesForInsertQry + ",'" + String.valueOf(map.get(key)) + "'";
+					values.add(map.get(key));
+				}
 			}
 
 			// get primary key (doesn't make much sense i guess)
@@ -218,7 +235,7 @@ public class GeneralServicesImp implements GeneralServices {
 				String updateSql = "";
 				for (int j = 0; j < cols.length; j++) {
 //					updateSql = updateSql + "," + cols[j] + "=" + vals[j] + " ";
-					updateSql = updateSql + "," + cols[j] + "='" + values.get(j).toString() + "' ";
+					updateSql = updateSql + "," + cols[j] + "='" + String.valueOf(values.get(j)) + "' ";
 				}
 				sql = "UPDATE " + tableName + " SET " + updateSql.substring(1) + " WHERE " + map.get("primaryKey") + "=" + applicationNo;
 				System.out.println("final sql " + sql);
@@ -232,6 +249,7 @@ public class GeneralServicesImp implements GeneralServices {
 
 		} catch (Exception e) {
 			msg = e.getMessage();
+			e.printStackTrace();
 		}
 		return message.respondWithError(msg);
 	}
