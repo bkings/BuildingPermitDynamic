@@ -104,7 +104,7 @@ public class ApplicationReject {
 				uType=mm.get("userType").toString();
 				if(uType.equalsIgnoreCase(forwaTo)) {
 					multiSql[0] = "UPDATE application_status SET user_full_status='R',forward_to_user='I',forward_to_user_remark='यो फाईल "+forwardByName+" बाट पठाईएको छ ।'  WHERE application_no= "+applicationNo+" AND user_type='"+uType+"'";
-					multiSql[1] = "UPDATE application_staus SET user_full_status='R',user_action='"+formId+"',rejected_by_user='Y' WHERE application_no="+applicationNo+" AND user_type='"+userType+"'";
+					multiSql[1] = "UPDATE application_status SET user_full_status='R',user_action='"+formId+"',rejected_by_user='Y' WHERE application_no="+applicationNo+" AND user_type='"+userType+"'";
 					multiSql[2] = "UPDATE building_permit_application SET application_action='"+formId+"',application_action_by='"+userType+"',application_status='R' WHERE ID=" + applicationNo;
 					db.saveMultiple(multiSql);
 				} else {

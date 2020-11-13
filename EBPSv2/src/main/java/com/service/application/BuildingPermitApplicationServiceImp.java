@@ -26,7 +26,10 @@ import com.model.application.BuildingPermitSurrounding;
 import com.model.application.BuildingPermitSurroundingPK;
 import com.model.dynamic.ApplicationStatus;
 import com.model.dynamic.ApplicationStatusPK;
+import com.model.dynamic.Status;
+import com.model.dynamic.StatusPK;
 import com.service.dynamic.ApplicationStatusService;
+import com.service.dynamic.StatusService;
 
 import model.ApplicationForm;
 import model.DateConvert;
@@ -39,6 +42,8 @@ public class BuildingPermitApplicationServiceImp implements BuildingPermitApplic
 	DaoImpBuildingPermitApplication da;
 	@Autowired
 	ApplicationStatusService applicationStatusService;
+	@Autowired
+	StatusService statusService;
 	Message message = new Message();
 	String msg = "", sql;
 	int row;
@@ -153,25 +158,26 @@ public class BuildingPermitApplicationServiceImp implements BuildingPermitApplic
 		message.map = new HashMap();
 		userType = td.getUserType();
 		String approveBy = "";
-		/*if (userType.equalsIgnoreCase("A")) {
-			approveBy = ",COALESCE(engr_approval,'N') \"approveBy\"";
-		} else if (userType.equalsIgnoreCase("B")) {
-			approveBy = ",COALESCE(sub_engr_approval,'N') \"approveBy\"";
-		} else if (userType.equalsIgnoreCase("C")) {
-			approveBy = ",COALESCE(chief_approval,'N') \"approveBy\"";
-		} else if (userType.equalsIgnoreCase("D")) {
-			approveBy = ",COALESCE(designer_approval,'N') \"approveBy\"";
-		} else if (userType.equalsIgnoreCase("R")) {
-			approveBy = ",COALESCE(rajasow_approval,'N') \"approveBy\"";
-		} else if (userType.equalsIgnoreCase("AD")) {
-			approveBy = ",COALESCE(amin_approval,'N') \"approveBy\"";
-		} else if (userType.equalsIgnoreCase("E")) {
-			approveBy = ",COALESCE(poste_approval,'N') \"approveBy\"";
-		} else if (userType.equalsIgnoreCase("F")) {
-			approveBy = ",COALESCE(postf_approval,'N') \"approveBy\"";
-		} else if (userType.equalsIgnoreCase("G")) {
-			approveBy = ",COALESCE(postg_approval,'N') \"approveBy\"";
-		}*/
+		/*
+		 * if (userType.equalsIgnoreCase("A")) { approveBy =
+		 * ",COALESCE(engr_approval,'N') \"approveBy\""; } else if
+		 * (userType.equalsIgnoreCase("B")) { approveBy =
+		 * ",COALESCE(sub_engr_approval,'N') \"approveBy\""; } else if
+		 * (userType.equalsIgnoreCase("C")) { approveBy =
+		 * ",COALESCE(chief_approval,'N') \"approveBy\""; } else if
+		 * (userType.equalsIgnoreCase("D")) { approveBy =
+		 * ",COALESCE(designer_approval,'N') \"approveBy\""; } else if
+		 * (userType.equalsIgnoreCase("R")) { approveBy =
+		 * ",COALESCE(rajasow_approval,'N') \"approveBy\""; } else if
+		 * (userType.equalsIgnoreCase("AD")) { approveBy =
+		 * ",COALESCE(amin_approval,'N') \"approveBy\""; } else if
+		 * (userType.equalsIgnoreCase("E")) { approveBy =
+		 * ",COALESCE(poste_approval,'N') \"approveBy\""; } else if
+		 * (userType.equalsIgnoreCase("F")) { approveBy =
+		 * ",COALESCE(postf_approval,'N') \"approveBy\""; } else if
+		 * (userType.equalsIgnoreCase("G")) { approveBy =
+		 * ",COALESCE(postg_approval,'N') \"approveBy\""; }
+		 */
 		sql = "SELECT id \"groupId\" FROM form_group_master  ORDER BY group_position";
 		List list = message.db.getRecord(sql);
 		List list1, list2 = new ArrayList();
@@ -190,7 +196,8 @@ public class BuildingPermitApplicationServiceImp implements BuildingPermitApplic
 				map = (Map) list.get(i);
 				groupId = map.get("groupId").toString();
 				sql = "SELECT G.group_id \"groupId\",F.\"name\" \"formName\",F.view_url \"viewURL\",F.id,round(CAST(\"group_position\" AS NUMERIC), 2) AS \"position\",CASE WHEN (enter_by=G.user_type) THEN 'Y' ELSE 'N' END AS \"enterBy\","
-						+"coalesce((SELECT coalesce(approval_status,'N') FROM form_permissions P WHERE P.form_id=F.id AND P.user_type='"+userType+"'),'N') \"approveBy\" FROM form_group G,form_name_master F WHERE G.form_id=F.id AND  G.group_id='" + groupId + "' AND G.group_type='"
+						+ "coalesce((SELECT coalesce(approval_status,'N') FROM form_permissions P WHERE P.form_id=F.id AND P.user_type='" + userType
+						+ "'),'N') \"approveBy\" FROM form_group G,form_name_master F WHERE G.form_id=F.id AND  G.group_id='" + groupId + "' AND G.group_type='"
 						+ groupType + "' AND G.user_type='" + td.getUserType() + "' AND F.ID NOT IN(" + hasRevised + "," + classGroup
 						+ ") ORDER BY \"position\"";
 				list1 = message.db.getRecord(sql);
@@ -334,10 +341,10 @@ public class BuildingPermitApplicationServiceImp implements BuildingPermitApplic
 		List<BuildingPermitSurrounding> surrounding = obj.getSurrounding();
 		List<BuildingPermitFloor> floor = obj.getFloor();
 		try {
-			Long id = 0l,temp = 0l;
+			Long id = 0l, temp = 0l;
 			try {
 				id = obj.getId();
-				temp = obj.getId();	//for applicationStatus
+				temp = obj.getId(); // for applicationStatus
 			} catch (Exception e) {
 				id = 0l;
 				temp = 0l;
@@ -457,6 +464,19 @@ public class BuildingPermitApplicationServiceImp implements BuildingPermitApplic
 						applicationStatusService.save(applicationStatus);
 					} catch (Exception e) {
 						System.out.println("e msg " + e.getMessage());
+					}
+
+					try {
+						userType = mm.get("userType").toString();
+						sql = "SELECT F.id as \"id\",E.id as \"tableId\" FROM form_name_master F,ebps_tables E WHERE E.id=F.table_id AND E.table_name='building_permit_application'";
+						List forId = da.getRecord(sql);
+						Map mForId = (Map) forId.get(0);
+						Status status = new Status();
+						status.setPk(new StatusPK(id, Long.parseLong(mForId.get("id").toString()), userType));
+						status.setTableId(Long.parseLong(mForId.get("tableId").toString()));
+						statusService.save(status);
+					} catch (Exception e) {
+						System.out.println("ex " + e.getMessage());
 					}
 				}
 			}
