@@ -156,9 +156,12 @@ public class ApplicationForwardingRestController {
                 	 * Check approve status for only those forms that the logged in user can approve else skip.
                 	 */
                 	try {
-                		sql = "SELECT approval_status AS \"approvalStatus\" FROM form_permissions WHERE formId = '"+formId+"' AND user_type='"+forwardBy+"'";
+                		sql = "SELECT approval_status AS \"approvalStatus\" FROM form_permissions WHERE form_id = '"+formId+"' AND user_type='"+forwardBy+"'";
 //                		sql = "SELECT " + userApprovalStatus + "approval AS \"approvalStatus\" FROM form_name_master WHERE table_name='"+tableName+"' ";
                     	l = m.db.getRecord(sql);
+                    	if(l.isEmpty()) {
+                    		continue;
+                    	}
                     	m.map = (Map) l.get(0);
                     	String approvalStatus = m.map.get("approvalStatus").toString();
                     	if(approvalStatus.equalsIgnoreCase("Y")) {
@@ -267,9 +270,9 @@ public class ApplicationForwardingRestController {
             }
             
             try {
-            	multiSql[0] = "UPDATE application_status SET user_action='"+forwaToActionPage+"',forward_to_user_date='"+data+"',"+remark1+",forward_to_user='I'.forward_to_user_name='"+forwardToName+"' WHERE application_no="+applicationNo+" AND user_type='"+forwaTo+"' ";
+            	multiSql[0] = "UPDATE application_status SET user_action='"+forwaToActionPage+"',forward_to_user_date='"+data+"',"+remark1+",forward_to_user='I',forward_to_user_name='"+forwardToName+"' WHERE application_no="+applicationNo+" AND user_type='"+forwaTo+"' ";
                 multiSql[1] = "UPDATE application_status SET forward_to_user_date='"+data+"',"+remark2+",forward_to_user_name='"+td.getUserName()+"',forward_to_user='O' WHERE application_no="+applicationNo+" AND user_type='"+forwardBy+"'";
-                multiSql[1] = "UPDATE building_permit_application SET application_action='"+forwaToActionPage+"' WHERE id=" + applicationNo;
+                multiSql[2] = "UPDATE building_permit_application SET application_action='"+forwaToActionPage+"' WHERE id=" + applicationNo;
                 m.db.saveMultiple(multiSql);
 			} catch (Exception e) {
 				System.out.println("exc " + e.getMessage());
