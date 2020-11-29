@@ -45,9 +45,9 @@ public class GeneralRestController {
 	}
 
 	@PutMapping("/{applicationNo}")
-	public ResponseEntity<Object> approve(@PathVariable Long applicationNo, @Valid @RequestBody ApplicationApproved obj, @RequestHeader String Authorization,
+	public Object approve(@PathVariable Long applicationNo, @Valid @RequestBody ApplicationApproved obj, @RequestHeader String Authorization,
 			@RequestParam String formId) {
-		return ResponseEntity.ok(service.approve(applicationNo, obj, Authorization, formId));
+		return service.approve(applicationNo, obj, Authorization, formId);
 	}
 
 }

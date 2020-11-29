@@ -89,7 +89,7 @@
         </dependency>
     </dependencies>
     <build>
-        <finalName>EBPSv2</finalName>
+        <finalName>TestEbps</finalName>
           <!--<finalName>EBPS</finalName>-->
          <!--<finalName>InaruwaEBPS</finalName>-->
         <!--<finalName>kankaiebps</finalName>-->
