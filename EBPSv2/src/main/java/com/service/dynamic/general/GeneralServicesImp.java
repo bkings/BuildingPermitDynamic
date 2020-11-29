@@ -110,10 +110,19 @@ public class GeneralServicesImp implements GeneralServices {
 			System.out.println("Error " + e.getMessage());
 		}
 
-		sql = "SELECT a.*,b.form_id \"formId\",b.user_type \"userType\",b.date \"date\",b.name \"name\",b.status \"status\" FROM " + formTableName
-				+ " a left join status b ON a.\"" + primaryKey + "\"=b.application_no WHERE a.\"" + primaryKey + "\"=" + applicationNo + " AND b.form_id="
-				+ formId + " AND b.user_type='" + td.getUserType() + "'";
+		sql = "SELECT * from status WHERE application_no=" + applicationNo + " AND form_id='" + formId + "'";
+		list = dao.getRecords(sql);
+		Map mmm = new HashMap<>(), m3 = new HashMap<>();
+		for (int l = 0; l < list.size(); l++) {
+			m3 = (Map) list.get(l);
+			mmm.put(m3.get("user_type"), m3);
+		}
+
+		sql = "SELECT a.*,b.form_id \"formId\",b.user_type \"userType\" FROM " + formTableName + " a left join status b ON a.\"" + primaryKey
+				+ "\"=b.application_no WHERE a.\"" + primaryKey + "\"=" + applicationNo + " AND b.form_id=" + formId + " AND b.user_type='" + td.getUserType()
+				+ "'";
 		message.list = dao.getRecords(sql);
+
 		msg = dao.getMsg();
 		if (msg.contains("does not exist")) {
 			return message.respondWithError("Something went wrong.");
@@ -123,9 +132,11 @@ public class GeneralServicesImp implements GeneralServices {
 		 * if (message.list.isEmpty()) { return
 		 * message.respondWithError("Record Not Found"); }
 		 */
+
 		message.map = new HashMap();
 		message.map.put("referencedData", returnMap);
 		message.map.put("formData", message.list);
+		message.map.put("status", mmm);
 		message.map.put("comment", message.getComment("" + applicationNo, formId));
 		message.map.put("history", message.getHistory(applicationNo, formId));
 		return message.map;
