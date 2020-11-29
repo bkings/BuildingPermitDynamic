@@ -21,6 +21,7 @@ import com.model.dynamic.FormPermissions;
 import com.model.dynamic.Status;
 import com.model.dynamic.vocabulary.Vocabulary;
 import com.model.dynamic.vocabulary.VocabularyDetails;
+import com.model.processing.FileStorageApplication;
 import com.model.processing.RajaswaEntry;
 import com.model.setup.WardMaster;
 import com.model.utility.ApplicationForwardingSetup;
@@ -157,7 +158,7 @@ public class HibernateUtil {
 					.addAnnotatedClass(ApplicationForwardingSetup.class).addAnnotatedClass(FileStorageCategory.class).addAnnotatedClass(WardMaster.class)
 					.addAnnotatedClass(ChangeDesigner.class)
 					.addAnnotatedClass(Vocabulary.class).addAnnotatedClass(VocabularyDetails.class)
-					.addAnnotatedClass(CheckClassGroup.class)
+					.addAnnotatedClass(CheckClassGroup.class).addAnnotatedClass(FileStorageApplication.class)
 					.buildSessionFactory();
 
 			setProps(prop);
