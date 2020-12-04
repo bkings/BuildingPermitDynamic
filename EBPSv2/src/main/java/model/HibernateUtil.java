@@ -18,6 +18,7 @@ import com.model.dynamic.EbpsColumns;
 import com.model.dynamic.EbpsTables;
 import com.model.dynamic.FormFields;
 import com.model.dynamic.FormPermissions;
+import com.model.dynamic.HasRevisedFormSetup;
 import com.model.dynamic.Status;
 import com.model.dynamic.vocabulary.Vocabulary;
 import com.model.dynamic.vocabulary.VocabularyDetails;
@@ -159,6 +160,7 @@ public class HibernateUtil {
 					.addAnnotatedClass(ChangeDesigner.class)
 					.addAnnotatedClass(Vocabulary.class).addAnnotatedClass(VocabularyDetails.class)
 					.addAnnotatedClass(CheckClassGroup.class).addAnnotatedClass(FileStorageApplication.class)
+					.addAnnotatedClass(HasRevisedFormSetup.class)
 					.buildSessionFactory();
 
 			setProps(prop);
