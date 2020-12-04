@@ -29,7 +29,7 @@ public class GeneralRestController {
 	GeneralServices service;
 
 	Message message = new Message();
-	
+
 	String msg = "", sql;
 	int row;
 
@@ -39,9 +39,9 @@ public class GeneralRestController {
 	}
 
 	@PostMapping("/{applicationNo}")
-	public ResponseEntity<Object> save(@RequestBody Object obj, @PathVariable Long applicationNo, @RequestParam String formId,
+	public ResponseEntity<Object> save(@RequestBody Object obj, @PathVariable Long applicationNo, @RequestParam String formId, @RequestParam String hasRevised,
 			@RequestHeader String Authorization) {
-		return ResponseEntity.ok(service.save(obj, applicationNo, formId, Authorization));
+		return ResponseEntity.ok(service.save(obj, applicationNo, formId, hasRevised, Authorization));
 	}
 
 	@PutMapping("/{applicationNo}")

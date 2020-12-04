@@ -6,8 +6,60 @@ import java.util.Map;
 import model.DB;
 
 public class HasRevisedGet {
-
+	
 	public String get(String userType, Long applicationNo) {
+		DB db = new DB();
+		Long form;
+		String sql;
+		List list,l2;
+		Map map,m2;
+		String hasReviseStatus, tableName;
+		boolean billStatus;
+		String hasRevisedIdList = "-1";
+		
+		/**
+		 * get all forms that has samsodhan for that applicationNo.
+		 */
+		sql = "SELECT form_id as \"formId\" FROM has_revised_form_setup WHERE application_no=" + applicationNo + " AND type != 'Bill'";
+		list = db.getRecord(sql);
+		for (int i = 0; i < list.size(); i++) {
+			map = (Map) list.get(i);
+			form = Long.parseLong(map.get("formId").toString());
+			sql = "SELECT coalesce(has_revised,'') \"hasRevisedStatus\" FROM status WHERE application_no=" + applicationNo + " AND form_id=" + form
+					+ " AND user_type=" + userType + "";
+			l2 = db.getRecord(sql);
+			if (!l2.isEmpty()) {
+				map = (Map) l2.get(0);
+				hasReviseStatus = map.get("hasReviseStatus").toString();
+				billStatus = true;
+				sql = "SELECT application_no FROM sansodhan_bill_vuktani WHERE application_no=" + applicationNo;
+				if (db.getRecord(sql).size() > 0) {
+					billStatus = false;
+				}
+				if (hasReviseStatus.equalsIgnoreCase("N")) {
+					sql = "SELECT ignored_form \"hasRevised\" FROM has_revised WHERE status='N' AND user_type='" + userType + "' AND has_revised='" + form
+							+ "'";
+					l2 = db.getRecord(sql);
+					for (int k = 0; k < l2.size(); k++) {
+						map = (Map) l2.get(k);
+						hasRevisedIdList = hasRevisedIdList + "," + map.get("hasRevised").toString();
+					}
+				} else if (billStatus && hasReviseStatus.equalsIgnoreCase("Y")) {
+					sql = "SELECT ignored_form \"hasRevised\" FROM has_revised WHERE status='Y' AND  user_type='" + userType + "' AND has_revised='" + form
+							+ "'";
+					l2 = db.getRecord(sql);
+					for (int k = 0; k < l2.size(); k++) {
+						map = (Map) list.get(k);
+						hasRevisedIdList = hasRevisedIdList + "," + map.get("hasRevised").toString();
+					}
+				}
+			}
+		}
+
+		return hasRevisedIdList;
+	}
+
+	public String getX(String userType, Long applicationNo) {
 		DB db = new DB();
 		String sql;
 		List list;
@@ -16,6 +68,15 @@ public class HasRevisedGet {
 		boolean billStatus;
 		String hasRevisedIdList = "-1";
 
+		/*
+		 * List l = select form_id FROM has_revised_form_setup WHERE applicationNo=777800001 and type != 'Bill';
+		 * List bills = select form_id FROM has_revised_form_setup WHERE applicationNo=77780001 and type='Bill';
+		 * for(int i=0;i<l.size();i++) {
+		 * 	tableName = select table_name from ebps_tables WHERE id=(select table_id from form_name_master where id=i);
+		 * 	hasRevisedStatus = select coalesce(has_revised,'') FROM tableName WHERE 
+		 * }
+		 */
+		
 		try {
 			sql = "SELECT coalesce(has_revised,'') \"hasReviseStatus\" FROM prabhidik_pratibedhan_pesh WHERE application_no='" + applicationNo + "';";
 			list = db.getRecord(sql);
@@ -140,4 +201,5 @@ public class HasRevisedGet {
 
 		return hasRevisedIdList;
 	}
+	
 }

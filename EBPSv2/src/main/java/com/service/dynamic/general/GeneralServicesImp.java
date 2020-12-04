@@ -14,8 +14,11 @@ import com.config.JWTToken;
 import com.dao.dynamic.DaoStatus;
 import com.dao.dynamic.general.DaoGeneral;
 import com.model.application.ApplicationApproved;
+import com.model.dynamic.HasRevisedFormSetup;
+import com.model.dynamic.HasRevisedFormSetupPK;
 import com.model.dynamic.Status;
 import com.model.dynamic.StatusPK;
+import com.service.dynamic.HasRevisedFormSetupService;
 import com.service.dynamic.StatusService;
 
 import model.HibernateUtil;
@@ -34,6 +37,8 @@ public class GeneralServicesImp implements GeneralServices {
 	DaoGeneral dao;
 	@Autowired
 	StatusService service;
+	@Autowired
+	HasRevisedFormSetupService revisedService;
 	String msg = "", sql;
 	int row;
 	Message message = new Message();
@@ -154,7 +159,7 @@ public class GeneralServicesImp implements GeneralServices {
 	 *         the error message.
 	 */
 	@Override
-	public Object save(Object obj, Long applicationNo, String formId, String Authorization) {
+	public Object save(Object obj, Long applicationNo, String formId, String hasRevised, String Authorization) {
 
 		Properties props = HibernateUtil.getProps();
 		String tableSchema = props.getProperty("hibernate.default_schema");
@@ -230,9 +235,21 @@ public class GeneralServicesImp implements GeneralServices {
 						Status status = new Status();
 						status.setPk(new StatusPK(applicationNo, Long.parseLong(formId), mm.get("userType").toString()));
 						status.setTableId(tableId);
+						status.setHasRevised(hasRevised);
 						service.save(status);
 					} catch (Exception e) {
 						System.out.println("e " + e.getMessage());
+					}
+				}
+				
+				if(hasRevised.equalsIgnoreCase("Y")) {
+					try {
+						HasRevisedFormSetup hasRevisedFormSetup = new HasRevisedFormSetup();
+						hasRevisedFormSetup.setPk(new HasRevisedFormSetupPK(applicationNo, Long.parseLong(formId)));
+						hasRevisedFormSetup.setType("");
+						revisedService.save(hasRevisedFormSetup);
+					} catch (Exception e) {
+						System.out.println("Has revised error." + e.getMessage());
 					}
 				}
 

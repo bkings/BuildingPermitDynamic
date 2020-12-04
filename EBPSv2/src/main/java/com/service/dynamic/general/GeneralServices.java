@@ -6,7 +6,7 @@ public interface GeneralServices {
 
 	public Object getAll(Long applicationNo, String Authorization, String formId);
 
-	public Object save(Object obj, Long applicationNo, String formId, String Authorization);
+	public Object save(Object obj, Long applicationNo, String formId, String hasRevised, String Authorization);
 
 	public Object approve(Long applicationNo, ApplicationApproved obj, String Authorization, String formId);
 

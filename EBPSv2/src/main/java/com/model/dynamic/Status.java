@@ -33,6 +33,8 @@ public class Status implements Serializable {
 	private String status;
 	@Column(name = "USER_ID")
 	private Long userId;
+	@Column(name = "HAS_REVISED")
+	private String hasRevised;
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "TABLE_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	private EbpsTables ebpsTables;
@@ -42,6 +44,14 @@ public class Status implements Serializable {
 	@ManyToOne(optional = false, fetch = FetchType.LAZY)
 	@JoinColumn(name = "FORM_ID", referencedColumnName = "ID", insertable = false, updatable = false)
 	private FormNameMaster formNameMaster;
+
+	public String getHasRevised() {
+		return hasRevised;
+	}
+
+	public void setHasRevised(String hasRevised) {
+		this.hasRevised = hasRevised;
+	}
 
 	public StatusPK getPk() {
 		return pk;
