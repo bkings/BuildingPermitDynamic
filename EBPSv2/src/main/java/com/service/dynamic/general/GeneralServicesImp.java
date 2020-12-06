@@ -265,7 +265,7 @@ public class GeneralServicesImp implements GeneralServices {
 //					updateSql = updateSql + "," + cols[j] + "=" + vals[j] + " ";
 					updateSql = updateSql + "," + cols[j] + "='" + String.valueOf(values.get(j)) + "' ";
 				}
-				sql = "UPDATE " + tableName + " SET " + updateSql.substring(1) + " WHERE " + map.get("primaryKey") + "=" + applicationNo;
+				sql = "UPDATE " + tableName + " SET " + updateSql.substring(1) + "WHERE " + map.get("primaryKey") + "=" + applicationNo;
 				System.out.println("final sql " + sql);
 				row = dao.execute(sql);
 				msg = dao.getMsg();
