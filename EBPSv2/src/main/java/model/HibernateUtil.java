@@ -33,6 +33,7 @@ import com.model.utility.FiscalYear;
 import com.model.utility.FormGroup;
 import com.model.utility.FormGroupMaster;
 import com.model.utility.FormNameMaster;
+import com.model.utility.HasRevised;
 import com.model.utility.OrganizationMaster;
 import com.model.utility.OrganizationUser;
 import com.model.utility.OrganizationUserRequest;
@@ -161,6 +162,7 @@ public class HibernateUtil {
 					.addAnnotatedClass(Vocabulary.class).addAnnotatedClass(VocabularyDetails.class)
 					.addAnnotatedClass(CheckClassGroup.class).addAnnotatedClass(FileStorageApplication.class)
 //					.addAnnotatedClass(HasRevisedFormSetup.class)
+					.addAnnotatedClass(HasRevised.class)
 					.buildSessionFactory();
 
 			setProps(prop);

@@ -37,8 +37,6 @@ public class GeneralServicesImp implements GeneralServices {
 	DaoGeneral dao;
 	@Autowired
 	StatusService service;
-	@Autowired
-	HasRevisedFormSetupService revisedService;
 	String msg = "", sql;
 	int row;
 	Message message = new Message();
@@ -239,17 +237,6 @@ public class GeneralServicesImp implements GeneralServices {
 						service.save(status);
 					} catch (Exception e) {
 						System.out.println("e " + e.getMessage());
-					}
-				}
-				
-				if(hasRevised.equalsIgnoreCase("Y")) {
-					try {
-						HasRevisedFormSetup hasRevisedFormSetup = new HasRevisedFormSetup();
-						hasRevisedFormSetup.setPk(new HasRevisedFormSetupPK(applicationNo, Long.parseLong(formId)));
-						hasRevisedFormSetup.setType("");
-						revisedService.save(hasRevisedFormSetup);
-					} catch (Exception e) {
-						System.out.println("Has revised error." + e.getMessage());
 					}
 				}
 
