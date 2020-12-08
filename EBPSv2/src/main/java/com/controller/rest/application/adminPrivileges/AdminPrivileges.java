@@ -22,9 +22,16 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.config.JWTToken;
 import com.dao.dynamic.general.DaoGeneral;
+import com.log.ApplicationLog;
 
 import model.HibernateUtil;
 import model.Message;
+
+/**
+ * 
+ * @author bkings_bjr
+ *
+ */
 
 @RestController
 @CrossOrigin
@@ -148,8 +155,10 @@ public class AdminPrivileges {
 				System.out.println("final sql " + sql);
 				row = dao.execute(sql);
 				msg = dao.getMsg();
-				if (row > 0)
+				if (row > 0) {
+					ApplicationLog.save("/formAdminEdit/" + applicationNo +"?formId=" + formId, "PUT", td.getUserType() + " " + td.getUserName(), "updated: [" + updateSql.substring(1) + "]");
 					return ResponseEntity.ok(message.respondWithMessage("Data Updated."));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
