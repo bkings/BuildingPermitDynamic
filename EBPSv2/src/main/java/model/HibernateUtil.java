@@ -50,9 +50,9 @@ public class HibernateUtil {
 		try {
 			Properties prop = new Properties();
 
-//			prop.setProperty("hibernate.connection.url","jdbc:postgresql://localhost:5432/phoenix?currentSchema=stg_test_ebps&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true");
-//			prop.setProperty("hibernate.connection.username", "phoenix");
-//			prop.setProperty("hibernate.connection.password", "manager@123");
+			prop.setProperty("hibernate.connection.url","jdbc:postgresql://localhost:5432/phoenix?currentSchema=stg_test_ebps&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true");
+			prop.setProperty("hibernate.connection.username", "phoenix");
+			prop.setProperty("hibernate.connection.password", "manager@123");
 			
 			prop.setProperty("hibernate.connection.url","jdbc:postgresql://localhost:5432/ebpsv2?currentSchema=test_ebps&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true");
             prop.setProperty("hibernate.connection.username", "root");
