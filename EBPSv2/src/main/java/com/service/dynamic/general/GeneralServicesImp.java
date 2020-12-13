@@ -85,7 +85,7 @@ public class GeneralServicesImp implements GeneralServices {
 		try {
 			list = dao.getRecords(sql);
 			if (list.isEmpty()) {
-				return message.respondWithError("Fields not availabe for this form id.");
+				return message.respondWithError("Fields are not availabe for this form id.");
 			}
 			for (int i = 0; i < list.size(); i++) {
 				map = (Map) list.get(i);

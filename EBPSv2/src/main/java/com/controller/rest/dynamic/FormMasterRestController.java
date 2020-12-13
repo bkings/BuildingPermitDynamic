@@ -42,10 +42,15 @@ public class FormMasterRestController {
 	public Object delete(@PathVariable String id, @RequestHeader String Authorization) {
 		return service.delete(id, Authorization);
 	}
-	
+
 	@DeleteMapping("/Fields/{id}")
 	public Object deleteFields(@PathVariable String id, @RequestHeader String Authorization) {
 		return service.deleteFields(id, Authorization);
+	}
+
+	@DeleteMapping("/FormPermissions/{id}")
+	public Object deleteFormPermissions(@PathVariable String id, @RequestHeader String Authorization) {
+		return service.deleteFormPermissions(id, Authorization);
 	}
 
 }

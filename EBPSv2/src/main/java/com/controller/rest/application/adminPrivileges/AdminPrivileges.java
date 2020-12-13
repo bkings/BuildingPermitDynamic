@@ -49,11 +49,11 @@ public class AdminPrivileges {
 
 	@GetMapping("/formData/{applicationNo}")
 	public ResponseEntity<Object> adminGet(@PathVariable String applicationNo, @RequestParam Long formId) {
+		if (applicationNo.length() < 6)
+			return ResponseEntity.badRequest().body(message.respondWithError("Invalid Application Number."));
 		String tableName;
 		Properties props = HibernateUtil.getProps();
 		String tableSchema = props.getProperty("hibernate.default_schema");
-		if (applicationNo.length() < 6)
-			return ResponseEntity.badRequest().body(message.respondWithError("Invalid Application Number."));
 
 		try {
 			sql = "SELECT table_id AS \"tableId\",(SELECT table_name FROM ebps_tables WHERE id=table_id) AS \"tableName\" FROM form_name_master WHERE id="
@@ -156,7 +156,8 @@ public class AdminPrivileges {
 				row = dao.execute(sql);
 				msg = dao.getMsg();
 				if (row > 0) {
-					ApplicationLog.save("/formAdminEdit/" + applicationNo +"?formId=" + formId, "PUT", td.getUserType() + " " + td.getUserName(), "updated: [" + updateSql.substring(1) + "]");
+					ApplicationLog.save("/formAdminEdit/" + applicationNo + "?formId=" + formId, "PUT", td.getUserType() + " " + td.getUserName(), "updated: ["
+							+ updateSql.substring(1) + "]");
 					return ResponseEntity.ok(message.respondWithMessage("Data Updated."));
 				}
 			}

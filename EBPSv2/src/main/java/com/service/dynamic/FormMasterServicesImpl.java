@@ -181,4 +181,34 @@ public class FormMasterServicesImpl implements FormMasterServices {
 		return message.respondWithError(msg);
 	}
 
+	@Override
+	public Object deleteFormPermissions(String id, String Authorization) {
+		JWTToken td = new JWTToken(Authorization);
+		if (!td.isStatus()) {
+			return message.respondWithError("Invalid Authorization");
+		}
+		List<FormPermissions> l = new ArrayList<FormPermissions>();
+		FormPermissions obj = new FormPermissions();
+		String[] ids = id.split(",");
+		for (String i : ids) {
+			try {
+				l = dao.getFormPermission("FROM FormPermissions WHERE id=" + i);
+				obj = l.get(0);
+				row = dao.deleteFormPermission(obj);
+				msg = dao.getMsg();
+				if (row != 0) {
+					row++;
+				}
+			} catch (Exception e) {
+				msg = e.getMessage();
+			}
+		}
+		if (row > 0) {
+			return message.respondWithMessage("Success");
+		} else if (msg.contains("foreign key")) {
+			msg = "Current records are being referenced from other tables.Could not delete.";
+		}
+		return message.respondWithError(msg);
+	}
+
 }

@@ -13,5 +13,7 @@ public interface FormMasterServices {
 	public Object delete(String id, String Authorization);
 
 	public Object deleteFields(String id, String Authorization);
+	
+	public Object deleteFormPermissions(String id, String Authorization);
 
 }

@@ -1,13 +1,16 @@
 package com;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import model.DB;
+import model.Message;
 
 public class HasRevisedGet {
 	
 	public String get(String userType, Long applicationNo) {
+		Message message = new Message();
 		DB db = new DB();
 		Long form;
 		String sql;
@@ -26,9 +29,18 @@ public class HasRevisedGet {
 		for (int i = 0; i < list.size(); i++) {
 			map = (Map) list.get(i);
 			form = Long.parseLong(map.get("formId").toString());
-			sql = "SELECT coalesce(has_revised,'') \"hasRevisedStatus\" FROM status WHERE application_no=" + applicationNo + " AND form_id=" + form
-					+ " AND user_type=" + userType + "";
-			l2 = db.getRecord(sql);
+//			sql = "SELECT coalesce(has_revised,'') \"hasRevisedStatus\" FROM status WHERE application_no=" + applicationNo + " AND form_id=" + form
+//					+ " AND user_type=" + userType + "";
+			sql = "SELECT table_name AS \"tableName\" FROM ebps_tables WHERE id=(SELECT table_id FROM form_name_master WHERE id='"+form+"')";
+			m2 = (Map) db.getRecord(sql).get(0);
+			tableName = m2.get("tableName").toString();
+			sql = "SELECT coalesce(has_revised,'') FROM "+tableName+" WHERE application_no=" + applicationNo;
+			try {
+				l2 = db.getRecord(sql);
+			} catch (Exception e) {
+				e.printStackTrace();
+				l2 = new ArrayList<>();
+			}
 			if (!l2.isEmpty()) {
 				map = (Map) l2.get(0);
 				hasReviseStatus = map.get("hasReviseStatus").toString();
