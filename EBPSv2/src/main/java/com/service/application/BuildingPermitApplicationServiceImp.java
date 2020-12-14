@@ -244,8 +244,14 @@ public class BuildingPermitApplicationServiceImp implements BuildingPermitApplic
 			message.map.put("certificateNoteData", message.db.getRecord(sql));
 		}
 
-		sql = "SELECT user_type \"userType\",status \"userStatus\" FROM status WHERE application_no=" + id + " AND form_id=1";
-		message.map.put("status", message.db.getRecord(sql));
+		sql = "SELECT * FROM status WHERE application_no="+id+" AND form_id=1";
+		list = message.db.getRecord(sql);
+		Map mmm = new HashMap<>(), m3 = new HashMap<>();
+		for (int ls = 0; ls < list.size(); ls++) {
+			m3 = (Map) list.get(ls);
+			mmm.put(m3.get("user_type"), m3);
+		}
+		message.map.put("status", mmm);
 		sql = "SELECT user_type\"userType\",user_full_status \"applicationStatus\" FROM application_status WHERE application_no=" + id;
 		message.map.put("applicationStatus", message.db.getRecord(sql));
 		return message.map;

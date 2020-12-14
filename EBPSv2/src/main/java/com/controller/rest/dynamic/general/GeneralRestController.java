@@ -40,7 +40,7 @@ public class GeneralRestController {
 
 	@PostMapping("/{applicationNo}")
 	public ResponseEntity<Object> save(@RequestBody Object obj, @PathVariable Long applicationNo, @RequestParam String formId,
-			@RequestParam String hasRevised, @RequestHeader String Authorization) {
+			@RequestParam(defaultValue="") String hasRevised, @RequestHeader String Authorization) {
 		return ResponseEntity.ok(service.save(obj, applicationNo, formId, hasRevised, Authorization));
 	}
 

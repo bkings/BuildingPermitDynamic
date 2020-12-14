@@ -24,7 +24,7 @@ public class HasRevisedGet {
 		 * get all forms that has samsodhan for that applicationNo.
 		 */
 //		sql = "SELECT form_id as \"formId\" FROM has_revised_form_setup WHERE application_no=" + applicationNo + " AND type != 'Bill'";
-		sql = "SELECT distinct(has_revised) FROM has_revised";
+		sql = "SELECT distinct(has_revised) AS \"formId\" FROM has_revised";
 		list = db.getRecord(sql);
 		for (int i = 0; i < list.size(); i++) {
 			map = (Map) list.get(i);
@@ -34,7 +34,7 @@ public class HasRevisedGet {
 			sql = "SELECT table_name AS \"tableName\" FROM ebps_tables WHERE id=(SELECT table_id FROM form_name_master WHERE id='"+form+"')";
 			m2 = (Map) db.getRecord(sql).get(0);
 			tableName = m2.get("tableName").toString();
-			sql = "SELECT coalesce(has_revised,'') FROM "+tableName+" WHERE application_no=" + applicationNo;
+			sql = "SELECT coalesce(has_revised,'') AS \"hasReviseStatus\" FROM "+tableName+" WHERE application_no=" + applicationNo;
 			try {
 				l2 = db.getRecord(sql);
 			} catch (Exception e) {
@@ -62,7 +62,7 @@ public class HasRevisedGet {
 							+ "'";
 					l2 = db.getRecord(sql);
 					for (int k = 0; k < l2.size(); k++) {
-						map = (Map) list.get(k);
+						map = (Map) l2.get(k);
 						hasRevisedIdList = hasRevisedIdList + "," + map.get("hasRevised").toString();
 					}
 				}
