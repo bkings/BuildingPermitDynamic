@@ -12,11 +12,11 @@ public class HasRevisedGet {
 	public String get(String userType, Long applicationNo) {
 		Message message = new Message();
 		DB db = new DB();
-		Long form;
+		Long form,billForm;
 		String sql;
 		List list,l2;
 		Map map,m2;
-		String hasReviseStatus, tableName;
+		String hasReviseStatus, tableName, billTableName;
 		boolean billStatus;
 		String hasRevisedIdList = "-1";
 		
@@ -24,16 +24,20 @@ public class HasRevisedGet {
 		 * get all forms that has samsodhan for that applicationNo.
 		 */
 //		sql = "SELECT form_id as \"formId\" FROM has_revised_form_setup WHERE application_no=" + applicationNo + " AND type != 'Bill'";
-		sql = "SELECT distinct(has_revised) AS \"formId\" FROM has_revised";
+		sql = "SELECT distinct(has_revised) AS \"formId\",bill AS \"billFormId\" FROM has_revised";
 		list = db.getRecord(sql);
 		for (int i = 0; i < list.size(); i++) {
 			map = (Map) list.get(i);
 			form = Long.parseLong(map.get("formId").toString());
+			billForm = Long.parseLong(map.get("billFormId").toString());
 //			sql = "SELECT coalesce(has_revised,'') \"hasRevisedStatus\" FROM status WHERE application_no=" + applicationNo + " AND form_id=" + form
 //					+ " AND user_type=" + userType + "";
 			sql = "SELECT table_name AS \"tableName\" FROM ebps_tables WHERE id=(SELECT table_id FROM form_name_master WHERE id='"+form+"')";
 			m2 = (Map) db.getRecord(sql).get(0);
 			tableName = m2.get("tableName").toString();
+			sql = "SELECT table_name AS \"billTableName\" FROM ebps_tables WHERE id=(SELECT table_id FROM form_name_master WHERE id='"+billForm+"')";
+			m2 = (Map) db.getRecord(sql).get(0);
+			billTableName = m2.get("billTableName").toString();
 			sql = "SELECT coalesce(has_revised,'') AS \"hasReviseStatus\" FROM "+tableName+" WHERE application_no=" + applicationNo;
 			try {
 				l2 = db.getRecord(sql);
@@ -45,7 +49,8 @@ public class HasRevisedGet {
 				map = (Map) l2.get(0);
 				hasReviseStatus = map.get("hasReviseStatus").toString();
 				billStatus = true;
-				sql = "SELECT application_no FROM sansodhan_bill_vuktani WHERE application_no=" + applicationNo;
+//				sql = "SELECT application_no FROM sansodhan_bill_vuktani WHERE application_no=" + applicationNo;
+				sql = "SELECT application_no FROM "+billTableName+" WHERE application_no=" + applicationNo;
 				if (db.getRecord(sql).size() > 0) {
 					billStatus = false;
 				}

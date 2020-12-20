@@ -26,8 +26,18 @@ public class HasRevised implements Serializable {
     private String status;    
     @Column(name = "ignored_form")
     private Integer ignoredForm;
+    @Column(name = "BILL")
+    private Integer bill;
+    
+    public Integer getBill() {
+		return bill;
+	}
 
-    public Integer getId() {
+	public void setBill(Integer bill) {
+		this.bill = bill;
+	}
+
+	public Integer getId() {
         return id;
     }
 
