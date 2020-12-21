@@ -70,6 +70,7 @@ public class HasRevisedServiceImp implements HasRevisedService {
                     obj.setHasRevised(Integer.parseInt(map.get("hasRevised").toString()));
                     obj.setUserType(userTypeList.get(i).toString());
                     obj.setIgnoredForm(Integer.parseInt(formList.get(j).toString()));
+                    obj.setBill(Integer.parseInt(map.get("bill").toString()));
                     row = da.save(obj);
                     msg = da.getMsg();
 
