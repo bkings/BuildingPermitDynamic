@@ -33,6 +33,7 @@ public class DaoImpGeneral implements DaoGeneral {
 			tr.rollback();
 			msg = message.exceptionMsg(e);
 			row = 0;
+			System.out.println("Localized msg " + e.getLocalizedMessage());
 		}
 		try {
 			session.close();

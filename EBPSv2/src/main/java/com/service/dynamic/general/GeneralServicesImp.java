@@ -212,7 +212,11 @@ public class GeneralServicesImp implements GeneralServices {
 			// This case covers only tables with single primary key.
 			sql = "SELECT c.column_name as \"primaryKey\" FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.table_name = '"
 					+ tableName + "' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='" + tableSchema + "' AND c.table_schema='" + tableSchema + "'";
-			map = (Map) dao.getRecords(sql).get(0);
+			try {
+				map = (Map) dao.getRecords(sql).get(0);
+			} catch (Exception e) {
+				return message.respondWithError("Table setup not correct.");
+			}
 
 			sql = "SELECT * FROM " + tableName + " WHERE " + map.get("primaryKey").toString() + "=" + applicationNo;
 			list = dao.getRecords(sql);
