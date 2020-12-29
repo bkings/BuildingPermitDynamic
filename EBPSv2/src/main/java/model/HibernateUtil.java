@@ -54,14 +54,14 @@ public class HibernateUtil {
 			prop.setProperty("hibernate.connection.username", "phoenix");
 			prop.setProperty("hibernate.connection.password", "manager@123");
 			
-			prop.setProperty("hibernate.connection.url","jdbc:postgresql://localhost:5432/ebpsv2?currentSchema=test_ebps&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true");
-            prop.setProperty("hibernate.connection.username", "root");
-            prop.setProperty("hibernate.connection.password", "root");
+//			prop.setProperty("hibernate.connection.url","jdbc:postgresql://localhost:5432/ebpsv2?currentSchema=test_ebps&autoReconnect=true&useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true&useSSL=true");
+//            prop.setProperty("hibernate.connection.username", "root");
+//            prop.setProperty("hibernate.connection.password", "root");
             
 			prop.setProperty("hibernate.connection.driver_class", "org.postgresql.Driver");
 			prop.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 			prop.setProperty("hibernate.temp.use_jdbc_metadata_defaults", "false");
-			prop.setProperty("hibernate.default_schema", "test_ebps");
+			prop.setProperty("hibernate.default_schema", "stg_test_ebps");
 			prop.setProperty("hibernate.hbm2ddl.auto", "update");
 			prop.setProperty("hibernate.show_sql", "true");
 
