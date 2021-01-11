@@ -275,6 +275,14 @@ public class GeneralServicesImp implements GeneralServices {
 
 	@Override
 	public Object approve(Long applicationNo, ApplicationApproved obj, String Authorization, String formId) {
-		return new ApplicationApprove().doApprove(applicationNo, obj, Authorization, formId);
+		Object retObj = new ApplicationApprove().doApprove(applicationNo, obj, Authorization, formId);
+		if (formId.equalsIgnoreCase("43") || formId.equalsIgnoreCase("50")) {
+			try {
+				message.checkCompletedTask(applicationNo);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return retObj;
 	}
 }

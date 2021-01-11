@@ -33,53 +33,63 @@ public class Message {
 		/**
 		 * To run both in a single transaction.
 		 */
-		String[] multiSql= {
-				"UPDATE application_status SET user_action= '"+formId+"',user_full_status='S' WHERE application_no="+applicationNo+" AND user_type='"+userType+"'",
-				"UPDATE building_permit_application SET application_status='A',application_action='"+formId+"',application_action_by='"+userType+"' WHERE id=" + applicationNo
-				};
+		String[] multiSql = { "UPDATE application_status SET user_action= '" + formId + "',user_full_status='S' WHERE application_no=" + applicationNo
+				+ " AND user_type='" + userType + "'", "UPDATE building_permit_application SET application_status='A',application_action='" + formId
+						+ "',application_action_by='" + userType + "' WHERE id=" + applicationNo };
 		try {
 			db.saveMultiple(multiSql);
 		} catch (Exception e) {
-			System.out.println("Error = " +  e.getMessage());
+			System.out.println("Error = " + e.getMessage());
 		}
-		/*if (userType.equalsIgnoreCase("D")) {
-			sql = "UPDATE building_permit_application SET designer_action='" + formId + "',designer_status='S',application_status='A',application_action='"
-					+ formId + "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
-
-		} else if (userType.equalsIgnoreCase("C")) {
-			sql = "UPDATE building_permit_application SET CHIEF_ACTION='" + formId + "',CHIEF_STATUS='S',application_status='A',application_action='" + formId
-					+ "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
-
-		} else if (userType.equalsIgnoreCase("B")) {
-			sql = "UPDATE building_permit_application SET SUB_engineer_ACTION='" + formId
-					+ "',SUB_engineer_STATUS='S',application_status='A',application_action='" + formId + "',application_action_by='" + userType + "' WHERE id="
-					+ applicationNo;
-
-		} else if (userType.equalsIgnoreCase("A")) {
-			sql = "UPDATE building_permit_application SET engineer_ACTION='" + formId + "',engineer_STATUS='S',application_status='A',application_action='"
-					+ formId + "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
-
-		} else if (userType.equalsIgnoreCase("AD")) {
-			sql = "UPDATE building_permit_application SET AMIN_ACTION='" + formId + "',AMIN_STATUS='S',application_status='A',application_action='" + formId
-					+ "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
-
-		} else if (userType.equalsIgnoreCase("R")) {
-			sql = "UPDATE building_permit_application SET RAJASOW_ACTION='" + formId + "',RAJASOW_STATUS='S',application_status='A',application_action='"
-					+ formId + "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
-
-		} else if (userType.equalsIgnoreCase("E")) {
-			sql = "UPDATE building_permit_application SET poste_action = '" + formId + "',poste_status = 'S',application_status='A',application_action='"
-					+ formId + "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
-
-		} else if (userType.equalsIgnoreCase("F")) {
-			sql = "UPDATE building_permit_application SET postf_action = '" + formId + "',postf_status = 'S',application_status='A',application_action='"
-					+ formId + "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
-
-		} else if (userType.equalsIgnoreCase("G")) {
-			sql = "UPDATE building_permit_application SET postg_action = '" + formId + "',postg_status = 'S',application_status='A',application_action='"
-					+ formId + "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
-
-		}*/
+		/*
+		 * if (userType.equalsIgnoreCase("D")) { sql =
+		 * "UPDATE building_permit_application SET designer_action='" + formId +
+		 * "',designer_status='S',application_status='A',application_action='" + formId
+		 * + "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
+		 * 
+		 * } else if (userType.equalsIgnoreCase("C")) { sql =
+		 * "UPDATE building_permit_application SET CHIEF_ACTION='" + formId +
+		 * "',CHIEF_STATUS='S',application_status='A',application_action='" + formId +
+		 * "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
+		 * 
+		 * } else if (userType.equalsIgnoreCase("B")) { sql =
+		 * "UPDATE building_permit_application SET SUB_engineer_ACTION='" + formId +
+		 * "',SUB_engineer_STATUS='S',application_status='A',application_action='" +
+		 * formId + "',application_action_by='" + userType + "' WHERE id=" +
+		 * applicationNo;
+		 * 
+		 * } else if (userType.equalsIgnoreCase("A")) { sql =
+		 * "UPDATE building_permit_application SET engineer_ACTION='" + formId +
+		 * "',engineer_STATUS='S',application_status='A',application_action='" + formId
+		 * + "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
+		 * 
+		 * } else if (userType.equalsIgnoreCase("AD")) { sql =
+		 * "UPDATE building_permit_application SET AMIN_ACTION='" + formId +
+		 * "',AMIN_STATUS='S',application_status='A',application_action='" + formId +
+		 * "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
+		 * 
+		 * } else if (userType.equalsIgnoreCase("R")) { sql =
+		 * "UPDATE building_permit_application SET RAJASOW_ACTION='" + formId +
+		 * "',RAJASOW_STATUS='S',application_status='A',application_action='" + formId +
+		 * "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
+		 * 
+		 * } else if (userType.equalsIgnoreCase("E")) { sql =
+		 * "UPDATE building_permit_application SET poste_action = '" + formId +
+		 * "',poste_status = 'S',application_status='A',application_action='" + formId +
+		 * "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
+		 * 
+		 * } else if (userType.equalsIgnoreCase("F")) { sql =
+		 * "UPDATE building_permit_application SET postf_action = '" + formId +
+		 * "',postf_status = 'S',application_status='A',application_action='" + formId +
+		 * "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
+		 * 
+		 * } else if (userType.equalsIgnoreCase("G")) { sql =
+		 * "UPDATE building_permit_application SET postg_action = '" + formId +
+		 * "',postg_status = 'S',application_status='A',application_action='" + formId +
+		 * "',application_action_by='" + userType + "' WHERE id=" + applicationNo;
+		 * 
+		 * }
+		 */
 		return sql;
 	}
 
@@ -381,110 +391,83 @@ public class Message {
 		try {
 			List l = new ArrayList<>(), fields = new ArrayList<>();
 			Map m = new HashMap<>();
-			String formId = "38",approvalStatus="";
-			
+			String formId = "38", approvalStatus = "";
+
 			String sql = "SELECT user_type \"userType\",coalesce(approval_status,'N') \"approvalStatus\" FROM form_permissions WHERE form_id=" + formId;
 			l = db.getRecord(sql);
-			for(Object o : l) {
+			for (Object o : l) {
 				m = (Map) o;
 				approvalStatus = m.get("approvalStatus").toString();
-				if(approvalStatus.equalsIgnoreCase("Y")) {
+				if (approvalStatus.equalsIgnoreCase("Y")) {
 					fields.add(m.get("userType").toString());
 				}
 			}
-			
-			/*String sql = "select * from form_name_master where id=" + formId;
-			l = db.getRecord(sql);
-			m = (Map) l.get(0);
-			String aminApproval = "", chiefApproval = "", engrApproval = "", posteAppr = "", postfAppr = "", postgAppr = "", rajasowAppr = "", subErAppr = "";
-			try {
-				aminApproval = m.get("amin_approval").toString();
-			} catch (Exception e) {
-				aminApproval = "N";
-			}
 
-			try {
-				chiefApproval = m.get("chief_approval").toString();
-			} catch (Exception e) {
-				chiefApproval = "N";
-			}
+			/*
+			 * String sql = "select * from form_name_master where id=" + formId; l =
+			 * db.getRecord(sql); m = (Map) l.get(0); String aminApproval = "",
+			 * chiefApproval = "", engrApproval = "", posteAppr = "", postfAppr = "",
+			 * postgAppr = "", rajasowAppr = "", subErAppr = ""; try { aminApproval =
+			 * m.get("amin_approval").toString(); } catch (Exception e) { aminApproval =
+			 * "N"; }
+			 * 
+			 * try { chiefApproval = m.get("chief_approval").toString(); } catch (Exception
+			 * e) { chiefApproval = "N"; }
+			 * 
+			 * try { engrApproval = m.get("engr_approval").toString(); } catch (Exception e)
+			 * { engrApproval = "N"; }
+			 * 
+			 * try { posteAppr = m.get("poste_approval").toString(); } catch (Exception e) {
+			 * posteAppr = "N"; }
+			 * 
+			 * try { postfAppr = m.get("postf_approval").toString(); } catch (Exception e) {
+			 * postfAppr = "N"; }
+			 * 
+			 * try { postgAppr = m.get("postg_approval").toString(); } catch (Exception e) {
+			 * postgAppr = "N"; }
+			 * 
+			 * try { rajasowAppr = m.get("rajasow_approval").toString(); } catch (Exception
+			 * e) { rajasowAppr = "N"; }
+			 * 
+			 * try { subErAppr = m.get("sub_engr_approval").toString(); } catch (Exception
+			 * e) { subErAppr = "N"; }
+			 */
 
-			try {
-				engrApproval = m.get("engr_approval").toString();
-			} catch (Exception e) {
-				engrApproval = "N";
-			}
-
-			try {
-				posteAppr = m.get("poste_approval").toString();
-			} catch (Exception e) {
-				posteAppr = "N";
-			}
-
-			try {
-				postfAppr = m.get("postf_approval").toString();
-			} catch (Exception e) {
-				postfAppr = "N";
-			}
-
-			try {
-				postgAppr = m.get("postg_approval").toString();
-			} catch (Exception e) {
-				postgAppr = "N";
-			}
-
-			try {
-				rajasowAppr = m.get("rajasow_approval").toString();
-			} catch (Exception e) {
-				rajasowAppr = "N";
-			}
-
-			try {
-				subErAppr = m.get("sub_engr_approval").toString();
-			} catch (Exception e) {
-				subErAppr = "N";
-			}*/
-
-			/*if (aminApproval.equalsIgnoreCase("Y")) {
-				fields.add("COALESCE(amini_status,'P') AS \"aminiStatus\" ");
-			}
-			if (chiefApproval.equalsIgnoreCase("Y")) {
-				fields.add("COALESCE(chief_status,'P') AS \"chiefStatus\" ");
-			}
-			if (engrApproval.equalsIgnoreCase("Y")) {
-				fields.add("COALESCE(er_status,'P') AS \"erStatus\" ");
-			}
-			if (posteAppr.equalsIgnoreCase("Y")) {
-				fields.add("COALESCE(e_status,'P') AS \"eStatus\" ");
-			}
-			if (postfAppr.equalsIgnoreCase("Y")) {
-				fields.add("COALESCE(f_status,'P') AS \"fStatus\" ");
-			}
-			if (postgAppr.equalsIgnoreCase("Y")) {
-				fields.add("COALESCE(g_status,'P') AS \"gStatus\" ");
-			}
-			if (rajasowAppr.equalsIgnoreCase("Y")) {
-				fields.add("COALESCE(rw_status,'P') AS \"rwStatus\" ");
-			}
-			if (subErAppr.equalsIgnoreCase("Y")) {
-				fields.add("COALESCE(ser_status,'P') AS \"serStatus\" ");
-			}*/
+			/*
+			 * if (aminApproval.equalsIgnoreCase("Y")) {
+			 * fields.add("COALESCE(amini_status,'P') AS \"aminiStatus\" "); } if
+			 * (chiefApproval.equalsIgnoreCase("Y")) {
+			 * fields.add("COALESCE(chief_status,'P') AS \"chiefStatus\" "); } if
+			 * (engrApproval.equalsIgnoreCase("Y")) {
+			 * fields.add("COALESCE(er_status,'P') AS \"erStatus\" "); } if
+			 * (posteAppr.equalsIgnoreCase("Y")) {
+			 * fields.add("COALESCE(e_status,'P') AS \"eStatus\" "); } if
+			 * (postfAppr.equalsIgnoreCase("Y")) {
+			 * fields.add("COALESCE(f_status,'P') AS \"fStatus\" "); } if
+			 * (postgAppr.equalsIgnoreCase("Y")) {
+			 * fields.add("COALESCE(g_status,'P') AS \"gStatus\" "); } if
+			 * (rajasowAppr.equalsIgnoreCase("Y")) {
+			 * fields.add("COALESCE(rw_status,'P') AS \"rwStatus\" "); } if
+			 * (subErAppr.equalsIgnoreCase("Y")) {
+			 * fields.add("COALESCE(ser_status,'P') AS \"serStatus\" "); }
+			 */
 
 			sql = "SELECT id \"formId\" FROM form_name_master WHERE table_id = (SELECT id FROM ebps_tables WHERE table_name like 'building_build_certificate')";
 			l = db.getRecord(sql);
 			m = (Map) l.get(0);
-			
-			// false->not approved,true->approved
-			boolean res = true,temp=false;
 
-			if(!fields.isEmpty()) {
+			// false->not approved,true->approved
+			boolean res = true, temp = false;
+
+			if (!fields.isEmpty()) {
 				List l2 = new ArrayList<>();
 				Map m2 = new HashMap<>();
-				for(Object s:fields) {
-					String sql2 = "SELECT coalesce(status,'P') \"status\" FROM status WHERE name_transfer_id=" + nameTransferId + " AND form_id = '"+m.get("formId").toString()+"' AND user_type='"+s+"'";
+				for (Object s : fields) {
+					String sql2 = "SELECT coalesce(status,'P') \"status\" FROM status WHERE name_transfer_id=" + nameTransferId + " AND form_id = '" + m.get(
+							"formId").toString() + "' AND user_type='" + s + "'";
 					l2 = db.getRecord(sql2);
 					m2 = (Map) l2.get(0);
-					if(m2.get("status").toString().equalsIgnoreCase("A")) {
+					if (m2.get("status").toString().equalsIgnoreCase("A")) {
 						temp = true;
 					} else {
 						temp = false;
@@ -492,34 +475,23 @@ public class Message {
 					res = res && temp;
 				}
 			}
-			
-			/*if (!fields.isEmpty()) {
-				for (int j = 0; j < fields.size(); j++) {
-					List l2 = new ArrayList<>();
-					Map m2 = new HashMap<>();
-					String sql2 = "SELECT " + fields.get(j).toString() + "FROM building_build_certificate WHERE ID= " + nameTransferId;
-					l2 = db.getRecord(sql2);
-					if (!l2.isEmpty()) {
-						m2 = (Map) l2.get(0);
-						for (Object key : m2.keySet()) {
-							System.out.println("key " + key);
-							if (((String) m2.get(key)).equalsIgnoreCase("A")) {
-								temp = true;
-							} else {
-								temp = false;
-							}
-						}
-					}
-					res = res && temp;
-				}
-			}*/
-			
-			if(nameTransferId != null) {
-				if(nameTransferId != 0l && !res) {
+
+			/*
+			 * if (!fields.isEmpty()) { for (int j = 0; j < fields.size(); j++) { List l2 =
+			 * new ArrayList<>(); Map m2 = new HashMap<>(); String sql2 = "SELECT " +
+			 * fields.get(j).toString() + "FROM building_build_certificate WHERE ID= " +
+			 * nameTransferId; l2 = db.getRecord(sql2); if (!l2.isEmpty()) { m2 = (Map)
+			 * l2.get(0); for (Object key : m2.keySet()) { System.out.println("key " + key);
+			 * if (((String) m2.get(key)).equalsIgnoreCase("A")) { temp = true; } else {
+			 * temp = false; } } } res = res && temp; } }
+			 */
+
+			if (nameTransferId != null) {
+				if (nameTransferId != 0l && !res) {
 					return "N";
 				}
 			}
-			
+
 			if (constructionType.equalsIgnoreCase("1") || constructionType.equalsIgnoreCase("2") || constructionType.equalsIgnoreCase("3")) {
 				return constructionType;
 			} else {
@@ -532,111 +504,113 @@ public class Message {
 	}
 
 	public void checkNaamsariCompleted(Long applicationNo) {
-    	List l = new ArrayList(),fields = new ArrayList<>();
-    	Map m = new HashMap<>();
-    	String lastForm = "38",sql = "";
-    	sql = "select * from form_name_master where id=" + lastForm;
-    	list = db.getRecord(sql);
-    	m = (Map) list.get(0);
-    	String aminApproval="",chiefApproval="",engrApproval="",posteAppr="",postfAppr="",postgAppr="",rajasowAppr="",subErAppr="";
-    	try {
-    		aminApproval = m.get("amin_approval").toString();
+		List l = new ArrayList(), fields = new ArrayList<>();
+		Map m = new HashMap<>();
+		String lastForm = "38", sql = "";
+		sql = "select * from form_name_master where id=" + lastForm;
+		list = db.getRecord(sql);
+		m = (Map) list.get(0);
+		String aminApproval = "", chiefApproval = "", engrApproval = "", posteAppr = "", postfAppr = "", postgAppr = "", rajasowAppr = "", subErAppr = "";
+		try {
+			aminApproval = m.get("amin_approval").toString();
 		} catch (Exception e) {
 			aminApproval = "N";
 		}
-    	
-    	try {
+
+		try {
 			chiefApproval = m.get("chief_approval").toString();
 		} catch (Exception e) {
-			chiefApproval="N";
+			chiefApproval = "N";
 		}
-    	
-    	try {
+
+		try {
 			engrApproval = m.get("engr_approval").toString();
 		} catch (Exception e) {
 			engrApproval = "N";
 		}
-    	
-    	try {
+
+		try {
 			posteAppr = m.get("poste_approval").toString();
 		} catch (Exception e) {
 			posteAppr = "N";
 		}
-    	
-    	try {
+
+		try {
 			postfAppr = m.get("postf_approval").toString();
 		} catch (Exception e) {
-			postfAppr="N";
+			postfAppr = "N";
 		}
-    	
-    	try {
+
+		try {
 			postgAppr = m.get("postg_approval").toString();
 		} catch (Exception e) {
-			postgAppr= "N";
+			postgAppr = "N";
 		}
-    	
-    	try {
+
+		try {
 			rajasowAppr = m.get("rajasow_approval").toString();
 		} catch (Exception e) {
 			rajasowAppr = "N";
 		}
-    	
-    	try {
+
+		try {
 			subErAppr = m.get("sub_engr_approval").toString();
 		} catch (Exception e) {
 			subErAppr = "N";
 		}
-    	
-    	if(aminApproval.equalsIgnoreCase("Y")) {
-    		fields.add("COALESCE(amini_status,'P') AS \"aminiStatus\" ");
-    	}
-    	if(chiefApproval.equalsIgnoreCase("Y")) {
-    		fields.add("COALESCE(chief_status,'P') AS \"chiefStatus\" ");
-    	}
-    	if(engrApproval.equalsIgnoreCase("Y")) {
-    		fields.add("COALESCE(er_status,'P') AS \"erStatus\" ");
-    	}
-    	if(posteAppr.equalsIgnoreCase("Y")) {
-    		fields.add("COALESCE(e_status,'P') AS \"eStatus\" ");
-    	}
-    	if(postfAppr.equalsIgnoreCase("Y")) {
-    		fields.add("COALESCE(f_status,'P') AS \"fStatus\" ");
-    	}
-    	if(postgAppr.equalsIgnoreCase("Y")) {
-    		fields.add("COALESCE(g_status,'P') AS \"gStatus\" ");
-    	}
-    	if(rajasowAppr.equalsIgnoreCase("Y")) {
-    		fields.add("COALESCE(rw_status,'P') AS \"rwStatus\" ");
-    	}
-    	if(subErAppr.equalsIgnoreCase("Y")) {
-    		fields.add("COALESCE(ser_status,'P') AS \"serStatus\" ");
-    	}
-    	
-    	boolean res = true,temp=false;
-    	if(!fields.isEmpty()) {
-    		for(int i = 0;i<fields.size();i++) {
-        		sql = "SELECT " + fields.get(i).toString() + " FROM building_build_certificate WHERE id=(SELECT name_transafer_id FROM building_permit_application WHERE id='"+applicationNo+"')";
-        		l = db.getRecord(sql);
-        		if(!l.isEmpty() ) {
-        			map = (Map) l.get(0);
-        			for(Object key:map.keySet()) {
-        				if(map.get(key).toString().equalsIgnoreCase("A")) {
-        					temp = true;
-        				} else {
-        					temp = false;
-        				}
-        			}
-        		}
-        		res = res && temp;
-        	}
-    	}
-    	
-    	if(res) {
-    		sql = "UPDATE building_permit_application SET NAAMSARI_STATUS = 'C' WHERE id=" + applicationNo;
-    		db.save(sql);
-    	}
-    	
-    }
+
+		if (aminApproval.equalsIgnoreCase("Y")) {
+			fields.add("COALESCE(amini_status,'P') AS \"aminiStatus\" ");
+		}
+		if (chiefApproval.equalsIgnoreCase("Y")) {
+			fields.add("COALESCE(chief_status,'P') AS \"chiefStatus\" ");
+		}
+		if (engrApproval.equalsIgnoreCase("Y")) {
+			fields.add("COALESCE(er_status,'P') AS \"erStatus\" ");
+		}
+		if (posteAppr.equalsIgnoreCase("Y")) {
+			fields.add("COALESCE(e_status,'P') AS \"eStatus\" ");
+		}
+		if (postfAppr.equalsIgnoreCase("Y")) {
+			fields.add("COALESCE(f_status,'P') AS \"fStatus\" ");
+		}
+		if (postgAppr.equalsIgnoreCase("Y")) {
+			fields.add("COALESCE(g_status,'P') AS \"gStatus\" ");
+		}
+		if (rajasowAppr.equalsIgnoreCase("Y")) {
+			fields.add("COALESCE(rw_status,'P') AS \"rwStatus\" ");
+		}
+		if (subErAppr.equalsIgnoreCase("Y")) {
+			fields.add("COALESCE(ser_status,'P') AS \"serStatus\" ");
+		}
+
+		boolean res = true, temp = false;
+		if (!fields.isEmpty()) {
+			for (int i = 0; i < fields.size(); i++) {
+				sql = "SELECT " + fields.get(i).toString()
+						+ " FROM building_build_certificate WHERE id=(SELECT name_transafer_id FROM building_permit_application WHERE id='" + applicationNo
+						+ "')";
+				l = db.getRecord(sql);
+				if (!l.isEmpty()) {
+					map = (Map) l.get(0);
+					for (Object key : map.keySet()) {
+						if (map.get(key).toString().equalsIgnoreCase("A")) {
+							temp = true;
+						} else {
+							temp = false;
+						}
+					}
+				}
+				res = res && temp;
+			}
+		}
+
+		if (res) {
+			sql = "UPDATE building_permit_application SET NAAMSARI_STATUS = 'C' WHERE id=" + applicationNo;
+			db.save(sql);
+		}
+
+	}
 
 	public String hasRevisedForm(String userType, Long applicationNo) {
 		return new HasRevisedGet().get(userType, applicationNo);
@@ -648,29 +622,64 @@ public class Message {
 				+ "'";
 		list = db.getRecord(sql);
 		map = (Map) list.get(0);
-		String lastForm = "";
+		String lastForm = "", userType, approvalStatus;
 		String constructionType = getGroupType(map.get("constructionType").toString());
 		System.out.println("construction_type:" + constructionType);
 		if (constructionType.equalsIgnoreCase("2")) {
-			lastForm = "51";
+			lastForm = "50";
 		} else {
-			lastForm = "35";
+			lastForm = "43";
 		}
-		sql = "SELECT table_name \"tableName\" FROM form_name_master WHERE id=" + lastForm;
+		sql = "SELECT table_name \"tableName\" FROM ebps_tables WHERE id=(SELECT table_id FROM form_name_master WHERE id='" + lastForm + "')";
 		list = db.getRecord(sql);
 		map = (Map) list.get(0);
 		String tableName = map.get("tableName").toString();
 
-		sql = "SELECT coalesce(amin_approval,'N') \"aminApproval\",coalesce(chief_approval,'N') \"chiefApproval\",coalesce(designer_approval,'N')  \"designerApproval\",coalesce(engr_approval,'N')  \"engrApproval\",coalesce(rajasow_approval,'N') \"rajasowApproval\",coalesce(sub_engr_approval,'N') \"subEngrApproval\" FROM form_name_master where id='"
+		sql = "SELECT coalesce(approval_status,'N') \"approvalStatus\",user_type \"userType\" FROM form_permissions WHERE form_id=" + lastForm;
+		list = db.getRecord(sql);
+		List temp = new ArrayList<>();
+		Map tempMap = new HashMap<>();
+		for (int i = 0; i < list.size(); i++) {
+			map = (Map) list.get(i);
+			approvalStatus = map.get("approvalStatus").toString();
+			userType = map.get("userType").toString();
+			sql = "SELECT coalesce(status,'P') status FROM status WHERE application_no='" + applicationNo + "' AND form_id='" + lastForm + "' AND user_type='"
+					+ userType + "'";
+			tempMap = (Map) db.getRecord(sql).get(0);
+			String userStatus = tempMap.get("status").toString();
+			if (userType.equalsIgnoreCase("C") && approvalStatus.equalsIgnoreCase("Y")) {
+				if (userStatus.equalsIgnoreCase("A")) {
+					sql = "UPDATE building_permit_application SET application_status='C' WHERE id=" + applicationNo;
+					db.save(sql);
+				}
+				break;
+			} else {
+				if (userType.equalsIgnoreCase("A") && approvalStatus.equalsIgnoreCase("Y")) {
+					if (userStatus.equalsIgnoreCase("A")) {
+						sql = "UPDATE building_permit_application SET application_status='C' WHERE id=" + applicationNo;
+						db.save(sql);
+					}
+					break;
+				} else {
+					if (userType.equalsIgnoreCase("B") && approvalStatus.equalsIgnoreCase("Y")) {
+						if (userStatus.equalsIgnoreCase("A")) {
+							sql = "UPDATE building_permit_application SET application_status='C' WHERE id=" + applicationNo;
+							db.save(sql);
+						}
+						break;
+					}
+				}
+			}
+		}
+
+		/*sql = "SELECT coalesce(amin_approval,'N') \"aminApproval\",coalesce(chief_approval,'N') \"chiefApproval\",coalesce(designer_approval,'N')  \"designerApproval\",coalesce(engr_approval,'N')  \"engrApproval\",coalesce(rajasow_approval,'N') \"rajasowApproval\",coalesce(sub_engr_approval,'N') \"subEngrApproval\" FROM form_name_master where id='"
 				+ lastForm + "'";
 		list = db.getRecord(sql);
 		map = (Map) list.get(0);
 		String chiefApproval = map.get("chiefApproval").toString();
 		String engineerApproval = map.get("engrApproval").toString();
 		String subEngineerApproval = map.get("subEngrApproval").toString();
-		// String status="";
 		if (chiefApproval.equalsIgnoreCase("Y")) {
-			//
 			sql = "SELECT coalesce(chief_status,'P') \"chiefStatus\" from " + tableName + " where application_no='" + applicationNo + "'";
 			list = db.getRecord(sql);
 			map = (Map) list.get(0);
@@ -711,11 +720,8 @@ public class Message {
 					map = new HashMap();
 					map.put("message", "Please select the user to approve form");
 				}
-
 			}
-
-		}
-
+		}*/
 	}
 
 	public void setApplicationActivity(String api, String loginUser, String method, String activity) {
