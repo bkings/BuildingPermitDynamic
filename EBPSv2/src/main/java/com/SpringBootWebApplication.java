@@ -8,6 +8,8 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.MultipartConfigFactory;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.unit.DataSize;
 
 @SpringBootApplication
@@ -29,6 +31,11 @@ public class SpringBootWebApplication extends SpringBootServletInitializer {
         factory.setMaxFileSize(DataSize.ofGigabytes(1l));
         factory.setMaxRequestSize(DataSize.ofGigabytes(1l));
         return factory.createMultipartConfig();
+    }
+    
+    @Bean
+    public PasswordEncoder encoder() {
+    	return new BCryptPasswordEncoder();
     }
 }
 

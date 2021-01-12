@@ -31,7 +31,7 @@ public class EmailService {
 		props.put("mail.smtp.port", message.map.get("MailServerPort"));
 		sender = message.map.get("MailSender").toString();
 		passwprd = message.map.get("MailPassword").toString();
-		System.out.println("mail sender " + sender + " password " + passwprd);
+		System.out.println("mail sender " + sender);
 //        props.put("mail.smtp.host", "smtp.gmail.com");
 //        props.put("mail.smtp.port", "587");
 //        sender = "noreplykamalamai@gmail.com";
@@ -49,11 +49,13 @@ public class EmailService {
 
 			msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(receiver));
 			msg.setSubject(subject);
-			msg.setContent(body, "text/html");
+			msg.setContent(body, "text/html; charset=UTF-8");
 			msg.setSentDate(new Date());
 			Transport.send(msg);
 		} catch (Exception e) {
 			message = e.getMessage();
+			System.out.println("Mail exception " + e.getMessage());
+			e.printStackTrace();
 		}
 		return message;
 
