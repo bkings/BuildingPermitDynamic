@@ -58,7 +58,8 @@ public class GeneralServicesImp implements GeneralServices {
 		Long rTableId, rColumnId;
 		String columnName, tableName, formTableName, primaryKey;
 
-		sql = "SELECT table_name \"tableName\" FROM ebps_tables WHERE id=(SELECT table_id FROM form_name_master WHERE id=" + formId + ")";
+		sql = "SELECT table_name \"tableName\" FROM ebps_tables WHERE id=(SELECT table_id FROM form_name_master WHERE id="
+				+ formId + ")";
 		list = dao.getRecords(sql);
 		if (list.isEmpty()) {
 			return message.respondWithError("Invalid Form Id.");
@@ -68,7 +69,8 @@ public class GeneralServicesImp implements GeneralServices {
 
 		// This case covers only tables with single primary key.
 		sql = "SELECT c.column_name as \"primaryKey\" FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.table_name = '"
-				+ formTableName + "' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='" + tableSchema + "' AND c.table_schema='" + tableSchema + "'";
+				+ formTableName + "' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='" + tableSchema
+				+ "' AND c.table_schema='" + tableSchema + "'";
 		list = dao.getRecords(sql);
 		if (list.isEmpty()) {
 			return message.respondWithError("Columns not found.");
@@ -80,8 +82,8 @@ public class GeneralServicesImp implements GeneralServices {
 			primaryKey = "applicationNo";
 		}
 
-		sql = "SELECT coalesce(referenced_table_id,0) \"rTableId\"," + "coalesce(referenced_column_id,0) \"rColumnId\" from form_fields where form_id="
-				+ formId;
+		sql = "SELECT coalesce(referenced_table_id,0) \"rTableId\","
+				+ "coalesce(referenced_column_id,0) \"rColumnId\" from form_fields where form_id=" + formId;
 		try {
 			list = dao.getRecords(sql);
 			if (list.isEmpty()) {
@@ -100,11 +102,11 @@ public class GeneralServicesImp implements GeneralServices {
 				columnName = m1.get("columnName").toString();
 				tableName = m1.get("tableName").toString();
 				sql = "SELECT c.column_name as \"primaryKey\" FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.table_name = '"
-						+ tableName + "' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='" + tableSchema + "' AND c.table_schema='" + tableSchema
-						+ "'";
+						+ tableName + "' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='" + tableSchema
+						+ "' AND c.table_schema='" + tableSchema + "'";
 				m1 = (Map) dao.getRecords(sql).get(0);
-				sql = "SELECT \"" + columnName + "\" AS \"" + columnName + "\" FROM " + tableName + " WHERE \"" + m1.get("primaryKey").toString() + "\"="
-						+ applicationNo;
+				sql = "SELECT \"" + columnName + "\" AS \"" + columnName + "\" FROM " + tableName + " WHERE \""
+						+ m1.get("primaryKey").toString() + "\"=" + applicationNo;
 				m1 = (Map) dao.getRecords(sql).get(0);
 				returnMap.put(columnName, m1.get(columnName));
 			}
@@ -121,9 +123,9 @@ public class GeneralServicesImp implements GeneralServices {
 			mmm.put(m3.get("user_type"), m3);
 		}
 
-		sql = "SELECT a.*,b.form_id \"formId\",b.user_type \"userType\" FROM " + formTableName + " a left join status b ON a.\"" + primaryKey
-				+ "\"=b.application_no WHERE a.\"" + primaryKey + "\"=" + applicationNo + " AND b.form_id=" + formId + " AND b.user_type='" + td.getUserType()
-				+ "'";
+		sql = "SELECT a.*,b.form_id \"formId\",b.user_type \"userType\" FROM " + formTableName
+				+ " a left join status b ON a.\"" + primaryKey + "\"=b.application_no WHERE a.\"" + primaryKey + "\"="
+				+ applicationNo + " AND b.form_id=" + formId + " AND b.user_type='" + td.getUserType() + "'";
 		message.list = dao.getRecords(sql);
 
 		msg = dao.getMsg();
@@ -170,7 +172,7 @@ public class GeneralServicesImp implements GeneralServices {
 		Map m = new HashMap<>();
 		String userType = td.getUserType();
 
-		String columns = "", columnName = "";
+		String columns = "", columnName = "", serverError = "";
 //		Object values = "";
 		String valuesForInsertQry = "";
 		List<Object> values = new ArrayList<>();
@@ -184,12 +186,12 @@ public class GeneralServicesImp implements GeneralServices {
 
 			map = (Map) obj;
 			for (Object key : map.keySet()) {
-				sql = "SELECT coalesce((SELECT column_name FROM ebps_columns WHERE id=ebps_column_id),'') \"columnName\" FROM form_fields WHERE id='" + key
-						+ "'";
+				sql = "SELECT coalesce((SELECT column_name FROM ebps_columns WHERE id=ebps_column_id),'') \"columnName\" FROM form_fields WHERE id='"
+						+ key + "'";
 				try {
 					list = dao.getRecords(sql);
 					m = (Map) list.get(0);
-					columnName = m.get("columnName").toString();
+					columnName = "\"" + m.get("columnName").toString() + "\"";
 				} catch (Exception e) {
 					System.out.println("col exc " + e.getMessage());
 					return message.respondWithError("Could not find column for " + key);
@@ -211,7 +213,8 @@ public class GeneralServicesImp implements GeneralServices {
 			// get primary key (doesn't make much sense i guess)
 			// This case covers only tables with single primary key.
 			sql = "SELECT c.column_name as \"primaryKey\" FROM information_schema.key_column_usage AS c LEFT JOIN information_schema.table_constraints AS t ON t.constraint_name = c.constraint_name WHERE t.table_name = '"
-					+ tableName + "' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='" + tableSchema + "' AND c.table_schema='" + tableSchema + "'";
+					+ tableName + "' AND t.constraint_type = 'PRIMARY KEY' AND t.table_schema='" + tableSchema
+					+ "' AND c.table_schema='" + tableSchema + "'";
 			try {
 				map = (Map) dao.getRecords(sql).get(0);
 			} catch (Exception e) {
@@ -222,7 +225,8 @@ public class GeneralServicesImp implements GeneralServices {
 			list = dao.getRecords(sql);
 			if (list.isEmpty()) {
 //				sql = "INSERT INTO " + tableName + " (" + columns.substring(1) + ") values(" + values.toString().substring(1) + ")";
-				sql = "INSERT INTO " + tableName + " (" + columns.substring(1) + ") values(" + valuesForInsertQry.toString().substring(1) + ")";
+				sql = "INSERT INTO " + tableName + " (" + columns.substring(1) + ") values("
+						+ valuesForInsertQry.toString().substring(1) + ")";
 				System.out.println("sql " + sql);
 				row = dao.execute(sql);
 				msg = dao.getMsg();
@@ -235,7 +239,8 @@ public class GeneralServicesImp implements GeneralServices {
 					try {
 						mm = (Map) o;
 						Status status = new Status();
-						status.setPk(new StatusPK(applicationNo, Long.parseLong(formId), mm.get("userType").toString()));
+						status.setPk(
+								new StatusPK(applicationNo, Long.parseLong(formId), mm.get("userType").toString()));
 						status.setTableId(tableId);
 						status.setHasRevised(hasRevised);
 						service.save(status);
@@ -256,7 +261,8 @@ public class GeneralServicesImp implements GeneralServices {
 //					updateSql = updateSql + "," + cols[j] + "=" + vals[j] + " ";
 					updateSql = updateSql + "," + cols[j] + "='" + String.valueOf(values.get(j)) + "' ";
 				}
-				sql = "UPDATE " + tableName + " SET " + updateSql.substring(1) + "WHERE " + map.get("primaryKey") + "=" + applicationNo;
+				sql = "UPDATE " + tableName + " SET " + updateSql.substring(1) + "WHERE " + map.get("primaryKey") + "="
+						+ applicationNo;
 				System.out.println("final sql " + sql);
 				row = dao.execute(sql);
 				msg = dao.getMsg();
@@ -270,7 +276,13 @@ public class GeneralServicesImp implements GeneralServices {
 			msg = e.getMessage();
 			e.printStackTrace();
 		}
-		return message.respondWithError(msg);
+
+		if (msg.contains("syntax error")) {
+			serverError = "Query syntax error ! " + msg;
+			msg = "Something went wrong";
+		}
+
+		return message.respondWithError(msg, serverError);
 	}
 
 	@Override

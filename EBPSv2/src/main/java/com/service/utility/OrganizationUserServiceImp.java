@@ -302,10 +302,35 @@ public class OrganizationUserServiceImp implements OrganizationUserService {
 		Map map = new HashMap<>();
 
 		try {
-			sql = "SELECT login_id \"loginId\",db_password AS pwd,email,user_name \"userName\" FROM organization_user WHERE login_id='" + id + "'";
+			sql = "SELECT login_id \"loginId\",email,user_name \"userName\" FROM organization_user WHERE login_id='" + id + "'";
 			map = (Map) da.getRecord(sql).get(0);
+			
+			String choices = "", password,encryptedPwd;
+			char alphabet;
+			for (alphabet = 'a'; alphabet <= 'z'; alphabet++) {
+				choices = choices + alphabet;
+			}
+			for (alphabet = 'A'; alphabet <= 'Z'; alphabet++) {
+				choices = choices + alphabet;
+			}
+			choices = choices + "@#_1234567890$&";
+
+			String lengthValue = "6789";
+			int randomTemp = (int) (Math.random() * lengthValue.length());
+			char lengthOfRandomPwdChar = lengthValue.charAt(randomTemp);
+			int lengthOfRandowPwd = Character.getNumericValue(lengthOfRandomPwdChar);
+			char[] value = new char[lengthOfRandowPwd];
+			for (int i = 0; i < lengthOfRandowPwd; i++) {
+				int randomValue = (int) (Math.random() * choices.length());
+				value[i] = choices.charAt(randomValue);
+			}
+
+			password = new String(value);
+			encryptedPwd = encoder.encode(password);
 			mailMsg = new EmailService().sendmail(map.get("email").toString(), "EBPS Password", "Dear " + map.get("userName").toString()
-					+ " Your EBPS login ID : " + map.get("loginId").toString() + "  and password : " + map.get("pwd").toString());
+					+ " Your EBPS login ID : " + map.get("loginId").toString() + "  and password : " + password);
+			sql = "UPDATE organization_user SET db_password='"+encryptedPwd+"' WHERE login_id='"+id+"'";
+			da.delete(sql);
 			return message.respondWithMessage(mailMsg);
 		} catch (AddressException e) {
 			msg = e.getMessage();

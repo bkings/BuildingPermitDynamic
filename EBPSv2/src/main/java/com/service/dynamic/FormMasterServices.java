@@ -5,6 +5,8 @@ import com.model.utility.FormNameMaster;
 public interface FormMasterServices {
 
 	public Object getAll(String Authorization);
+	
+	public Object getById(String Authorization, String formId);
 
 	public Object save(FormNameMaster obj, String Authorization);
 

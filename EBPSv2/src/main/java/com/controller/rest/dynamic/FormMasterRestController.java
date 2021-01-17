@@ -28,6 +28,11 @@ public class FormMasterRestController {
 		return service.getAll(Authorization);
 	}
 
+	@GetMapping("/{formId}")
+	public Object getById(@RequestHeader String Authorization, @PathVariable String formId) {
+		return service.getById(Authorization, formId);
+	}
+
 	@PostMapping
 	public Object save(@RequestBody FormNameMaster obj, @RequestHeader String Authorization) {
 		return service.save(obj, Authorization);

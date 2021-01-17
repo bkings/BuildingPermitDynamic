@@ -38,6 +38,17 @@ public class FormMasterServicesImpl implements FormMasterServices {
 	}
 
 	@Override
+	public Object getById(String Authorization, String formId) {
+		JWTToken td = new JWTToken(Authorization);
+		if (!td.isStatus()) {
+			return message.respondWithError("Invalid Authorization");
+		}
+		sql = "SELECT name,id FROM form_fields WHERE form_id=" + formId;
+		list = dao.getRecord(sql);
+		return list;
+	}
+
+	@Override
 	public Object save(FormNameMaster obj, String Authorization) {
 		JWTToken td = new JWTToken(Authorization);
 		if (!td.isStatus()) {
@@ -50,8 +61,9 @@ public class FormMasterServicesImpl implements FormMasterServices {
 		Long columnId = Long.parseLong(map.get("id").toString());
 		try {
 			for (int i = 0; i < columns.size(); i++) {
-				if (String.valueOf(columns.get(i).getId()).length() == 0 || String.valueOf(columns.get(i).getId()).equalsIgnoreCase("") || columns.get(i)
-						.getId() == null) {
+				if (String.valueOf(columns.get(i).getId()).length() == 0
+						|| String.valueOf(columns.get(i).getId()).equalsIgnoreCase("")
+						|| columns.get(i).getId() == null) {
 					columns.get(i).setId(columnId);
 					columnId++;
 				}
@@ -66,7 +78,8 @@ public class FormMasterServicesImpl implements FormMasterServices {
 		Long permissionId = Long.parseLong(map.get("id").toString());
 		try {
 			for (FormPermissions f : permissions) {
-				if (String.valueOf(f.getId()).length() == 0 || String.valueOf(f.getId()).equalsIgnoreCase("") || f.getId() == null) {
+				if (String.valueOf(f.getId()).length() == 0 || String.valueOf(f.getId()).equalsIgnoreCase("")
+						|| f.getId() == null) {
 					f.setId(permissionId);
 					permissionId++;
 				}
@@ -78,7 +91,8 @@ public class FormMasterServicesImpl implements FormMasterServices {
 		sql = "SELECT COALESCE(MAX(id),0)+1 as id FROM form_name_master";
 		try {
 			List l = new ArrayList<>();
-			if (String.valueOf(obj.getId()).length() == 0 || String.valueOf(obj.getId()).equalsIgnoreCase("") || obj.getId() == null) {
+			if (String.valueOf(obj.getId()).length() == 0 || String.valueOf(obj.getId()).equalsIgnoreCase("")
+					|| obj.getId() == null) {
 				l = dao.getRecord(sql);
 				Map m = new HashMap<>();
 				m = (Map) l.get(0);
